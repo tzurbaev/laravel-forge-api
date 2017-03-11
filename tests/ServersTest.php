@@ -12,7 +12,7 @@ class ServersTests extends TestCase
     /**
      * @dataProvider serversListDataProvider
      */
-    public function testServersListCanBeRetrieved(array $json)
+    public function testListServers(array $serversList)
     {
         // Servers List can be retrieved via API.
 
@@ -22,16 +22,15 @@ class ServersTests extends TestCase
 
         // Assert that servers list contains expected servers.
 
-        $api = Api::fake(function ($http) use ($json) {
+        $api = Api::fake(function ($http) use ($serversList) {
             $http->shouldReceive('request', 'GET', '/api/v1/servers')
                 ->andReturn(
-                    FakeResponse::fake()->withJson($json)->toResponse()
+                    FakeResponse::fake()->withJson($serversList)->toResponse()
                 );
         });
 
         $servers = new ForgeServers($api);
-
-        $jsonServers = $json['servers'];
+        $jsonServers = $serversList['servers'];
 
         foreach ($jsonServers as $jsonServer) {
             $server = $servers[$jsonServer['name']];
@@ -51,7 +50,7 @@ class ServersTests extends TestCase
                             'name' => 'northrend',
                             'size' => '512MB',
                             'region' => 'Amsterdam 2',
-                            'php_version' => 'php7.1',
+                            'php_version' => 'php71',
                             'ip_address' => '37.139.3.148',
                             'private_ip_address' => '10.129.3.252',
                             'blackfire_status' => null,
@@ -66,7 +65,7 @@ class ServersTests extends TestCase
                             'name' => 'azeroth',
                             'size' => '512MB',
                             'region' => 'Amsterdam 2',
-                            'php_version' => 'php7.1',
+                            'php_version' => 'php71',
                             'ip_address' => '37.139.3.149',
                             'private_ip_address' => '10.129.3.253',
                             'blackfire_status' => null,

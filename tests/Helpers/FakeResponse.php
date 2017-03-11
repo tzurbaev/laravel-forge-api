@@ -7,11 +7,11 @@ use GuzzleHttp\Psr7\Response;
 class FakeResponse
 {
     /**
-     * JSON Response.
+     * Response body.
      *
-     * @var array
+     * @var mixed
      */
-    protected $json = [];
+    protected $body;
 
     /**
      * HTTP Status.
@@ -46,21 +46,7 @@ class FakeResponse
      */
     public static function fake()
     {
-        return new static;
-    }
-
-    /**
-     * Sets response's JSON content.
-     *
-     * @param array $json
-     *
-     * @return \Laravel\Tests\Forge\FakeResponse
-     */
-    public function withJson(array $json)
-    {
-        $this->json = $json;
-
-        return $this;
+        return new static();
     }
 
     /**
@@ -78,6 +64,34 @@ class FakeResponse
     }
 
     /**
+     * Sets HTTP response body.
+     *
+     * @param string|null|resource|\Psr\Http\Message\StreamInterface $body
+     *
+     * @return \Laravel\Tests\Forge\Helpers\FakeResponse
+     */
+    public function withBody($body)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * Sets response's JSON content.
+     *
+     * @param array $json
+     *
+     * @return \Laravel\Tests\Forge\FakeResponse
+     */
+    public function withJson(array $json)
+    {
+        $this->body = json_encode($json);
+
+        return $this;
+    }
+
+    /**
      * Sets response's HTTP headers.
      *
      * @param array $headers
@@ -88,7 +102,7 @@ class FakeResponse
     {
         $this->headers = $headers;
 
-        return $headers;
+        return $this;
     }
 
     /**
@@ -129,7 +143,9 @@ class FakeResponse
         return new Response(
             $this->status,
             $this->headers,
-            json_encode($this->json)
+            $this->body,
+            $this->httpVersion,
+            $this->reason
         );
     }
 }

@@ -5,6 +5,7 @@ namespace Laravel\Forge;
 use Iterator;
 use ArrayAccess;
 use Laravel\Forge\Traits\LazyIterator;
+use Laravel\Forge\Servers\ServersFactory;
 use Laravel\Forge\Traits\LazyArrayAccess;
 use Laravel\Forge\Traits\AbstractCollection;
 
@@ -47,10 +48,20 @@ class ForgeServers implements ArrayAccess, Iterator
     }
 
     /**
-     * Generates item keys.
+     * Generates items keys.
      */
     public function generateKeys()
     {
         $this->keys = array_keys($this->items);
+    }
+
+    /**
+     * Initializes new server.
+     *
+     * @return \Laravel\Forge\Servers\ServersFactory
+     */
+    public function create()
+    {
+        return new ServersFactory($this->api);
     }
 }
