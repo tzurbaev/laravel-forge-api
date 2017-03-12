@@ -2,9 +2,10 @@
 
 namespace Laravel\Tests\Forge\Helpers;
 
-use Mockery;
 use Closure;
+use Mockery;
 use GuzzleHttp\Client;
+use Laravel\Forge\Server;
 use Laravel\Forge\ApiProvider;
 
 class Api
@@ -55,5 +56,50 @@ class Api
             'is_ready' => true,
             'network' => [],
         ], $replace);
+    }
+
+    /**
+     * Create fake server.
+     *
+     * @param \Closure $callback = null
+     * @param array $repalceServerData = []
+     *
+     * @return \Laravel\Forge\Server
+     */
+    public static function fakeServer(Closure $callback = null, array $replaceServerData = []): Server
+    {
+        $api = static::fake($callback);
+        $server = new Server($api, static::serverData($replaceServerData));
+
+        return $server;
+    }
+
+    /**
+     * Create multiple fake servers.
+     *
+     * @param int $number
+     * @param \Closure $callback
+     *
+     * @return \Laravel\Forge\Server
+     */
+    public function multipleFakeServers(int $number, Closure $callback = null)
+    {
+        $servers = [];
+
+        for ($i = 0; $i < $number; ++$i) {
+            $servers[] = static::fakeServer(
+                function ($http) use ($i, $callback) {
+                    if (!is_null($callback)) {
+                        $callback($http, $i + 1);
+                    }
+                },
+                [
+                    'id' => $i + 1,
+                    'name' => 'server'.($i + 1),
+                ]
+            );
+        }
+
+        return $servers;
     }
 }
