@@ -2,6 +2,7 @@
 
 namespace Laravel\Forge\Servers;
 
+use Laravel\Forge\Server;
 use Laravel\Forge\ApiProvider;
 use Laravel\Forge\Servers\Providers\Aws;
 use Laravel\Forge\Servers\Providers\Custom;
@@ -73,5 +74,25 @@ class ServersFactory
     public function custom(string $name)
     {
         return (new Custom($this->api))->identifiedAs($name);
+    }
+
+    /**
+     * Create new server from raw payload data.
+     *
+     * @param array $payload
+     *
+     * @throws \GuzzleHttp\Exception\RequestException
+     *
+     * @return \Laravel\Forge\Server
+     */
+    public function server(array $payload)
+    {
+        ksort($payload);
+
+        $response = $this->api->getClient()->request('POST', 'servers', [
+            'form_params' => $payload,
+        ]);
+
+        return Server::createFromResponse($response, $this->api);
     }
 }

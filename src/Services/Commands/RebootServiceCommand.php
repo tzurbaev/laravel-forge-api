@@ -17,6 +17,6 @@ class RebootServiceCommand extends AbstractServiceCommand
      */
     public function runnable()
     {
-        return $this->service->rebootable();
+        return $this->getService()->rebootable();
     }
 }

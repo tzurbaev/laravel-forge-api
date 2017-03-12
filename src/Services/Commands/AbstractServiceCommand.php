@@ -23,6 +23,8 @@ abstract class AbstractServiceCommand
     protected $payload = [];
 
     /**
+     * Create new command instance.
+     *
      * @param \Laravel\Forge\Contracts\ServiceContract $service
      */
     public function __construct(ServiceContract $service)
@@ -48,7 +50,7 @@ abstract class AbstractServiceCommand
     }
 
     /**
-     * Returns associated service.
+     * Associated service.
      *
      * @return \Laravel\Forge\Contracts\ServiceContract
      */
@@ -134,7 +136,7 @@ abstract class AbstractServiceCommand
     }
 
     /**
-     * Executes command on given server.
+     * Execute current command on given server.
      *
      * @return bool
      */
@@ -150,7 +152,7 @@ abstract class AbstractServiceCommand
     }
 
     /**
-     * Executes command on multiple servers.
+     * Execute current command on multiple servers.
      *
      * @param array $servers
      *
@@ -168,7 +170,7 @@ abstract class AbstractServiceCommand
     }
 
     /**
-     * Executes command.
+     * Execute current command.
      *
      * @param \Laravel\Forge\Server $server
      */

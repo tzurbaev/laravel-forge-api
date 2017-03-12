@@ -13,7 +13,7 @@ class Server implements ArrayAccess
     use ArrayAccessTrait;
 
     /**
-     * API Provider.
+     * API provider.
      *
      * @var \Laravel\Forge\ApiProvider
      */
@@ -32,7 +32,7 @@ class Server implements ArrayAccess
     }
 
     /**
-     * Creates new server instance from HTTP response.
+     * Create new server instance from HTTP response.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \Laravel\Forge\ApiProvider          $api      = null
@@ -53,7 +53,7 @@ class Server implements ArrayAccess
     }
 
     /**
-     * Returns server data.
+     * Server data.
      *
      * @param string $key     = null
      * @param mixed  $default = null
@@ -70,7 +70,7 @@ class Server implements ArrayAccess
     }
 
     /**
-     * Returns API provider.
+     * API provider.
      *
      * @return \Laravel\Forge\ApiProvider
      */
@@ -140,7 +140,7 @@ class Server implements ArrayAccess
     {
         $path = ($path ? '/'.ltrim($path, '/') : '');
 
-        return '/api/v1/servers/'.$this->id().$path;
+        return 'servers/'.$this->id().$path;
     }
 
     /**
@@ -170,7 +170,7 @@ class Server implements ArrayAccess
     }
 
     /**
-     * Reboot server.
+     * Reboot the server.
      *
      * @return bool
      */

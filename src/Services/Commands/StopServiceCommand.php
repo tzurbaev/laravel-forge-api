@@ -17,6 +17,6 @@ class StopServiceCommand extends AbstractServiceCommand
      */
     public function runnable()
     {
-        return $this->service->stoppable();
+        return $this->getService()->stoppable();
     }
 }

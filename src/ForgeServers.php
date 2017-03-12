@@ -16,25 +16,29 @@ class ForgeServers implements ArrayAccess, Iterator
     use AbstractCollection, LazyIterator, LazyArrayAccess;
 
     /**
+     * API provider.
+     *
      * @var \Laravel\Forge\ApiProvider
      */
     protected $api;
 
     /**
-     * server id=>name map.
+     * Servers [id => name] map.
      *
      * @var array
      */
     protected $serversMap = [];
 
     /**
-     * Cache for single servers.
+     * Single servers cache.
      *
      * @var array
      */
     protected $serversCache = [];
 
     /**
+     * Create new Servers manager instance.
+     *
      * @param \Laravel\Forge\ApiProvider $api
      */
     public function __construct(ApiProvider $api)
@@ -47,7 +51,7 @@ class ForgeServers implements ArrayAccess, Iterator
      */
     public function lazyLoad()
     {
-        $response = $this->api->getClient()->request('GET', '/api/v1/servers');
+        $response = $this->api->getClient()->request('GET', 'servers');
         $data = json_decode((string) $response->getBody(), true);
 
         $this->items = [];
@@ -66,7 +70,7 @@ class ForgeServers implements ArrayAccess, Iterator
     }
 
     /**
-     * Generates items keys.
+     * Generate items keys.
      */
     public function generateKeys()
     {
@@ -74,7 +78,7 @@ class ForgeServers implements ArrayAccess, Iterator
     }
 
     /**
-     * Initializes new server.
+     * Initialize servers factory.
      *
      * @return \Laravel\Forge\Servers\ServersFactory
      */
@@ -102,7 +106,7 @@ class ForgeServers implements ArrayAccess, Iterator
     }
 
     /**
-     * Loads single server from API and saves it to memory cache.
+     * Load single server from API and save it to memory cache.
      *
      * @param int $serverId
      *
@@ -113,7 +117,7 @@ class ForgeServers implements ArrayAccess, Iterator
     protected function loadSingleServer(int $serverId)
     {
         try {
-            $response = $this->api->getClient()->request('GET', '/api/v1/servers/'.$serverId);
+            $response = $this->api->getClient()->request('GET', 'servers/'.$serverId);
         } catch (RequestException $e) {
             if ($e->getResponse()->getStatusCode() === 404) {
                 throw new ServerWasNotFoundException('Server #'.$serverId.' was not found.', 404);

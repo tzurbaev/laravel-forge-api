@@ -20,7 +20,7 @@ abstract class AbstractProvider
     protected $payload = [];
 
     /**
-     * Create new instance.
+     * Create new server provider instance.
      *
      * @param \Laravel\Forge\ApiProvider $api
      */
@@ -69,6 +69,16 @@ abstract class AbstractProvider
     }
 
     /**
+     * Available PHP versions.
+     *
+     * @return array
+     */
+    public function phpVersions()
+    {
+        return [56, 70, 71];
+    }
+
+    /**
      * Validates payload before sending to Forge API.
      *
      * @return bool
@@ -103,7 +113,7 @@ abstract class AbstractProvider
     }
 
     /**
-     * Determines if given resource is in resources array.
+     * Determines if given resource exists in resources list.
      *
      * @param array $resources
      * @param mixed $resource
@@ -112,7 +122,7 @@ abstract class AbstractProvider
      */
     protected function resourceAvailable(array $resources, $resource)
     {
-        return isset($resources[$resource]) || in_array($resource, $resources);
+        return isset($resources[$resource]);
     }
 
     /**
@@ -144,7 +154,7 @@ abstract class AbstractProvider
     }
 
     /**
-     * Set memory.
+     * Set memory / server size.
      *
      * @param int|string $memory
      *
@@ -188,9 +198,13 @@ abstract class AbstractProvider
      */
     public function runningPhp($version)
     {
-        $version = 'php'.intval(str_replace(['php', '.'], '', $version));
+        $phpVersion = intval(str_replace(['php', '.'], '', $version));
 
-        $this->payload['php_version'] = $version;
+        if (!in_array($phpVersion, $this->phpVersions())) {
+            throw new InvalidArgumentException('PHP version "php'.$phpVersion.'" is not supported.');
+        }
+
+        $this->payload['php_version'] = 'php'.$phpVersion;
 
         return $this;
     }
@@ -238,7 +252,7 @@ abstract class AbstractProvider
     }
 
     /**
-     * Sets servers that new server should be connected to.
+     * Servers ID that the new server should be connected to.
      *
      * @param array $servers
      *
@@ -251,6 +265,13 @@ abstract class AbstractProvider
         return $this;
     }
 
+    /**
+     * Public IP address.
+     *
+     * @param string $ip
+     *
+     * @return static
+     */
     public function usingPublicIp(string $ip)
     {
         $this->payload['ip_address'] = $ip;
@@ -258,6 +279,13 @@ abstract class AbstractProvider
         return $this;
     }
 
+    /**
+     * Private IP address.
+     *
+     * @param string $ip
+     *
+     * @return static
+     */
     public function usingPrivateIp(string $ip)
     {
         $this->payload['private_ip_address'] = $ip;
@@ -266,7 +294,7 @@ abstract class AbstractProvider
     }
 
     /**
-     * Sends create new server request.
+     * Create new server.
      *
      * @throws \GuzzleHttp\Exception\RequestException
      * @throws \InvalidArgumentException
@@ -283,7 +311,7 @@ abstract class AbstractProvider
             );
         }
 
-        $response = $this->api->getClient()->request('POST', '/api/v1/servers', [
+        $response = $this->api->getClient()->request('POST', 'servers', [
             'form_params' => $this->sortPayload(),
         ]);
 
@@ -291,7 +319,7 @@ abstract class AbstractProvider
     }
 
     /**
-     * Sorts payload data by key name.
+     * Sort payload data by key name.
      *
      * @return array
      */
@@ -305,7 +333,7 @@ abstract class AbstractProvider
     }
 
     /**
-     * Toggles boolean payload key.
+     * Toggle boolean payload key.
      *
      * @param string $key
      * @param bool   $install

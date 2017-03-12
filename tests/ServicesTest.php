@@ -31,6 +31,14 @@ class ServicesTest extends TestCase
      */
     public function testInstallService(ServiceContract $service, array $payload, $server, $expectedResult, bool $exception = false)
     {
+        // New services can be installed on servers.
+
+        // Create Services manager.
+        // Install service on given server.
+
+        // Assert that exception was thrown or operation ended with result
+        // equals to expected result.
+
         $services = new ServicesManager();
 
         if ($exception === true) {
@@ -46,6 +54,14 @@ class ServicesTest extends TestCase
      */
     public function testUninstallService(ServiceContract $service, $server, $expectedResult, bool $exception = false)
     {
+        // Services can be uninstalled from servers.
+
+        // Create Services manager.
+        // Uninstall service from given server.
+
+        // Assert that exception was thrown or operation ended with result
+        // equals to expected result.
+
         $services = new ServicesManager();
 
         if ($exception === true) {
@@ -61,6 +77,14 @@ class ServicesTest extends TestCase
      */
     public function testRebootService(ServiceContract $service, $server, $expectedResult, bool $exception = false)
     {
+        // Services can be rebooted.
+
+        // Create Services manager.
+        // Reboot service on given server.
+
+        // Assert that exception was thrown or operation ended with result
+        // equals to expected result.
+
         $services = new ServicesManager();
 
         if ($exception === true) {
@@ -76,6 +100,14 @@ class ServicesTest extends TestCase
      */
     public function testStopService(ServiceContract $service, $server, $expectedResult, bool $exception = false)
     {
+        // Services can be stopped.
+
+        // Create Services manager.
+        // Stop service on given server.
+
+        // Assert that exception was thrown or operation ended with result
+        // equals to expected result.
+
         $services = new ServicesManager();
 
         if ($exception === true) {
@@ -126,7 +158,7 @@ class ServicesTest extends TestCase
                 ],
                 'server' => $this->fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/1/blackfire/install', [
+                        ->with('POST', 'servers/1/blackfire/install', [
                             'form_params' => [
                                 'server_id' => 'server-id',
                                 'server_token' => 'server-token',
@@ -141,7 +173,7 @@ class ServicesTest extends TestCase
                 'payload' => ['host' => '192.241.143.108'],
                 'server' => $this->fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/1/papertrail/install', [
+                        ->with('POST', 'servers/1/papertrail/install', [
                             'form_params' => ['host' => '192.241.143.108']
                         ])
                         ->andReturn(FakeResponse::fake()->toResponse());
@@ -179,7 +211,7 @@ class ServicesTest extends TestCase
                 'service' => new BlackfireService(),
                 'server' => $this->fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/1/blackfire/remove', ['form_params' => []])
+                        ->with('POST', 'servers/1/blackfire/remove', ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -188,7 +220,7 @@ class ServicesTest extends TestCase
                 'service' => new PapertrailService(),
                 'server' => $this->fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/1/papertrail/remove', ['form_params' => []])
+                        ->with('POST', 'servers/1/papertrail/remove', ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -244,7 +276,7 @@ class ServicesTest extends TestCase
                 'service' => new MysqlService(),
                 'server' => $this->fakeServer(function ($http) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/1/mysql/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/1/mysql/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -253,7 +285,7 @@ class ServicesTest extends TestCase
                 'service' => new NginxService(),
                 'server' => $this->fakeServer(function ($http) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/1/nginx/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/1/nginx/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -262,7 +294,7 @@ class ServicesTest extends TestCase
                 'service' => new PostgresService(),
                 'server' => $this->fakeServer(function ($http) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/1/postgres/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/1/postgres/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -285,7 +317,7 @@ class ServicesTest extends TestCase
                 'service' => new MysqlService(),
                 'server' => $this->multipleFakeServers(3, function ($http, $serverId) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/'.$serverId.'/mysql/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/'.$serverId.'/mysql/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => [
@@ -298,7 +330,7 @@ class ServicesTest extends TestCase
                 'service' => new NginxService(),
                 'server' => $this->multipleFakeServers(3, function ($http, $serverId) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/'.$serverId.'/nginx/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/'.$serverId.'/nginx/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => [
@@ -311,7 +343,7 @@ class ServicesTest extends TestCase
                 'service' => new PostgresService(),
                 'server' => $this->multipleFakeServers(3, function ($http, $serverId) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', '/api/v1/servers/'.$serverId.'/postgres/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/'.$serverId.'/postgres/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => [

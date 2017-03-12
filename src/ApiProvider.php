@@ -12,17 +12,17 @@ class ApiProvider
      *
      * @var string
      */
-    const BASE_URI = 'https://forge.laravel.com';
+    const BASE_URI = 'https://forge.laravel.com/api/v1/';
 
     /**
-     * API Token.
+     * API token.
      *
      * @var string
      */
     private $token;
 
     /**
-     * Creates new API Provider instance.
+     * Create new API provider instance.
      *
      * @param string $token
      */
@@ -32,7 +32,7 @@ class ApiProvider
     }
 
     /**
-     * Returns HTTP Client.
+     * HTTP client.
      *
      * @return \GuzzleHttp\ClientInterface
      */
@@ -46,7 +46,7 @@ class ApiProvider
     }
 
     /**
-     * Returns API Token.
+     * API token.
      *
      * @return string
      */
@@ -56,7 +56,7 @@ class ApiProvider
     }
 
     /**
-     * Creates HTTP Client.
+     * Create new HTTP client.
      *
      * @return \GuzzleHttp\ClientInterface
      */

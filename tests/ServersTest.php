@@ -34,7 +34,7 @@ class ServersTests extends TestCase
 
         $api = Api::fake(function ($http) use ($serversList) {
             $http->shouldReceive('request')
-                ->with('GET', '/api/v1/servers')
+                ->with('GET', 'servers')
                 ->andReturn(
                     FakeResponse::fake()->withJson($serversList)->toResponse()
                 );
@@ -66,7 +66,7 @@ class ServersTests extends TestCase
 
         $api = Api::fake(function ($http) use ($data) {
             $http->shouldReceive('request')
-                ->with('GET', '/api/v1/servers/'.$data['id'])
+                ->with('GET', 'servers/'.$data['id'])
                 ->andReturn(
                     FakeResponse::fake()->withJson(['server' => $data])->toResponse()
                 );
@@ -94,7 +94,7 @@ class ServersTests extends TestCase
 
         $api = Api::fake(function ($http) use ($serverId) {
             $http->shouldReceive('request')
-                ->with('GET', '/api/v1/servers/'.$serverId)
+                ->with('GET', 'servers/'.$serverId)
                 ->andReturn(FakeResponse::fake()->withStatus(404)->toResponse());
         });
 
@@ -120,13 +120,13 @@ class ServersTests extends TestCase
 
         $api = Api::fake(function ($http) use ($data, $payload, $response) {
             $http->shouldReceive('request')
-                ->with('GET', '/api/v1/servers/'.$data['id'])
+                ->with('GET', 'servers/'.$data['id'])
                 ->andReturn(
                     FakeResponse::fake()->withJson(['server' => $data])->toResponse()
                 );
 
             $http->shouldReceive('request')
-                ->with('PUT', '/api/v1/servers/'.$data['id'], ['form_params' => $payload])
+                ->with('PUT', 'servers/'.$data['id'], ['form_params' => $payload])
                 ->andReturn(
                     FakeResponse::fake()->withJson(['server' => $response])->toResponse()
                 );
@@ -158,13 +158,13 @@ class ServersTests extends TestCase
 
         $api = Api::fake(function ($http) use ($data) {
             $http->shouldReceive('request')
-                ->with('GET', '/api/v1/servers/'.$data['id'])
+                ->with('GET', 'servers/'.$data['id'])
                 ->andReturn(
                     FakeResponse::fake()->withJson(['server' => $data])->toResponse()
                 );
 
             $http->shouldReceive('request')
-                ->with('DELETE', '/api/v1/servers/'.$data['id'])
+                ->with('DELETE', 'servers/'.$data['id'])
                 ->andReturn(
                     FakeResponse::fake()->toResponse()
                 );
@@ -181,9 +181,18 @@ class ServersTests extends TestCase
      */
     public function testServerOperations(string $method, array $data, array $operation, array $response, $expectedResult)
     {
+        // Additional operations can be performed on servers.
+
+        // Create API provider.
+        // Create Servers manager.
+        // Load single server by ID.
+        // Perform operation on server.
+
+        // Assert that operation results equals to expected result.
+
         $api = Api::fake(function ($http) use ($data, $operation, $response) {
             $http->shouldReceive('request')
-                ->with('GET', '/api/v1/servers/'.$data['id'])
+                ->with('GET', 'servers/'.$data['id'])
                 ->andReturn(
                     FakeResponse::fake()->withJson(['server' => $data])->toResponse()
                 );
@@ -275,7 +284,7 @@ class ServersTests extends TestCase
                 'data' => Api::serverData(),
                 'operation' => [
                     'method' => 'POST',
-                    'url' => '/api/v1/servers/1/reboot',
+                    'url' => 'servers/1/reboot',
                 ],
                 'response' => [],
                 'expectedResult' => true,
@@ -285,7 +294,7 @@ class ServersTests extends TestCase
                 'data' => Api::serverData(),
                 'operation' => [
                     'method' => 'POST',
-                    'url' => '/api/v1/servers/1/revoke',
+                    'url' => 'servers/1/revoke',
                 ],
                 'response' => [],
                 'expectedResult' => true,
@@ -295,7 +304,7 @@ class ServersTests extends TestCase
                 'data' => Api::serverData(),
                 'operation' => [
                     'method' => 'POST',
-                    'url' => '/api/v1/servers/1/reconnect',
+                    'url' => 'servers/1/reconnect',
                 ],
                 'response' => [
                     'public_key' => 'secret',
@@ -307,7 +316,7 @@ class ServersTests extends TestCase
                 'data' => Api::serverData(),
                 'operation' => [
                     'method' => 'POST',
-                    'url' => '/api/v1/servers/1/reactivate',
+                    'url' => 'servers/1/reactivate',
                 ],
                 'response' => [],
                 'expectedResult' => true,

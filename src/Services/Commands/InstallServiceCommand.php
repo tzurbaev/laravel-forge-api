@@ -17,6 +17,6 @@ class InstallServiceCommand extends AbstractServiceCommand
      */
     public function runnable()
     {
-        return $this->service->installable();
+        return $this->getService()->installable();
     }
 }
