@@ -129,7 +129,7 @@ abstract class ServerResourceCommand extends ServerCommand
      * List response handler.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Laravel\Forge\Server $server
+     * @param \Laravel\Forge\Server               $server
      *
      * @throws \InvalidArgumentException
      *

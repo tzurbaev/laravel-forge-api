@@ -162,6 +162,7 @@ class DaemonsTest extends TestCase
                 }),
                 'daemonId' => 1,
                 'assertion' => function ($daemon) {
+                    $this->assertInstanceOf(Daemon::class, $daemon);
                     $this->assertSame($this->command, $daemon->command());
                     $this->assertSame('forge', $daemon->user());
                 },

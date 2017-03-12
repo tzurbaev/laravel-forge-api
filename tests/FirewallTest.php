@@ -1,0 +1,175 @@
+<?php
+
+namespace Laravel\Tests\Forge;
+
+use Closure;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
+use Laravel\Tests\Forge\Helpers\Api;
+use Laravel\Forge\Firewall\FirewallRule;
+use Laravel\Forge\Firewall\FirewallManager;
+use Laravel\Tests\Forge\Helpers\FakeResponse;
+
+class FirewallTest extends TestCase
+{
+    /**
+     * @dataProvider createFirewallRuleDataProvider
+     */
+    public function testCreateFirewallRule($server, array $rule, Closure $assertion)
+    {
+        $firewall = new FirewallManager();
+
+        $result = $firewall->create($rule)->on($server);
+
+        $assertion($result);
+    }
+
+    /**
+     * @dataProvider listFirewallRulesDataProvider
+     */
+    public function testListFirewallRules($server, Closure $assertion)
+    {
+        $firewall = new FirewallManager();
+
+        $result = $firewall->list()->from($server);
+
+        $assertion($result);
+    }
+
+    /**
+     * @dataProvider getFirewallRuleDataProvider
+     */
+    public function testGetFirewallRule($server, int $ruleId, Closure $assertion)
+    {
+        $firewall = new FirewallManager();
+
+        $result = $firewall->get($ruleId)->from($server);
+
+        $assertion($result);
+    }
+
+    /**
+     * @dataProvider deleteFirewallRuleDataProvider
+     */
+    public function testDeleteFirewallRule(FirewallRule $rule, $expectedResult, bool $exception = false)
+    {
+        if ($exception === true) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $result = $rule->delete();
+
+        $this->assertSame($expectedResult, $result);
+    }
+
+    public function rule(array $replace = []): array
+    {
+        return array_merge([
+            'id' => 1,
+            'name' => 'rule name',
+            'port' => 88,
+            'ip_address' => null,
+            'status' => 'installing',
+            'created_at' => '2016-12-16 15:50:17',
+        ], $replace);
+    }
+
+    public function createFirewallRuleDataProvider(): array
+    {
+        return [
+            [
+                'server' => Api::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/firewall-rules', [
+                            'form_params' => [
+                                'name' => 'rule name',
+                                'port' => 88,
+                            ],
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()->withJson(['rule' => $this->rule()])->toResponse()
+                        );
+                }),
+                'rule' => [
+                    'name' => 'rule name',
+                    'port' => 88,
+                ],
+                'assertion' => function ($rule) {
+                    $this->assertInstanceOf(FirewallRule::class, $rule);
+                    $this->assertSame('rule name', $rule->name());
+                    $this->assertSame(88, $rule->port());
+                }
+            ],
+        ];
+    }
+
+    public function listFirewallRulesDataProvider(): array
+    {
+        return [
+            [
+                'server' => Api::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('GET', 'servers/1/firewall-rules', ['form_params' => []])
+                        ->andReturn(
+                            FakeResponse::fake()
+                                ->withJson([
+                                    'rules' => [
+                                        $this->rule(['id' => 1]),
+                                        $this->rule(['id' => 2]),
+                                        $this->rule(['id' => 3]),
+                                    ],
+                                ])
+                                ->toResponse()
+                        );
+                }),
+                'assertion' => function ($result) {
+                    $this->assertInternalType('array', $result);
+
+                    foreach ($result as $rule) {
+                        $this->assertInstanceOf(FirewallRule::class, $rule);
+                        $this->assertSame('rule name', $rule->name());
+                        $this->assertSame(88, $rule->port());
+                    }
+                }
+            ],
+        ];
+    }
+
+    public function getFirewallRuleDataProvider(): array
+    {
+        return [
+            [
+                'server' => Api::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('GET', 'servers/1/firewall-rules/1', ['form_params' => []])
+                        ->andReturn(
+                            FakeResponse::fake()->withJson(['rule' => $this->rule()])->toResponse()
+                        );
+                }),
+                'ruleId' => 1,
+                'assertion' => function ($rule) {
+                    $this->assertInstanceOf(FirewallRule::class, $rule);
+                    $this->assertSame('rule name', $rule->name());
+                    $this->assertSame(88, $rule->port());
+                }
+            ],
+        ];
+    }
+
+    public function deleteFirewallRuleDataProvider(): array
+    {
+        return [
+            [
+                'rule' => new FirewallRule(
+                    Api::fakeServer(function ($http) {
+                        $http->shouldReceive('request')
+                            ->with('DELETE', 'servers/1/firewall-rules/1')
+                            ->andReturn(FakeResponse::fake()->toResponse());
+                    }),
+                    $this->rule()
+                ),
+                'expectedResult' => true,
+            ],
+        ];
+    }
+}
