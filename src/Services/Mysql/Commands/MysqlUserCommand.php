@@ -5,7 +5,7 @@ namespace Laravel\Forge\Services\Mysql\Commands;
 use Laravel\Forge\Services\Mysql\MysqlUser;
 use Laravel\Forge\ServerResources\Commands\ServerResourceCommand;
 
-class MysqlUserCommand extends ServerResourceCommand
+abstract class MysqlUserCommand extends ServerResourceCommand
 {
     /**
      * Server resource path.
