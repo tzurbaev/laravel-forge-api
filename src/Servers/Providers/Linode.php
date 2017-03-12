@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Servers\Providers;
 
-class Linode extends AbstractProvider
+class Linode extends Provider
 {
     /**
      * @{inheritdoc}

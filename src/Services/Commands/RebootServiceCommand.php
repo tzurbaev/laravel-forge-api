@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Services\Commands;
 
-class RebootServiceCommand extends AbstractServiceCommand
+class RebootServiceCommand extends ServiceCommand
 {
     /**
      * @{inheritdoc}

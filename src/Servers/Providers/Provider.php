@@ -7,7 +7,7 @@ use Laravel\Forge\Regions;
 use InvalidArgumentException;
 use Laravel\Forge\ApiProvider;
 
-abstract class AbstractProvider
+abstract class Provider
 {
     /**
      * @var \Laravel\Forge\ApiProvider

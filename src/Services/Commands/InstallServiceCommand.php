@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Services\Commands;
 
-class InstallServiceCommand extends AbstractServiceCommand
+class InstallServiceCommand extends ServiceCommand
 {
     /**
      * @{inheritdoc}

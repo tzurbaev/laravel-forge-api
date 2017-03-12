@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Servers\Providers;
 
-class Aws extends AbstractProvider
+class Aws extends Provider
 {
     /**
      * @{inheritdoc}

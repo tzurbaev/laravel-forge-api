@@ -6,7 +6,7 @@ use Laravel\Forge\Server;
 use Laravel\Forge\Commands\ServerCommand;
 use Laravel\Forge\Contracts\ServiceContract;
 
-abstract class AbstractServiceCommand extends ServerCommand
+abstract class ServiceCommand extends ServerCommand
 {
     /**
      * Associated service.

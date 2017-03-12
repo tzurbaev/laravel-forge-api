@@ -4,7 +4,7 @@ namespace Laravel\Forge\Servers\Providers;
 
 use InvalidArgumentException;
 
-class Custom extends AbstractProvider
+class Custom extends Provider
 {
     /**
      * @{inheritdoc}

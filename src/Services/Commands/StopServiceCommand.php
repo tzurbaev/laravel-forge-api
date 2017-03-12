@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Services\Commands;
 
-class StopServiceCommand extends AbstractServiceCommand
+class StopServiceCommand extends ServiceCommand
 {
     /**
      * @{inheritdoc}

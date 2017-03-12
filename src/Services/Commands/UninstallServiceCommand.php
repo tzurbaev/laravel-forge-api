@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Services\Commands;
 
-class UninstallServiceCommand extends AbstractServiceCommand
+class UninstallServiceCommand extends ServiceCommand
 {
     /**
      * @{inheritdoc}

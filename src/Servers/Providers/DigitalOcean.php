@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Servers\Providers;
 
-class DigitalOcean extends AbstractProvider
+class DigitalOcean extends Provider
 {
     /**
      * @{inheritdoc}

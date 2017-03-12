@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Services;
 
-abstract class AbstractService
+abstract class Service
 {
     /**
      * @{inheritdoc}
