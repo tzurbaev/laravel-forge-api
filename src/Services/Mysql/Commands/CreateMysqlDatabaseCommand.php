@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Services\Mysql\Commands;
 
-class CreateMysqlDatabaseCommand extends MysqlCommand
+class CreateMysqlDatabaseCommand extends MysqlDatabaseCommand
 {
     /**
      * Set database name.

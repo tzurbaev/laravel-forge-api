@@ -98,6 +98,31 @@ abstract class ServerResource implements ArrayAccess
     }
 
     /**
+     * Update resource data.
+     *
+     * @return bool
+     */
+    public function update(array $payload): bool
+    {
+        $response = $this->server->getApi()->getClient()->request(
+            'PUT',
+            $this->apiUrl(),
+            ['form_params' => $payload]
+        );
+
+        $json = json_decode((string) $response->getBody(), true);
+        $resource = static::resourceType();
+
+        if (empty($json[$resource])) {
+            return false;
+        }
+
+        $this->data = $json[$resource];
+
+        return true;
+    }
+
+    /**
      * Delete current resource.
      *
      * @return bool

@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Services\Mysql\Commands;
 
-class ListMysqlDatabasesCommand extends MysqlDatabaseCommand
+class ListMysqlUsersCommand extends MysqlUserCommand
 {
     /**
      * Items key for List response.
@@ -11,6 +11,6 @@ class ListMysqlDatabasesCommand extends MysqlDatabaseCommand
      */
     public function listResponseItemsKey()
     {
-        return 'databases';
+        return 'users';
     }
 }
