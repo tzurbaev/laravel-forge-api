@@ -1,6 +1,6 @@
 {
     "name": "tzurbaev/laravel-forge-api",
-    "description": "Laravel Forge API Client",
+    "description": "Laravel Forge API SDK",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -26,5 +26,8 @@
         "psr-4": {
             "Laravel\\Tests\\Forge\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }
