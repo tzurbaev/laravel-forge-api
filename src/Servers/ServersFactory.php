@@ -3,30 +3,13 @@
 namespace Laravel\Forge\Servers;
 
 use Laravel\Forge\ApiProvider;
-use Laravel\Forge\ServerProviders\DigitalOcean;
+use Laravel\Forge\Servers\Providers\Aws;
+use Laravel\Forge\Servers\Providers\Custom;
+use Laravel\Forge\Servers\Providers\Linode;
+use Laravel\Forge\Servers\Providers\DigitalOcean;
 
 class ServersFactory
 {
-    /**
-     * DigitalOcean identificator.
-     */
-    const DIGITALOCEAN = 'ocean2';
-
-    /**
-     * Linode identificator.
-     */
-    const LINODE = 'linode';
-
-    /**
-     * AWS identificator.
-     */
-    const AWS = 'aws';
-
-    /**
-     * Custom VPS identificator.
-     */
-    const CUSTOM = 'custom';
-
     /**
      * API Provider.
      *
@@ -53,7 +36,7 @@ class ServersFactory
      */
     public function droplet(string $name)
     {
-        return (new ServerBuilder($this->api, static::DIGITALOCEAN))->identifiedAs($name);
+        return (new DigitalOcean($this->api))->identifiedAs($name);
     }
 
     /**
@@ -65,7 +48,7 @@ class ServersFactory
      */
     public function linode(string $name)
     {
-        return (new ServerBuilder($this->api, static::LINODE))->identifiedAs($name);
+        return (new Linode($this->api))->identifiedAs($name);
     }
 
     /**
@@ -77,7 +60,7 @@ class ServersFactory
      */
     public function aws(string $name)
     {
-        return (new ServerBuilder($this->api, static::AWS))->identifiedAs($name);
+        return (new Aws($this->api))->identifiedAs($name);
     }
 
     /**
@@ -87,8 +70,8 @@ class ServersFactory
      *
      * @return \Laravel\Forge\Servers\ServerBuilder
      */
-    public function custom()
+    public function custom(string $name)
     {
-        return (new ServerBuilder($this->api, static::CUSTOM))->identifiedAs($name);
+        return (new Custom($this->api))->identifiedAs($name);
     }
 }

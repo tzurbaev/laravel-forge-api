@@ -1,13 +1,13 @@
 <?php
 
-namespace Laravel\Forge\Servers;
+namespace Laravel\Forge\Servers\Providers;
 
 use Laravel\Forge\Server;
 use Laravel\Forge\Regions;
 use InvalidArgumentException;
 use Laravel\Forge\ApiProvider;
 
-class ServerBuilder
+abstract class AbstractProvider
 {
     /**
      * @var \Laravel\Forge\ApiProvider
@@ -20,19 +20,99 @@ class ServerBuilder
     protected $payload = [];
 
     /**
-     * @var string
-     */
-    protected $provider;
-
-    /**
      * Create new instance.
      *
      * @param \Laravel\Forge\ApiProvider $api
      */
-    public function __construct(ApiProvider $api, string $provider)
+    public function __construct(ApiProvider $api)
     {
         $this->api = $api;
-        $this->payload['provider'] = $provider;
+        $this->initProvider();
+    }
+
+    /**
+     * Initializes server provider.
+     */
+    protected function initProvider()
+    {
+        $this->payload['provider'] = $this->provider();
+    }
+
+    /**
+     * Server provider name.
+     *
+     * @return string
+     */
+    public function provider()
+    {
+        return 'abstract';
+    }
+
+    /**
+     * Server provider regions list.
+     *
+     * @return array
+     */
+    public function regions()
+    {
+        return [];
+    }
+
+    /**
+     * Server provider server sizes.
+     *
+     * @return array
+     */
+    public function sizes()
+    {
+        return [];
+    }
+
+    /**
+     * Validates payload before sending to Forge API.
+     *
+     * @return bool
+     */
+    public function validate()
+    {
+        return true;
+    }
+
+    /**
+     * Determines if given region is available at current provider.
+     *
+     * @param string $region
+     *
+     * @return bool
+     */
+    public function regionAvailable(string $region)
+    {
+        return $this->resourceAvailable($this->regions(), $region);
+    }
+
+    /**
+     * Determines if given memory size is available at current provider.
+     *
+     * @param string|int $memory
+     *
+     * @return bool
+     */
+    public function memoryAvailable($memory)
+    {
+        return $this->resourceAvailable($this->sizes(), $memory);
+    }
+
+    /**
+     * Determines if given resource is in resources array.
+     *
+     * @param array $resources
+     * @param mixed $resource
+     *
+     * @return bool
+     */
+    protected function resourceAvailable(array $resources, $resource)
+    {
+        return isset($resources[$resource]) || in_array($resource, $resources);
     }
 
     /**
@@ -72,7 +152,11 @@ class ServerBuilder
      */
     public function withMemoryOf($memory)
     {
-        $this->payload['size'] = $this->validMemoryValue($memory);
+        if (!$this->memoryAvailable($memory)) {
+            throw new InvalidArgumentException('Given memory value is not supported by '.$this->provider().' provider.');
+        }
+
+        $this->payload['size'] = $memory;
 
         return $this;
     }
@@ -86,10 +170,8 @@ class ServerBuilder
      */
     public function at(string $region)
     {
-        if (!Regions::available($region, $this->payload['provider'])) {
-            throw new InvalidArgumentException(
-                'Given region "'.$region.'" is not availble for "'.$this->provider.'" provider.'
-            );
+        if (!$this->regionAvailable($region)) {
+            throw new InvalidArgumentException('Given region is not supported by '.$this->provider().' provider.');
         }
 
         $this->payload['region'] = $region;
@@ -169,6 +251,20 @@ class ServerBuilder
         return $this;
     }
 
+    public function usingPublicIp(string $ip)
+    {
+        $this->payload['ip_address'] = $ip;
+
+        return $this;
+    }
+
+    public function usingPrivateIp(string $ip)
+    {
+        $this->payload['private_ip_address'] = $ip;
+
+        return $this;
+    }
+
     /**
      * Sends create new server request.
      *
@@ -176,8 +272,16 @@ class ServerBuilder
      *
      * @return \Laravel\Forge\Server
      */
-    public function send()
+    public function save()
     {
+        $validationResult = $this->validate();
+
+        if ($validationResult !== true) {
+            throw new InvalidArgumentException(
+                'Some required parameters are missing: '.implode(', ', $validationResult)
+            );
+        }
+
         $response = $this->api->getClient()->request('POST', '/api/v1/servers', [
             'form_params' => $this->sortPayload(),
         ]);
@@ -216,27 +320,5 @@ class ServerBuilder
         }
 
         return $this;
-    }
-
-    /**
-     * Validates memory value.
-     *
-     * @param string|int $memory
-     *
-     * @return string
-     */
-    protected function validMemoryValue($memory)
-    {
-        $value = intval(str_replace(['mb', 'gb'], '', strtolower($memory)));
-
-        if ($value === 0) {
-            throw new InvalidArgumentException('Given size is invalid.');
-        }
-
-        if ($value >= 512) {
-            return $value.'MB';
-        }
-
-        return $value.'GB';
     }
 }
