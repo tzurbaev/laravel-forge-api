@@ -6,12 +6,13 @@ use Closure;
 use Mockery;
 use GuzzleHttp\Client;
 use Laravel\Forge\Server;
+use Laravel\Forge\Sites\Site;
 use Laravel\Forge\ApiProvider;
 
 class Api
 {
     /**
-     * Creates fake API Provider.
+     * Create fake API Provider.
      *
      * @param \Closure $callback = null
      *
@@ -32,7 +33,7 @@ class Api
     }
 
     /**
-     * Generates server data.
+     * Generate server data.
      *
      * @param array $replace = []
      *
@@ -59,10 +60,55 @@ class Api
     }
 
     /**
+     * Generate site data.
+     *
+     * @param array $replace = []
+     *
+     * @return array
+     */
+    public function siteData(array $replace = []): array
+    {
+        return array_merge([
+            'id' => 1,
+            'name' => 'example.org',
+            'directory' => '/public',
+            'wildcards' => false,
+            'status' => 'installing',
+            'repository' => null,
+            'repository_provider' => null,
+            'repository_branch' => null,
+            'repository_status' => null,
+            'quick_deploy' => false,
+            'project_type' => 'php',
+            'app' => null,
+            'app_status' => null,
+            'hipchat_room' => null,
+            'slack_channel' => null,
+            'created_at' => '2016-12-16 16:38:08',
+        ], $replace);
+    }
+
+    /**
+     * Create fake site.
+     *
+     * @param \Closure $callback = null
+     * @param array $replaceSiteData = []
+     *
+     * @return \Laravel\Forge\Sites\Site
+     */
+    public function fakeSite(Closure $callback = null, array $replaceSiteData = []): Site
+    {
+        $server = static::fakeServer($callback);
+        $site = new Site($server, static::siteData($replaceSiteData));
+
+        return $site;
+    }
+
+    /**
      * Create fake server.
      *
      * @param \Closure $callback = null
-     * @param array $repalceServerData = []
+     * @param array $replaceServerData = []
      *
      * @return \Laravel\Forge\Server
      */

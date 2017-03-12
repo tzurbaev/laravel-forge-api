@@ -116,28 +116,6 @@ class SitesTest extends TestCase
         ], $replace);
     }
 
-    public function response(array $replace = []): array
-    {
-        return array_merge([
-            'id' => 1,
-            'name' => 'example.org',
-            'directory' => '/public',
-            'wildcards' => false,
-            'status' => 'installing',
-            'repository' => null,
-            'repository_provider' => null,
-            'repository_branch' => null,
-            'repository_status' => null,
-            'quick_deploy' => false,
-            'project_type' => 'php',
-            'app' => null,
-            'app_status' => null,
-            'hipchat_room' => null,
-            'slack_channel' => null,
-            'created_at' => '2016-12-16 16:38:08',
-        ], $replace);
-    }
-
     public function createSiteDataProvider(): array
     {
         return [
@@ -148,7 +126,7 @@ class SitesTest extends TestCase
                             'form_params' => $this->payload(),
                         ])
                         ->andReturn(
-                            FakeResponse::fake()->withJson(['site' => $this->response()])->toResponse()
+                            FakeResponse::fake()->withJson(['site' => Api::siteData()])->toResponse()
                         );
                 }),
                 'factory' => function (SitesManager $sites, $server) {
@@ -177,10 +155,10 @@ class SitesTest extends TestCase
                             FakeResponse::fake()
                                 ->withJson([
                                     'sites' => [
-                                        $this->response(['id' => 1]),
-                                        $this->response(['id' => 2]),
-                                        $this->response(['id' => 3]),
-                                        $this->response(['id' => 4]),
+                                        Api::siteData(['id' => 1]),
+                                        Api::siteData(['id' => 2]),
+                                        Api::siteData(['id' => 3]),
+                                        Api::siteData(['id' => 4]),
                                     ],
                                 ])
                                 ->toResponse()
@@ -207,7 +185,7 @@ class SitesTest extends TestCase
                     $http->shouldReceive('request')
                         ->with('GET', 'servers/1/sites/1', ['form_params' => []])
                         ->andReturn(
-                            FakeResponse::fake()->withJson(['site' => $this->response()])->toResponse()
+                            FakeResponse::fake()->withJson(['site' => Api::siteData()])->toResponse()
                         );
                 }),
                 'siteId' => 1,
@@ -224,22 +202,19 @@ class SitesTest extends TestCase
     {
         return [
             [
-                'site' => new Site(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('PUT', 'servers/1/sites/1', [
-                                'form_params' => ['directory' => '/some/path']
-                            ])
-                            ->andReturn(
-                                FakeResponse::fake()
-                                    ->withJson([
-                                        'site' => $this->response(['directory' => '/some/path']),
-                                    ])
-                                    ->toResponse()
-                            );
-                    }),
-                    $this->response()
-                ),
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('PUT', 'servers/1/sites/1', [
+                            'form_params' => ['directory' => '/some/path']
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()
+                                ->withJson([
+                                    'site' => Api::siteData(['directory' => '/some/path']),
+                                ])
+                                ->toResponse()
+                        );
+                }),
                 'payload' => ['directory' => '/some/path'],
                 'expectedResult' => true,
             ],
@@ -250,87 +225,72 @@ class SitesTest extends TestCase
     {
         return [
             [
-                'site' => new Site(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('POST', 'servers/1/sites/1/git', [
-                                'form_params' => [
-                                    'provider' => 'github',
-                                    'repository' => 'username/repository',
-                                ],
-                            ])
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites/1/git', [
+                            'form_params' => [
+                                'provider' => 'github',
+                                'repository' => 'username/repository',
+                            ],
+                        ])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'app' => (new GitApplication())->fromGithub('username/repository'),
                 'expectedResult' => true,
             ],
             [
-                'site' => new Site(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('POST', 'servers/1/sites/1/git', [
-                                'form_params' => [
-                                    'provider' => 'bitbucket',
-                                    'repository' => 'username/repository',
-                                ],
-                            ])
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites/1/git', [
+                            'form_params' => [
+                                'provider' => 'bitbucket',
+                                'repository' => 'username/repository',
+                            ],
+                        ])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'app' => (new GitApplication())->fromBitbucket('username/repository'),
                 'expectedResult' => true,
             ],
             [
-                'site' => new Site(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('POST', 'servers/1/sites/1/git', [
-                                'form_params' => [
-                                    'provider' => 'gitlab',
-                                    'repository' => 'username/repository',
-                                ],
-                            ])
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites/1/git', [
+                            'form_params' => [
+                                'provider' => 'gitlab',
+                                'repository' => 'username/repository',
+                            ],
+                        ])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'app' => (new GitApplication())->fromGitlab('username/repository'),
                 'expectedResult' => true,
             ],
             [
-                'site' => new Site(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('POST', 'servers/1/sites/1/git', [
-                                'form_params' => [
-                                    'provider' => 'custom',
-                                    'repository' => 'git@example.org:username/repository.git',
-                                ],
-                            ])
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites/1/git', [
+                            'form_params' => [
+                                'provider' => 'custom',
+                                'repository' => 'git@example.org:username/repository.git',
+                            ],
+                        ])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'app' => (new GitApplication())->fromGit('git@example.org:username/repository.git'),
                 'expectedResult' => true,
             ],
             [
-                'site' => new Site(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('POST', 'servers/1/sites/1/wordpress', [
-                                'form_params' => [
-                                    'database' => 'forge',
-                                    'user' => 'forge',
-                                ],
-                            ])
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites/1/wordpress', [
+                            'form_params' => [
+                                'database' => 'forge',
+                                'user' => 'forge',
+                            ],
+                        ])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'app' => (new WordPressApplication())->usingDatabase('forge', 'forge'),
                 'expectedResult' => true,
             ],
@@ -341,26 +301,20 @@ class SitesTest extends TestCase
     {
         return [
             [
-                'site' => new Site(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('DELETE', 'servers/1/sites/1/git')
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('DELETE', 'servers/1/sites/1/git')
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'app' => new GitApplication(),
                 'expectedResult' => true,
             ],
             [
-                'site' => new Site(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('DELETE', 'servers/1/sites/1/wordpress')
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('DELETE', 'servers/1/sites/1/wordpress')
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'app' => new WordPressApplication(),
                 'expectedResult' => true,
             ],
@@ -371,14 +325,11 @@ class SitesTest extends TestCase
     {
         return [
             [
-                'site' => new Site(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('DELETE', 'servers/1/sites/1')
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('DELETE', 'servers/1/sites/1')
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'expectedResult' => true,
             ],
         ];

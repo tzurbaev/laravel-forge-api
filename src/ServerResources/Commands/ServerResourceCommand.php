@@ -112,7 +112,7 @@ abstract class ServerResourceCommand extends ServerCommand
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \Laravel\Forge\Server               $server
      *
-     * @return \Laravel\Forge\Daemons\Daemon
+     * @return \Laravel\Forge\ServerResources\ServerResource
      */
     public function handleResponse(ResponseInterface $response, Server $server)
     {
