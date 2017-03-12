@@ -2,9 +2,7 @@
 
 namespace Laravel\Forge\Services;
 
-use Laravel\Forge\Contracts\ServiceContract;
-
-class MysqlService extends Service implements ServiceContract
+class MysqlService extends Service
 {
     /**
      * @{inheritdoc}

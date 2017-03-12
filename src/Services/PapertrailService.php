@@ -2,9 +2,7 @@
 
 namespace Laravel\Forge\Services;
 
-use Laravel\Forge\Contracts\ServiceContract;
-
-class PapertrailService extends Service implements ServiceContract
+class PapertrailService extends Service
 {
     /**
      * @{inheritdoc}

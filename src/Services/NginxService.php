@@ -2,9 +2,7 @@
 
 namespace Laravel\Forge\Services;
 
-use Laravel\Forge\Contracts\ServiceContract;
-
-class NginxService extends Service implements ServiceContract
+class NginxService extends Service
 {
     /**
      * @{inheritdoc}

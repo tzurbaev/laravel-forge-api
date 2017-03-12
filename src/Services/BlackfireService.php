@@ -2,9 +2,7 @@
 
 namespace Laravel\Forge\Services;
 
-use Laravel\Forge\Contracts\ServiceContract;
-
-class BlackfireService extends Service implements ServiceContract
+class BlackfireService extends Service
 {
     /**
      * @{inheritdoc}

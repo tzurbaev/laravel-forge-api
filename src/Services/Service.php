@@ -2,7 +2,9 @@
 
 namespace Laravel\Forge\Services;
 
-abstract class Service
+use Laravel\Forge\Contracts\ServiceContract;
+
+abstract class Service implements ServiceContract
 {
     /**
      * @{inheritdoc}
