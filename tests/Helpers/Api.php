@@ -66,7 +66,7 @@ class Api
      *
      * @return array
      */
-    public function siteData(array $replace = []): array
+    public static function siteData(array $replace = []): array
     {
         return array_merge([
             'id' => 1,
@@ -96,7 +96,7 @@ class Api
      *
      * @return \Laravel\Forge\Sites\Site
      */
-    public function fakeSite(Closure $callback = null, array $replaceSiteData = []): Site
+    public static function fakeSite(Closure $callback = null, array $replaceSiteData = []): Site
     {
         $server = static::fakeServer($callback);
         $site = new Site($server, static::siteData($replaceSiteData));
@@ -128,7 +128,7 @@ class Api
      *
      * @return \Laravel\Forge\Server
      */
-    public function multipleFakeServers(int $number, Closure $callback = null)
+    public static function multipleFakeServers(int $number, Closure $callback = null)
     {
         $servers = [];
 
