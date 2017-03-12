@@ -32,7 +32,7 @@ abstract class ServerCommand
     }
 
     /**
-     * Determines if command can be run.
+     * Determines if command can run.
      *
      * @return bool
      */
@@ -87,6 +87,68 @@ abstract class ServerCommand
         $this->payload = $payload;
 
         return $this;
+    }
+
+    /**
+     * Set payload data.
+     *
+     * @param string|int $key
+     * @param mixed      $value
+     *
+     * @return static
+     */
+    public function attachPayload($key, $value)
+    {
+        if (is_null($this->payload)) {
+            $this->payload = [];
+        }
+
+        $this->payload[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Return payload data.
+     *
+     * @param string|int $key
+     * @param mixed      $default = null
+     *
+     * @return mixed|null
+     */
+    public function getPayloadData($key, $default = null)
+    {
+        if (is_null($this->payload)) {
+            return;
+        }
+
+        return $this->payload[$key] ?? $default;
+    }
+
+    /**
+     * Determines if payload has requried keys.
+     *
+     * @param string|int|array $keys
+     *
+     * @return bool
+     */
+    public function hasPayloadData($keys): bool
+    {
+        if (is_null($this->payload)) {
+            return false;
+        }
+
+        if (!is_array($keys)) {
+            $keys = [$keys];
+        }
+
+        foreach ($keys as $key) {
+            if (!isset($this->payload[$key])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
