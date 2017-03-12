@@ -174,13 +174,12 @@ class DaemonsTest extends TestCase
         return [
             [
                 'daemon' => new Daemon(
-                    Api::fake(function ($http) {
+                    Api::fakeServer(function ($http) {
                         $http->shouldReceive('request')
                             ->with('DELETE', 'servers/1/daemons/1')
                             ->andReturn(FakeResponse::fake()->toResponse());
                     }),
-                    $this->daemon(),
-                    1
+                    $this->daemon()
                 ),
                 'expectedResult' => true,
             ],
@@ -192,13 +191,12 @@ class DaemonsTest extends TestCase
         return [
             [
                 'daemon' => new Daemon(
-                    Api::fake(function ($http) {
+                    Api::fakeServer(function ($http) {
                         $http->shouldReceive('request')
                             ->with('POST', 'servers/1/daemons/1/restart')
                             ->andReturn(FakeResponse::fake()->toResponse());
                     }),
-                    $this->daemon(),
-                    1
+                    $this->daemon()
                 ),
                 'expectedResult' => true,
             ],

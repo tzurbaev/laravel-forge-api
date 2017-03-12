@@ -2,69 +2,28 @@
 
 namespace Laravel\Forge\Daemons;
 
-use ArrayAccess;
-use InvalidArgumentException;
-use Laravel\Forge\ApiProvider;
-use Psr\Http\Message\ResponseInterface;
-use Laravel\Forge\Traits\ArrayAccessTrait;
+use Laravel\Forge\Servers\ServerResource;
 
-class Daemon implements ArrayAccess
+class Daemon extends ServerResource
 {
-    use ArrayAccessTrait;
-
     /**
-     * @var \Laravel\Forge\ApiProvider
-     */
-    protected $api;
-
-    /**
-     * Daemon's Server ID.
+     * Resource type.
      *
-     * @var int
+     * @return string
      */
-    protected $serverId;
-
-    /**
-     * Create new daemon instance.
-     *
-     * @param \Laravel\Forge\ApiProvider $api
-     * @param array                      $data
-     */
-    public function __construct(ApiProvider $api, array $data = [], int $serverId = 0)
+    public static function resourceType()
     {
-        $this->api = $api;
-        $this->data = $data;
-        $this->serverId = $serverId;
+        return 'daemon';
     }
 
     /**
-     * Create new daemon instance from HTTP response.
+     * Resource path (relative to Server URL).
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Laravel\Forge\ApiProvider          $api
-     * @param int                                 $serverId
-     *
-     * @return static
+     * @return string
      */
-    public static function createFromResponse(ResponseInterface $response, ApiProvider $api, int $serverId)
+    public function resourcePath()
     {
-        $json = json_decode((string) $response->getBody(), true);
-
-        if (empty($json['daemon'])) {
-            throw new InvalidArgumentException('Given response is not a daemon response.');
-        }
-
-        return new static($api, $json['daemon'], $serverId);
-    }
-
-    /**
-     * Daemon ID.
-     *
-     * @return int
-     */
-    public function id(): int
-    {
-        return intval($this->data['id']);
+        return 'daemons';
     }
 
     /**
@@ -94,22 +53,10 @@ class Daemon implements ArrayAccess
      */
     public function restart()
     {
-        $this->api->getClient()->request(
-            'POST',
-            'servers/'.$this->serverId.'/daemons/'.$this->id().'/restart'
-        );
-
-        return true;
-    }
-
-    /**
-     * Delete daemon.
-     *
-     * @return bool
-     */
-    public function delete()
-    {
-        $this->api->getClient()->request('DELETE', 'servers/'.$this->serverId.'/daemons/'.$this->id());
+        $this->getServer()
+            ->getApi()
+            ->getClient()
+            ->request('POST', $this->apiUrl('/restart'));
 
         return true;
     }

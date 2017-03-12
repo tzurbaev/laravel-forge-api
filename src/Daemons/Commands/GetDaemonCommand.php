@@ -56,6 +56,6 @@ class GetDaemonCommand extends ServerCommand
      */
     public function handleResponse(ResponseInterface $response, Server $server)
     {
-        return Daemon::createFromResponse($response, $server->getApi(), $server->id());
+        return Daemon::createFromResponse($response, $server);
     }
 }

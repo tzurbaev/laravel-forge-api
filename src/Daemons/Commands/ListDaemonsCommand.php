@@ -65,7 +65,7 @@ class ListDaemonsCommand extends ServerCommand
         $serverId = $server->id();
 
         foreach ($json['daemons'] as $daemon) {
-            $daemons[] = new Daemon($api, $daemon, $serverId);
+            $daemons[] = new Daemon($server, $daemon);
         }
 
         return $daemons;
