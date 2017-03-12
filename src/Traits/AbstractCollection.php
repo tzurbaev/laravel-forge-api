@@ -49,4 +49,14 @@ trait AbstractCollection
 
         $this->lazyLoadInitiated = true;
     }
+
+    /**
+     * Determines if lazy load was already initiated.
+     *
+     * @return bool
+     */
+    protected function lazyLoadInitiated(): bool
+    {
+        return $this->lazyLoadInitiated === true;
+    }
 }

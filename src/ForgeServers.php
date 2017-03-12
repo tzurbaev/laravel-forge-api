@@ -7,7 +7,9 @@ use ArrayAccess;
 use Laravel\Forge\Traits\LazyIterator;
 use Laravel\Forge\Servers\ServersFactory;
 use Laravel\Forge\Traits\LazyArrayAccess;
+use GuzzleHttp\Exception\RequestException;
 use Laravel\Forge\Traits\AbstractCollection;
+use Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException;
 
 class ForgeServers implements ArrayAccess, Iterator
 {
@@ -17,6 +19,20 @@ class ForgeServers implements ArrayAccess, Iterator
      * @var \Laravel\Forge\ApiProvider
      */
     protected $api;
+
+    /**
+     * server id=>name map.
+     *
+     * @var array
+     */
+    protected $serversMap = [];
+
+    /**
+     * Cache for single servers.
+     *
+     * @var array
+     */
+    protected $serversCache = [];
 
     /**
      * @param \Laravel\Forge\ApiProvider $api
@@ -34,17 +50,19 @@ class ForgeServers implements ArrayAccess, Iterator
         $response = $this->api->getClient()->request('GET', '/api/v1/servers');
         $data = json_decode((string) $response->getBody(), true);
 
-        if (empty($data['servers'])) {
-            return $this->items = [];
-        }
+        $this->items = [];
+        $this->serversMap = [];
 
-        $servers = [];
+        if (empty($data['servers'])) {
+            return $this->items;
+        }
 
         foreach ($data['servers'] as $server) {
-            $servers[$server['name']] = $server;
+            $this->items[$server['name']] = new Server($this->api, $server);
+            $this->serversMap[$server['id']] = $server['name'];
         }
 
-        return $this->items = $servers;
+        return $this->items;
     }
 
     /**
@@ -63,5 +81,47 @@ class ForgeServers implements ArrayAccess, Iterator
     public function create()
     {
         return new ServersFactory($this->api);
+    }
+
+    /**
+     * Returns single server.
+     *
+     * @param int $serverId
+     *
+     * @return \Laravel\Forge\Server
+     */
+    public function get(int $serverId)
+    {
+        if ($this->lazyLoadInitiated() && isset($this->serversMap[$serverId])) {
+            return $this->items[$this->serversMap[$serverId]];
+        } elseif (isset($this->serversCache[$serverId])) {
+            return $this->serversCache[$serverId];
+        }
+
+        return $this->loadSingleServer($serverId);
+    }
+
+    /**
+     * Loads single server from API and saves it to memory cache.
+     *
+     * @param int $serverId
+     *
+     * @throws \Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException
+     *
+     * @return \Laravel\Forge\Server
+     */
+    protected function loadSingleServer(int $serverId)
+    {
+        try {
+            $response = $this->api->getClient()->request('GET', '/api/v1/servers/'.$serverId);
+        } catch (RequestException $e) {
+            if ($e->getResponse()->getStatusCode() === 404) {
+                throw new ServerWasNotFoundException('Server #'.$serverId.' was not found.', 404);
+            }
+
+            throw $e;
+        }
+
+        return $this->serversCache[$serverId] = Server::createFromResponse($response, $this->api);
     }
 }

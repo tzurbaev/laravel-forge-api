@@ -2,6 +2,7 @@
 
 namespace Laravel\Tests\Forge;
 
+use Mockery;
 use Closure;
 use Laravel\Forge\Server;
 use Laravel\Forge\ForgeServers;
@@ -11,6 +12,13 @@ use Laravel\Tests\Forge\Helpers\FakeResponse;
 
 class CreateServerTest extends TestCase
 {
+    public function tearDown()
+    {
+        parent::tearDown();
+
+        Mockery::close();
+    }
+
     /**
      * @dataProvider createServerDataProvider
      */
@@ -41,6 +49,7 @@ class CreateServerTest extends TestCase
         $servers = new ForgeServers($api);
         $server = $factory($servers);
 
+        $this->assertInstanceOf(Server::class, $server);
         $this->assertSame($payload['name'], $server->name());
         $this->assertSame($payload['size'], $server->size());
         $this->assertSame($payload['php_version'], $server->phpVersion());
@@ -162,6 +171,7 @@ class CreateServerTest extends TestCase
                     'created_at' => '2016-12-15 18:38:18',
                     'is_ready' => false,
                     'network' => [],
+                    'provision_command' => 'echo 1',
                 ],
                 'factory' => function (ForgeServers $servers) {
                     return $servers

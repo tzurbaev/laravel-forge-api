@@ -269,6 +269,7 @@ abstract class AbstractProvider
      * Sends create new server request.
      *
      * @throws \GuzzleHttp\Exception\RequestException
+     * @throws \InvalidArgumentException
      *
      * @return \Laravel\Forge\Server
      */
@@ -286,7 +287,7 @@ abstract class AbstractProvider
             'form_params' => $this->sortPayload(),
         ]);
 
-        return Server::createFromResponse($response)->setApi($this->api);
+        return Server::createFromResponse($response, $this->api);
     }
 
     /**
