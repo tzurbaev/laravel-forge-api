@@ -99,7 +99,7 @@ class ServicesTest extends TestCase
         $servers = [];
 
         for ($i = 0; $i < $number; ++$i) {
-            $servers[] = static::fakeServer(
+            $servers[] = $this->fakeServer(
                 function ($http) use ($i, $callback) {
                     if (!is_null($callback)) {
                         $callback($http, $i + 1);
@@ -124,7 +124,7 @@ class ServicesTest extends TestCase
                     'server_id' => 'server-id',
                     'server_token' => 'server-token',
                 ],
-                'server' => static::fakeServer(function ($http) {
+                'server' => $this->fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/1/blackfire/install', [
                             'form_params' => [
@@ -139,7 +139,7 @@ class ServicesTest extends TestCase
             [
                 'service' => new PapertrailService(),
                 'payload' => ['host' => '192.241.143.108'],
-                'server' => static::fakeServer(function ($http) {
+                'server' => $this->fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/1/papertrail/install', [
                             'form_params' => ['host' => '192.241.143.108']
@@ -151,21 +151,21 @@ class ServicesTest extends TestCase
             [
                 'service' => new MysqlService(),
                 'payload' => [],
-                'server' => static::fakeServer(),
+                'server' => $this->fakeServer(),
                 'expectedResult' => false,
                 'exception' => true,
             ],
             [
                 'service' => new NginxService(),
                 'payload' => [],
-                'server' => static::fakeServer(),
+                'server' => $this->fakeServer(),
                 'expectedResult' => false,
                 'exception' => true,
             ],
             [
                 'service' => new PostgresService(),
                 'payload' => [],
-                'server' => static::fakeServer(),
+                'server' => $this->fakeServer(),
                 'expectedResult' => false,
                 'exception' => true,
             ],
@@ -177,7 +177,7 @@ class ServicesTest extends TestCase
         return [
             [
                 'service' => new BlackfireService(),
-                'server' => static::fakeServer(function ($http) {
+                'server' => $this->fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/1/blackfire/remove', ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
@@ -186,7 +186,7 @@ class ServicesTest extends TestCase
             ],
             [
                 'service' => new PapertrailService(),
-                'server' => static::fakeServer(function ($http) {
+                'server' => $this->fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/1/papertrail/remove', ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
@@ -195,19 +195,19 @@ class ServicesTest extends TestCase
             ],
             [
                 'service' => new MysqlService(),
-                'server' => static::fakeServer(),
+                'server' => $this->fakeServer(),
                 'expectedResult' => false,
                 'exception' => true,
             ],
             [
                 'service' => new NginxService(),
-                'server' => static::fakeServer(),
+                'server' => $this->fakeServer(),
                 'expectedResult' => false,
                 'exception' => true,
             ],
             [
                 'service' => new PostgresService(),
-                'server' => static::fakeServer(),
+                'server' => $this->fakeServer(),
                 'expectedResult' => false,
                 'exception' => true,
             ],
@@ -230,19 +230,19 @@ class ServicesTest extends TestCase
             // Single server.
             [
                 'service' => new BlackfireService(),
-                'server' => static::fakeServer(),
+                'server' => $this->fakeServer(),
                 'expectedResult' => false,
                 'exception' => true,
             ],
             [
                 'service' => new PapertrailService(),
-                'server' => static::fakeServer(),
+                'server' => $this->fakeServer(),
                 'expectedResult' => false,
                 'exception' => true,
             ],
             [
                 'service' => new MysqlService(),
-                'server' => static::fakeServer(function ($http) use ($command) {
+                'server' => $this->fakeServer(function ($http) use ($command) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/1/mysql/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
@@ -251,7 +251,7 @@ class ServicesTest extends TestCase
             ],
             [
                 'service' => new NginxService(),
-                'server' => static::fakeServer(function ($http) use ($command) {
+                'server' => $this->fakeServer(function ($http) use ($command) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/1/nginx/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
@@ -260,7 +260,7 @@ class ServicesTest extends TestCase
             ],
             [
                 'service' => new PostgresService(),
-                'server' => static::fakeServer(function ($http) use ($command) {
+                'server' => $this->fakeServer(function ($http) use ($command) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/1/postgres/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
@@ -271,19 +271,19 @@ class ServicesTest extends TestCase
             // Multiple servers.
             [
                 'service' => new BlackfireService(),
-                'server' => static::multipleFakeServers(3),
+                'server' => $this->multipleFakeServers(3),
                 'expectedResult' => false,
                 'exception' => true,
             ],
             [
                 'service' => new PapertrailService(),
-                'server' => static::multipleFakeServers(3),
+                'server' => $this->multipleFakeServers(3),
                 'expectedResult' => false,
                 'exception' => true,
             ],
             [
                 'service' => new MysqlService(),
-                'server' => static::multipleFakeServers(3, function ($http, $serverId) use ($command) {
+                'server' => $this->multipleFakeServers(3, function ($http, $serverId) use ($command) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/'.$serverId.'/mysql/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
@@ -296,7 +296,7 @@ class ServicesTest extends TestCase
             ],
             [
                 'service' => new NginxService(),
-                'server' => static::multipleFakeServers(3, function ($http, $serverId) use ($command) {
+                'server' => $this->multipleFakeServers(3, function ($http, $serverId) use ($command) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/'.$serverId.'/nginx/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
@@ -309,7 +309,7 @@ class ServicesTest extends TestCase
             ],
             [
                 'service' => new PostgresService(),
-                'server' => static::multipleFakeServers(3, function ($http, $serverId) use ($command) {
+                'server' => $this->multipleFakeServers(3, function ($http, $serverId) use ($command) {
                     $http->shouldReceive('request')
                         ->with('POST', '/api/v1/servers/'.$serverId.'/postgres/'.$command, ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
