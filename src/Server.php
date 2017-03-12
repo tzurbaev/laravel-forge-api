@@ -3,7 +3,6 @@
 namespace Laravel\Forge;
 
 use ArrayAccess;
-use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Laravel\Forge\Traits\ArrayAccessTrait;
 use Laravel\Forge\Exceptions\Servers\PublicKeyWasNotFound;
@@ -23,8 +22,8 @@ class Server implements ArrayAccess
     /**
      * Create new server instance.
      *
-     * @param \Laravel\Forge\ApiProvider $api = null
-     * @param array $data = []
+     * @param \Laravel\Forge\ApiProvider $api  = null
+     * @param array                      $data = []
      */
     public function __construct(ApiProvider $api = null, array $data = [])
     {
@@ -36,7 +35,7 @@ class Server implements ArrayAccess
      * Creates new server instance from HTTP response.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Laravel\Forge\ApiProvider $api = null
+     * @param \Laravel\Forge\ApiProvider          $api      = null
      *
      * @throws \Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException
      *
@@ -56,8 +55,8 @@ class Server implements ArrayAccess
     /**
      * Returns server data.
      *
-     * @param string $key = null
-     * @param mixed $default = null
+     * @param string $key     = null
+     * @param mixed  $default = null
      *
      * @return mixed|array|null
      */
@@ -68,6 +67,16 @@ class Server implements ArrayAccess
         }
 
         return $this->data[$key] ?? $default;
+    }
+
+    /**
+     * Returns API provider.
+     *
+     * @return \Laravel\Forge\ApiProvider
+     */
+    public function getApi(): ApiProvider
+    {
+        return $this->api;
     }
 
     /**
@@ -122,6 +131,8 @@ class Server implements ArrayAccess
 
     /**
      * Server's API URL.
+     *
+     * @param string $path = ''
      *
      * @return string
      */
@@ -203,7 +214,7 @@ class Server implements ArrayAccess
     }
 
     /**
-     * Reactivate revoked server. Make sure you've installed public SHH key
+     * Reactivate revoked server. Make sure you've installed public SSH key
      * before calling this method.
      *
      * @return bool
@@ -216,7 +227,7 @@ class Server implements ArrayAccess
     }
 
     /**
-     * Delete server.
+     * Delete the server.
      *
      * @return bool
      */

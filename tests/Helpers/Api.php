@@ -12,16 +12,18 @@ class Api
     /**
      * Creates fake API Provider.
      *
-     * @param \Closure $callback
+     * @param \Closure $callback = null
      *
      * @return \Laravel\Forge\ApiProvider
      */
-    public static function fake(Closure $callback)
+    public static function fake(Closure $callback = null)
     {
         $api = Mockery::mock(ApiProvider::class.'[getClient]', ['api-token']);
         $http = Mockery::mock(Client::class);
 
-        $callback($http);
+        if (!is_null($callback)) {
+            $callback($http);
+        }
 
         $api->shouldReceive('getClient')->andReturn($http);
 
