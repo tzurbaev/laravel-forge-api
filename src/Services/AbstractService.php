@@ -24,4 +24,20 @@ abstract class AbstractService
     {
         return false;
     }
+
+    /**
+     * @{inheritdoc}
+     */
+    public function rebootable()
+    {
+        return true;
+    }
+
+    /**
+     * @{inheritdoc}
+     */
+    public function stoppable()
+    {
+        return true;
+    }
 }

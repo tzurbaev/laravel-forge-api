@@ -29,7 +29,7 @@ class ServicesTest extends TestCase
     /**
      * @dataProvider installServiceDataProvider
      */
-    public function testInstallService(ServiceContract $service, array $payload, Server $server, $expectedResult, bool $exception = false)
+    public function testInstallService(ServiceContract $service, array $payload, $server, $expectedResult, bool $exception = false)
     {
         $services = new ServicesManager();
 
@@ -41,12 +41,78 @@ class ServicesTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    public static function fakeServer(Closure $apiCallback = null): Server
+    /**
+     * @dataProvider uninstallServiceDataProvider
+     */
+    public function testUninstallService(ServiceContract $service, $server, $expectedResult, bool $exception = false)
+    {
+        $services = new ServicesManager();
+
+        if ($exception === true) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $result = $services->uninstall($service)->on($server);
+        $this->assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider rebootServiceDataProvider
+     */
+    public function testRebootService(ServiceContract $service, $server, $expectedResult, bool $exception = false)
+    {
+        $services = new ServicesManager();
+
+        if ($exception === true) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $result = $services->reboot($service)->on($server);
+        $this->assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider stopServiceDataProvider
+     */
+    public function testStopService(ServiceContract $service, $server, $expectedResult, bool $exception = false)
+    {
+        $services = new ServicesManager();
+
+        if ($exception === true) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $result = $services->stop($service)->on($server);
+        $this->assertSame($expectedResult, $result);
+    }
+
+    public static function fakeServer(Closure $apiCallback = null, array $replaceServerData = []): Server
     {
         $api = Api::fake($apiCallback);
-        $server = new Server($api, Api::serverData());
+        $server = new Server($api, Api::serverData($replaceServerData));
 
         return $server;
+    }
+
+    public function multipleFakeServers(int $number, Closure $callback = null)
+    {
+        $servers = [];
+
+        for ($i = 0; $i < $number; ++$i) {
+            $servers[] = static::fakeServer(
+                function ($http) use ($i, $callback) {
+                    if (!is_null($callback)) {
+                        $callback($http, $i + 1);
+                    }
+                },
+                [
+                    'id' => $i + 1,
+                    'name' => 'server'.($i + 1),
+                ]
+            );
+        }
+
+        return $servers;
     }
 
     public function installServiceDataProvider(): array
@@ -102,6 +168,157 @@ class ServicesTest extends TestCase
                 'server' => static::fakeServer(),
                 'expectedResult' => false,
                 'exception' => true,
+            ],
+        ];
+    }
+
+    public function uninstallServiceDataProvider(): array
+    {
+        return [
+            [
+                'service' => new BlackfireService(),
+                'server' => static::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', '/api/v1/servers/1/blackfire/remove', ['form_params' => []])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'expectedResult' => true,
+            ],
+            [
+                'service' => new PapertrailService(),
+                'server' => static::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', '/api/v1/servers/1/papertrail/remove', ['form_params' => []])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'expectedResult' => true,
+            ],
+            [
+                'service' => new MysqlService(),
+                'server' => static::fakeServer(),
+                'expectedResult' => false,
+                'exception' => true,
+            ],
+            [
+                'service' => new NginxService(),
+                'server' => static::fakeServer(),
+                'expectedResult' => false,
+                'exception' => true,
+            ],
+            [
+                'service' => new PostgresService(),
+                'server' => static::fakeServer(),
+                'expectedResult' => false,
+                'exception' => true,
+            ],
+        ];
+    }
+
+    public function rebootServiceDataProvider(): array
+    {
+        return $this->simpleServicesCommand('reboot');
+    }
+
+    public function stopServiceDataProvider(): array
+    {
+        return $this->simpleServicesCommand('stop');
+    }
+
+    public function simpleServicesCommand($command): array
+    {
+        return [
+            // Single server.
+            [
+                'service' => new BlackfireService(),
+                'server' => static::fakeServer(),
+                'expectedResult' => false,
+                'exception' => true,
+            ],
+            [
+                'service' => new PapertrailService(),
+                'server' => static::fakeServer(),
+                'expectedResult' => false,
+                'exception' => true,
+            ],
+            [
+                'service' => new MysqlService(),
+                'server' => static::fakeServer(function ($http) use ($command) {
+                    $http->shouldReceive('request')
+                        ->with('POST', '/api/v1/servers/1/mysql/'.$command, ['form_params' => []])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'expectedResult' => true,
+            ],
+            [
+                'service' => new NginxService(),
+                'server' => static::fakeServer(function ($http) use ($command) {
+                    $http->shouldReceive('request')
+                        ->with('POST', '/api/v1/servers/1/nginx/'.$command, ['form_params' => []])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'expectedResult' => true,
+            ],
+            [
+                'service' => new PostgresService(),
+                'server' => static::fakeServer(function ($http) use ($command) {
+                    $http->shouldReceive('request')
+                        ->with('POST', '/api/v1/servers/1/postgres/'.$command, ['form_params' => []])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'expectedResult' => true,
+            ],
+
+            // Multiple servers.
+            [
+                'service' => new BlackfireService(),
+                'server' => static::multipleFakeServers(3),
+                'expectedResult' => false,
+                'exception' => true,
+            ],
+            [
+                'service' => new PapertrailService(),
+                'server' => static::multipleFakeServers(3),
+                'expectedResult' => false,
+                'exception' => true,
+            ],
+            [
+                'service' => new MysqlService(),
+                'server' => static::multipleFakeServers(3, function ($http, $serverId) use ($command) {
+                    $http->shouldReceive('request')
+                        ->with('POST', '/api/v1/servers/'.$serverId.'/mysql/'.$command, ['form_params' => []])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'expectedResult' => [
+                    'server1' => true,
+                    'server2' => true,
+                    'server3' => true,
+                ],
+            ],
+            [
+                'service' => new NginxService(),
+                'server' => static::multipleFakeServers(3, function ($http, $serverId) use ($command) {
+                    $http->shouldReceive('request')
+                        ->with('POST', '/api/v1/servers/'.$serverId.'/nginx/'.$command, ['form_params' => []])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'expectedResult' => [
+                    'server1' => true,
+                    'server2' => true,
+                    'server3' => true,
+                ],
+            ],
+            [
+                'service' => new PostgresService(),
+                'server' => static::multipleFakeServers(3, function ($http, $serverId) use ($command) {
+                    $http->shouldReceive('request')
+                        ->with('POST', '/api/v1/servers/'.$serverId.'/postgres/'.$command, ['form_params' => []])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'expectedResult' => [
+                    'server1' => true,
+                    'server2' => true,
+                    'server3' => true,
+                ],
             ],
         ];
     }

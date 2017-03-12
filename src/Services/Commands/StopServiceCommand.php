@@ -11,4 +11,12 @@ class StopServiceCommand extends AbstractServiceCommand
     {
         return 'stop';
     }
+
+    /**
+     * @{inheritdoc}
+     */
+    public function runnable()
+    {
+        return $this->service->stoppable();
+    }
 }

@@ -11,4 +11,12 @@ class RebootServiceCommand extends AbstractServiceCommand
     {
         return 'reboot';
     }
+
+    /**
+     * @{inheritdoc}
+     */
+    public function runnable()
+    {
+        return $this->service->rebootable();
+    }
 }

@@ -29,4 +29,20 @@ class BlackfireService extends AbstractService implements ServiceContract
     {
         return true;
     }
+
+    /**
+     * @{inheritdoc}
+     */
+    public function rebootable()
+    {
+        return false;
+    }
+
+    /**
+     * @{inheritdoc}
+     */
+    public function stoppable()
+    {
+        return false;
+    }
 }

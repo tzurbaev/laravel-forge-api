@@ -24,4 +24,18 @@ interface ServiceContract
      * @return bool
      */
     public function uninstallable();
+
+    /**
+     * Determines if service can be rebooted.
+     *
+     * @return bool
+     */
+    public function rebootable();
+
+    /**
+     * Determines if service can be stopped.
+     *
+     * @return bool
+     */
+    public function stoppable();
 }

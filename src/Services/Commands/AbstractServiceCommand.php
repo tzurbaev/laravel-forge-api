@@ -20,7 +20,7 @@ abstract class AbstractServiceCommand
      *
      * @var array
      */
-    protected $payload;
+    protected $payload = [];
 
     /**
      * @param \Laravel\Forge\Contracts\ServiceContract $service
