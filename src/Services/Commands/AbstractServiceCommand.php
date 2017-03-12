@@ -118,6 +118,22 @@ abstract class AbstractServiceCommand
     }
 
     /**
+     * Alias for "on" command.
+     *
+     * @param array|\Laravel\Forge\Server $server
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @see \Laravel\Forge\Services\Commands\AbstractServiceCommand::on
+     *
+     * @return bool|array
+     */
+    public function from($server)
+    {
+        return $this->on($server);
+    }
+
+    /**
      * Executes command on given server.
      *
      * @return bool

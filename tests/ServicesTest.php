@@ -52,7 +52,7 @@ class ServicesTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $result = $services->uninstall($service)->on($server);
+        $result = $services->uninstall($service)->from($server);
         $this->assertSame($expectedResult, $result);
     }
 
