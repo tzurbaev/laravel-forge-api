@@ -15,7 +15,7 @@ trait LazyArrayAccess
     {
         $this->checkLazyLoad();
 
-        return isset($this->items[$key]);
+        return isset($this->items[$offset]);
     }
 
     /**

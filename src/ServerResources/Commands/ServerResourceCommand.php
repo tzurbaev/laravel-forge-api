@@ -51,11 +51,9 @@ abstract class ServerResourceCommand extends ServerCommand
     /**
      * HTTP request method.
      *
-     * @param \Laravel\Forge\Server $server
-     *
      * @return string
      */
-    public function requestMethod(Server $server)
+    public function requestMethod()
     {
         if ($this->isListCommand()) {
             return 'GET';
@@ -112,7 +110,7 @@ abstract class ServerResourceCommand extends ServerCommand
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \Laravel\Forge\Server               $server
      *
-     * @return \Laravel\Forge\ServerResources\ServerResource
+     * @return \Laravel\Forge\ServerResources\ServerResource|array|bool|string
      */
     public function handleResponse(ResponseInterface $response, Server $server)
     {

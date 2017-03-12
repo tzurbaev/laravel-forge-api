@@ -34,7 +34,7 @@ class Site extends ServerResource
      */
     public function domain()
     {
-        return $this->data['name'];
+        return $this->getData('name');
     }
 
     /**
@@ -44,7 +44,7 @@ class Site extends ServerResource
      */
     public function projectType()
     {
-        return $this->data['project_type'];
+        return $this->getData('project_type');
     }
 
     /**

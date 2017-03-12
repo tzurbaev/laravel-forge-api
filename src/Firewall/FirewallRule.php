@@ -33,7 +33,7 @@ class FirewallRule extends ServerResource
      */
     public function name()
     {
-        return $this->data['name'];
+        return $this->getData('name');
     }
 
     /**
@@ -43,7 +43,7 @@ class FirewallRule extends ServerResource
      */
     public function port()
     {
-        return intval($this->data['port'] ?? 0);
+        return intval($this->getData('port', 0));
     }
 
     /**
@@ -53,6 +53,6 @@ class FirewallRule extends ServerResource
      */
     public function ipAddress()
     {
-        return $this->data['ip_address'];
+        return $this->getData('ip_address');
     }
 }

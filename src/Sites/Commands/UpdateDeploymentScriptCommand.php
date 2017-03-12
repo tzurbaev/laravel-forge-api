@@ -22,7 +22,7 @@ class UpdateDeploymentScriptCommand extends SiteResourceCommand
      *
      * @return string
      */
-    public function requestMethod(Server $server)
+    public function requestMethod()
     {
         return 'PUT';
     }

@@ -33,7 +33,7 @@ class MysqlUser extends ServerResource
      */
     public function name()
     {
-        return $this->data['name'];
+        return $this->getData('name');
     }
 
     /**
@@ -43,7 +43,7 @@ class MysqlUser extends ServerResource
      */
     public function databases(): array
     {
-        return $this->data['databases'] ?? [];
+        return $this->getData('databases', []);
     }
 
     /**

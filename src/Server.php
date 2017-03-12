@@ -20,6 +20,13 @@ class Server implements ArrayAccess
     protected $api;
 
     /**
+     * Server data.
+     *
+     * @var array
+     */
+    protected $data;
+
+    /**
      * Create new server instance.
      *
      * @param \Laravel\Forge\ApiProvider $api  = null

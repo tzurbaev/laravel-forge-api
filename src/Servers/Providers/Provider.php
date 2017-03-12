@@ -3,7 +3,6 @@
 namespace Laravel\Forge\Servers\Providers;
 
 use Laravel\Forge\Server;
-use Laravel\Forge\Regions;
 use InvalidArgumentException;
 use Laravel\Forge\ApiProvider;
 
@@ -81,7 +80,7 @@ abstract class Provider
     /**
      * Validates payload before sending to Forge API.
      *
-     * @return bool
+     * @return bool|array
      */
     public function validate()
     {

@@ -33,6 +33,6 @@ class SshKey extends ServerResource
      */
     public function name()
     {
-        return $this->data['name'];
+        return $this->getData('name');
     }
 }

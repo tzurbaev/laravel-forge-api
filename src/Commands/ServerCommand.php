@@ -46,7 +46,7 @@ abstract class ServerCommand
      *
      * @return string
      */
-    public function requestMethod(Server $server)
+    public function requestMethod()
     {
         return 'POST';
     }
@@ -68,7 +68,7 @@ abstract class ServerCommand
      *
      * @return array
      */
-    public function requestOptions(Server $server)
+    public function requestOptions()
     {
         return [
             'form_params' => $this->payload,
@@ -231,9 +231,9 @@ abstract class ServerCommand
     protected function execute(Server $server)
     {
         return $server->getApi()->getClient()->request(
-            $this->requestMethod($server),
+            $this->requestMethod(),
             $this->requestUrl($server),
-            $this->requestOptions($server)
+            $this->requestOptions()
         );
     }
 }

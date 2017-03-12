@@ -30,6 +30,9 @@ class Custom extends Provider
         return true;
     }
 
+    /**
+     * @{inheritdoc}
+     */
     public function validate()
     {
         $errors = [];

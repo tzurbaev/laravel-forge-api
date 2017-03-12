@@ -33,7 +33,7 @@ class Daemon extends ServerResource
      */
     public function command()
     {
-        return $this->data['command'];
+        return $this->getData('command');
     }
 
     /**
@@ -43,7 +43,7 @@ class Daemon extends ServerResource
      */
     public function user()
     {
-        return $this->data['user'];
+        return $this->getData('user');
     }
 
     /**

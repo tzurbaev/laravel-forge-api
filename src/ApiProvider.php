@@ -22,6 +22,13 @@ class ApiProvider
     private $token;
 
     /**
+     * HTTP client.
+     *
+     * @var \GuzzleHttp\ClientInterface
+     */
+    protected $client;
+
+    /**
      * Create new API provider instance.
      *
      * @param string $token

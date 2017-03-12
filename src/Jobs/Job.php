@@ -33,7 +33,7 @@ class Job extends ServerResource
      */
     public function command()
     {
-        return $this->data['command'];
+        return $this->getData('command');
     }
 
     /**
@@ -43,7 +43,7 @@ class Job extends ServerResource
      */
     public function frequency()
     {
-        return $this->data['frequency'];
+        return $this->getData('frequency');
     }
 
     /**
@@ -53,7 +53,7 @@ class Job extends ServerResource
      */
     public function user()
     {
-        return $this->data['user'];
+        return $this->getData('user');
     }
 
     /**
@@ -63,6 +63,6 @@ class Job extends ServerResource
      */
     public function cron()
     {
-        return $this->data['cron'];
+        return $this->getData('cron');
     }
 }

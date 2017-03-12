@@ -57,7 +57,7 @@ abstract class SiteResourceCommand extends SiteCommand
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \Laravel\Forge\Server               $server
      *
-     * @return bool
+     * @return bool|string
      */
     public function handleResponse(ResponseInterface $response, Server $server)
     {

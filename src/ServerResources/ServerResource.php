@@ -21,6 +21,13 @@ abstract class ServerResource implements ArrayAccess
     protected $server;
 
     /**
+     * Resource data.
+     *
+     * @var array
+     */
+    protected $data = [];
+
+    /**
      * Create new resource instance.
      *
      * @param \Laravel\Forge\Server $server
@@ -85,6 +92,19 @@ abstract class ServerResource implements ArrayAccess
     }
 
     /**
+     * Get resource data.
+     *
+     * @param string|int $key
+     * @param mixed      $default = null
+     *
+     * @return mixed|null
+     */
+    public function getData($key, $default = null)
+    {
+        return $this->data[$key] ?? $default;
+    }
+
+    /**
      * Resource API URL.
      *
      * @return string
@@ -105,7 +125,7 @@ abstract class ServerResource implements ArrayAccess
      */
     public function id(): int
     {
-        return intval($this->data['id'] ?? 0);
+        return intval($this->getData('id', 0));
     }
 
     /**

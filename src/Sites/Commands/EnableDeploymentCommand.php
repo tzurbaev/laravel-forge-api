@@ -2,8 +2,6 @@
 
 namespace Laravel\Forge\Sites\Commands;
 
-use Laravel\Forge\Server;
-
 class EnableDeploymentCommand extends SiteResourceCommand
 {
     /**
@@ -21,7 +19,7 @@ class EnableDeploymentCommand extends SiteResourceCommand
      *
      * @return string
      */
-    public function requestMethod(Server $server)
+    public function requestMethod()
     {
         return 'POST';
     }
