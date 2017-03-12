@@ -201,61 +201,20 @@ class ServersTests extends TestCase
         $this->assertSame($expectedResult, $server->{$method}());
     }
 
-    public function serverData(array $replace = [])
-    {
-        return array_merge([
-            'id' => 1,
-            'name' => 'northrend',
-            'size' => '512MB',
-            'region' => 'Amsterdam 2',
-            'php_version' => 'php71',
-            'ip_address' => '37.139.3.148',
-            'private_ip_address' => '10.129.3.252',
-            'blackfire_status' => null,
-            'papertail_status' => null,
-            'revoked' => false,
-            'created_at' => '2016-12-15 18:38:18',
-            'is_ready' => true,
-            'network' => [],
-        ], $replace);
-    }
-
     public function serversListDataProvider(): array
     {
         return [
             [
                 'json' => [
                     'servers' => [
-                        [
-                            'id' => 1,
-                            'name' => 'northrend',
-                            'size' => '512MB',
-                            'region' => 'Amsterdam 2',
-                            'php_version' => 'php71',
-                            'ip_address' => '37.139.3.148',
-                            'private_ip_address' => '10.129.3.252',
-                            'blackfire_status' => null,
-                            'papertail_status' => null,
-                            'revoked' => false,
-                            'created_at' => '2016-12-15 18:38:18',
-                            'is_ready' => true,
-                            'network' => [],
-                        ],
-                        [
+                        Api::serverData(),
+                        Api::serverData([
                             'id' => 2,
                             'name' => 'azeroth',
-                            'size' => '512MB',
-                            'region' => 'Amsterdam 2',
-                            'php_version' => 'php71',
                             'ip_address' => '37.139.3.149',
                             'private_ip_address' => '10.129.3.253',
-                            'blackfire_status' => null,
-                            'papertail_status' => null,
-                            'revoked' => false,
                             'created_at' => '2016-12-15 18:38:19',
-                            'is_ready' => true,
-                            'network' => [],
-                        ],
+                        ]),
                     ],
                 ],
             ],
@@ -266,7 +225,7 @@ class ServersTests extends TestCase
     {
         return [
             [
-                'data' => $this->serverData(),
+                'data' => Api::serverData(),
             ],
         ];
     }
@@ -284,13 +243,13 @@ class ServersTests extends TestCase
     {
         return [
             [
-                'data' => $this->serverData(),
+                'data' => Api::serverData(),
                 'payload' => [
                     'name' => 'azeroth',
                     'network' => [1, 2],
                     'private_ip_address' => '10.10.10.10',
                 ],
-                'response' => $this->serverData([
+                'response' => Api::serverData([
                     'name' => 'azeroth',
                     'network' => [1, 2],
                     'private_ip_address' => '10.10.10.10',
@@ -303,7 +262,7 @@ class ServersTests extends TestCase
     {
         return [
             [
-                'data' => $this->serverData(),
+                'data' => Api::serverData(),
             ],
         ];
     }
@@ -313,7 +272,7 @@ class ServersTests extends TestCase
         return [
             [
                 'method' => 'reboot',
-                'data' => $this->serverData(),
+                'data' => Api::serverData(),
                 'operation' => [
                     'method' => 'POST',
                     'url' => '/api/v1/servers/1/reboot',
@@ -323,7 +282,7 @@ class ServersTests extends TestCase
             ],
             [
                 'method' => 'revokeAccess',
-                'data' => $this->serverData(),
+                'data' => Api::serverData(),
                 'operation' => [
                     'method' => 'POST',
                     'url' => '/api/v1/servers/1/revoke',
@@ -333,7 +292,7 @@ class ServersTests extends TestCase
             ],
             [
                 'method' => 'reconnect',
-                'data' => $this->serverData(),
+                'data' => Api::serverData(),
                 'operation' => [
                     'method' => 'POST',
                     'url' => '/api/v1/servers/1/reconnect',
@@ -345,7 +304,7 @@ class ServersTests extends TestCase
             ],
             [
                 'method' => 'reactivate',
-                'data' => $this->serverData(),
+                'data' => Api::serverData(),
                 'operation' => [
                     'method' => 'POST',
                     'url' => '/api/v1/servers/1/reactivate',

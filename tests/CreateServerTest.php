@@ -56,9 +56,9 @@ class CreateServerTest extends TestCase
         $this->assertFalse($server->isReady());
     }
 
-    public function payload($provider = 'ocean2', $size = '512MB', $region = 'fra1')
+    public function payload(array $replace = [])
     {
-        return [
+        return array_merge([
             'credential_id' => 1,
             'database' => 'laravel',
             'load_balancer' => 1,
@@ -66,30 +66,17 @@ class CreateServerTest extends TestCase
             'name' => 'northrend',
             'network' => [1, 2, 3],
             'php_version' => 'php71',
-            'provider' => $provider,
-            'region' => $region,
-            'size' => $size,
-        ];
+            'provider' => 'ocean2',
+            'region' => 'fra1',
+            'size' => '512MB',
+        ], $replace);
     }
 
-    public function response($size = '512MB', $region = 'Frankfurt')
+    public function response(array $replace = [])
     {
-        return [
-            'id' => 1,
-            'credential_id' => 1,
-            'name' => 'northrend',
-            'size' => $size,
-            'region' => $region,
-            'php_version' => 'php71',
-            'ip_address' => '37.139.3.148',
-            'private_ip_address' => '10.129.3.252',
-            'blackfire_status' => null,
-            'papertail_status' => null,
-            'revoked' => false,
-            'created_at' => '2016-12-15 18:38:18',
-            'is_ready' => false,
-            'network' => [1, 2, 3],
-        ];
+        $server = Api::serverData(['is_ready' => false]);
+
+        return array_merge($server, $replace);
     }
 
     public function createServerDataProvider(): array
@@ -113,8 +100,15 @@ class CreateServerTest extends TestCase
                 },
             ],
             [
-                'payload' => $this->payload('linode', '1GB', 1),
-                'response' => $this->response('1GB', 'Frankfurt'),
+                'payload' => $this->payload([
+                    'provider' => 'linode',
+                    'size' => '1GB',
+                    'region' => 1,
+                ]),
+                'response' => $this->response([
+                    'size' => '1GB',
+                    'region' => 'Frankfurt',
+                ]),
                 'factory' => function (ForgeServers $servers) {
                     return $servers
                         ->create()
@@ -130,8 +124,15 @@ class CreateServerTest extends TestCase
                 },
             ],
             [
-                'payload' => $this->payload('aws', '1GB', 'us-west-1'),
-                'response' => $this->response('1GB', 'us-west-1'),
+                'payload' => $this->payload([
+                    'provider' => 'aws',
+                    'size' => '1GB',
+                    'region' => 'us-west-1',
+                ]),
+                'response' => $this->response([
+                    'size' => '1GB',
+                    'region' => 'us-west-1'
+                ]),
                 'factory' => function (ForgeServers $servers) {
                     return $servers
                         ->create()
