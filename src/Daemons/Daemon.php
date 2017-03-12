@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Daemons;
 
-use Laravel\Forge\Servers\ServerResource;
+use Laravel\Forge\ServerResources\ServerResource;
 
 class Daemon extends ServerResource
 {

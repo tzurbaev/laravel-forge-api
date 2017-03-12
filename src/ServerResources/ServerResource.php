@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Forge\Servers;
+namespace Laravel\Forge\ServerResources;
 
 use ArrayAccess;
 use Laravel\Forge\Server;
