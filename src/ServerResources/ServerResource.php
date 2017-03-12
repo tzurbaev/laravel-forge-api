@@ -5,6 +5,7 @@ namespace Laravel\Forge\ServerResources;
 use ArrayAccess;
 use Laravel\Forge\Server;
 use InvalidArgumentException;
+use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Laravel\Forge\Traits\ArrayAccessTrait;
 
@@ -74,6 +75,16 @@ abstract class ServerResource implements ArrayAccess
     }
 
     /**
+     * HTTP Client from API provider.
+     *
+     * @return \GuzzleHttp\ClientInterface
+     */
+    public function getHttpClient(): ClientInterface
+    {
+        return $this->getServer()->getApi()->getClient();
+    }
+
+    /**
      * Resource API URL.
      *
      * @return string
@@ -104,11 +115,9 @@ abstract class ServerResource implements ArrayAccess
      */
     public function update(array $payload): bool
     {
-        $response = $this->server->getApi()->getClient()->request(
-            'PUT',
-            $this->apiUrl(),
-            ['form_params' => $payload]
-        );
+        $response = $this->getHttpClient()->request('PUT', $this->apiUrl(), [
+            'form_params' => $payload,
+        ]);
 
         $json = json_decode((string) $response->getBody(), true);
         $resource = static::resourceType();
@@ -129,10 +138,7 @@ abstract class ServerResource implements ArrayAccess
      */
     public function delete()
     {
-        $this->server->getApi()->getClient()->request(
-            'DELETE',
-            $this->apiUrl()
-        );
+        $this->getHttpClient()->request('DELETE', $this->apiUrl());
 
         return true;
     }

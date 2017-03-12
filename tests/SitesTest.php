@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 use Laravel\Tests\Forge\Helpers\Api;
 use Laravel\Forge\Sites\SitesManager;
 use Laravel\Tests\Forge\Helpers\FakeResponse;
+use Laravel\Forge\Contracts\ApplicationContract;
+use Laravel\Forge\Sites\Applications\GitApplication;
+use Laravel\Forge\Sites\Applications\WordPressApplication;
 
 class SitesTest extends TestCase
 {
@@ -64,9 +67,37 @@ class SitesTest extends TestCase
     }
 
     /**
+     * @dataProvider installApplicationDataProvider
+     */
+    public function testInstallApplication(Site $site, ApplicationContract $app, $expectedResult, bool $exception = false)
+    {
+        if ($exception === true) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $result = $site->install($app);
+
+        $this->assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider uninstallApplicationDataProvider
+     */
+    public function testUninstallApplication(Site $site, ApplicationContract $app, $expectedResult, bool $exception = false)
+    {
+        if ($exception === true) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $result = $site->uninstall($app);
+
+        $this->assertSame($expectedResult, $result);
+    }
+
+    /**
      * @dataProvider deleteSiteDataProvider
      */
-    public function testDeleteUser(Site $site, $expectedResult, bool $exception = false)
+    public function testDeleteSite(Site $site, $expectedResult, bool $exception = false)
     {
         if ($exception === true) {
             $this->expectException(InvalidArgumentException::class);
@@ -210,6 +241,127 @@ class SitesTest extends TestCase
                     $this->response()
                 ),
                 'payload' => ['directory' => '/some/path'],
+                'expectedResult' => true,
+            ],
+        ];
+    }
+
+    public function installApplicationDataProvider(): array
+    {
+        return [
+            [
+                'site' => new Site(
+                    Api::fakeServer(function ($http) {
+                        $http->shouldReceive('request')
+                            ->with('POST', 'servers/1/sites/1/git', [
+                                'form_params' => [
+                                    'provider' => 'github',
+                                    'repository' => 'username/repository',
+                                ],
+                            ])
+                            ->andReturn(FakeResponse::fake()->toResponse());
+                    }),
+                    $this->response()
+                ),
+                'app' => (new GitApplication())->fromGithub('username/repository'),
+                'expectedResult' => true,
+            ],
+            [
+                'site' => new Site(
+                    Api::fakeServer(function ($http) {
+                        $http->shouldReceive('request')
+                            ->with('POST', 'servers/1/sites/1/git', [
+                                'form_params' => [
+                                    'provider' => 'bitbucket',
+                                    'repository' => 'username/repository',
+                                ],
+                            ])
+                            ->andReturn(FakeResponse::fake()->toResponse());
+                    }),
+                    $this->response()
+                ),
+                'app' => (new GitApplication())->fromBitbucket('username/repository'),
+                'expectedResult' => true,
+            ],
+            [
+                'site' => new Site(
+                    Api::fakeServer(function ($http) {
+                        $http->shouldReceive('request')
+                            ->with('POST', 'servers/1/sites/1/git', [
+                                'form_params' => [
+                                    'provider' => 'gitlab',
+                                    'repository' => 'username/repository',
+                                ],
+                            ])
+                            ->andReturn(FakeResponse::fake()->toResponse());
+                    }),
+                    $this->response()
+                ),
+                'app' => (new GitApplication())->fromGitlab('username/repository'),
+                'expectedResult' => true,
+            ],
+            [
+                'site' => new Site(
+                    Api::fakeServer(function ($http) {
+                        $http->shouldReceive('request')
+                            ->with('POST', 'servers/1/sites/1/git', [
+                                'form_params' => [
+                                    'provider' => 'custom',
+                                    'repository' => 'git@example.org:username/repository.git',
+                                ],
+                            ])
+                            ->andReturn(FakeResponse::fake()->toResponse());
+                    }),
+                    $this->response()
+                ),
+                'app' => (new GitApplication())->fromGit('git@example.org:username/repository.git'),
+                'expectedResult' => true,
+            ],
+            [
+                'site' => new Site(
+                    Api::fakeServer(function ($http) {
+                        $http->shouldReceive('request')
+                            ->with('POST', 'servers/1/sites/1/wordpress', [
+                                'form_params' => [
+                                    'database' => 'forge',
+                                    'user' => 'forge',
+                                ],
+                            ])
+                            ->andReturn(FakeResponse::fake()->toResponse());
+                    }),
+                    $this->response()
+                ),
+                'app' => (new WordPressApplication())->usingDatabase('forge', 'forge'),
+                'expectedResult' => true,
+            ],
+        ];
+    }
+
+    public function uninstallApplicationDataProvider(): array
+    {
+        return [
+            [
+                'site' => new Site(
+                    Api::fakeServer(function ($http) {
+                        $http->shouldReceive('request')
+                            ->with('DELETE', 'servers/1/sites/1/git')
+                            ->andReturn(FakeResponse::fake()->toResponse());
+                    }),
+                    $this->response()
+                ),
+                'app' => new GitApplication(),
+                'expectedResult' => true,
+            ],
+            [
+                'site' => new Site(
+                    Api::fakeServer(function ($http) {
+                        $http->shouldReceive('request')
+                            ->with('DELETE', 'servers/1/sites/1/wordpress')
+                            ->andReturn(FakeResponse::fake()->toResponse());
+                    }),
+                    $this->response()
+                ),
+                'app' => new WordPressApplication(),
                 'expectedResult' => true,
             ],
         ];

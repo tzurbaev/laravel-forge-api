@@ -53,10 +53,7 @@ class Daemon extends ServerResource
      */
     public function restart()
     {
-        $this->getServer()
-            ->getApi()
-            ->getClient()
-            ->request('POST', $this->apiUrl('/restart'));
+        $this->getHttpClient()->request('POST', $this->apiUrl('/restart'));
 
         return true;
     }
