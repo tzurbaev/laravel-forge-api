@@ -3,9 +3,9 @@
 namespace Laravel\Forge\Sites;
 
 use Laravel\Forge\Contracts\ApplicationContract;
-use Laravel\Forge\Resource;
+use Laravel\Forge\ApiResource;
 
-class Site extends Resource
+class Site extends ApiResource
 {
     /**
      * Resource type.

@@ -2,9 +2,9 @@
 
 namespace Laravel\Forge\Services\Mysql;
 
-use Laravel\Forge\Resource;
+use Laravel\Forge\ApiResource;
 
-class MysqlUser extends Resource
+class MysqlUser extends ApiResource
 {
     /**
      * Resource type.

@@ -2,9 +2,9 @@
 
 namespace Laravel\Forge\Jobs;
 
-use Laravel\Forge\Resource;
+use Laravel\Forge\ApiResource;
 
-class Job extends Resource
+class Job extends ApiResource
 {
     /**
      * Resource type.

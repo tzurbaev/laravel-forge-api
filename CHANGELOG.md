@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Workers Management.
 
 ### Changed
-- All SDK entities are now extended from base `Laravel\Forge\Resource` class;
+- All SDK entities are now extended from base `Laravel\Forge\ApiResource` class;
 - Resource commands system was reworked and now any Resource can execute commands (previously only Server had this possibility);
 - `enable`, `disable`, `reset`, `log` and `deploy` methods of `DeploymentManager` class have new signatures;
 - `DeploymentManager::getScript` method was renamed to `DeploymentManager::script`;

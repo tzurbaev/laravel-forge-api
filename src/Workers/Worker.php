@@ -2,9 +2,9 @@
 
 namespace Laravel\Forge\Workers;
 
-use Laravel\Forge\Resource;
+use Laravel\Forge\ApiResource;
 
-class Worker extends Resource
+class Worker extends ApiResource
 {
     /**
      * Resource type.

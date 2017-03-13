@@ -2,9 +2,9 @@
 
 namespace Laravel\Forge\Firewall;
 
-use Laravel\Forge\Resource;
+use Laravel\Forge\ApiResource;
 
-class FirewallRule extends Resource
+class FirewallRule extends ApiResource
 {
     /**
      * Resource type.

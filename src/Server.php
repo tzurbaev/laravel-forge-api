@@ -5,7 +5,7 @@ namespace Laravel\Forge;
 use Laravel\Forge\Exceptions\Servers\PublicKeyWasNotFound;
 use Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException;
 
-class Server extends Resource
+class Server extends ApiResource
 {
     /**
      * Resource type.

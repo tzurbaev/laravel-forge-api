@@ -12,7 +12,7 @@ use Laravel\Forge\Contracts\ResourceContract;
 use Laravel\Forge\Exceptions\Resources\DeleteResourceException;
 use Laravel\Forge\Exceptions\Resources\UpdateResourceException;
 
-abstract class Resource implements ArrayAccess, ResourceContract
+abstract class ApiResource implements ArrayAccess, ResourceContract
 {
     use ArrayAccessTrait;
 
@@ -27,7 +27,7 @@ abstract class Resource implements ArrayAccess, ResourceContract
     protected $data = [];
 
     /**
-     * @var \Laravel\Forge\Resource
+     * @var \Laravel\Forge\ApiResource
      */
     protected $owner;
 
@@ -36,9 +36,9 @@ abstract class Resource implements ArrayAccess, ResourceContract
      *
      * @param \Laravel\Forge\ApiProvider $api   = null
      * @param array                      $data  = []
-     * @param \Laravel\Forge\Resource    $owner
+     * @param \Laravel\Forge\ApiResource $owner
      */
-    public function __construct(ApiProvider $api = null, array $data = [], Resource $owner = null)
+    public function __construct(ApiProvider $api = null, array $data = [], ApiResource $owner = null)
     {
         $this->api = $api;
         $this->data = $data;
@@ -76,9 +76,9 @@ abstract class Resource implements ArrayAccess, ResourceContract
      *
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \Laravel\Forge\ApiProvider          $api
-     * @param \Laravel\Forge\Resource             $owner    = null
+     * @param \Laravel\Forge\ApiResource          $owner    = null
      */
-    public static function createFromResponse(ResponseInterface $response, ApiProvider $api, Resource $owner = null)
+    public static function createFromResponse(ResponseInterface $response, ApiProvider $api, ApiResource $owner = null)
     {
         $json = json_decode((string) $response->getBody(), true);
         $resourceType = static::resourceType();
@@ -113,7 +113,7 @@ abstract class Resource implements ArrayAccess, ResourceContract
     /**
      * Get current resource owner.
      *
-     * @return \Laravel\Forge\Resource|null
+     * @return \Laravel\Forge\ApiResource|null
      */
     public function resourceOwner()
     {

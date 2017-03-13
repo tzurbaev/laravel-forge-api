@@ -2,7 +2,6 @@
 
 namespace Laravel\Forge\Deployment\Commands;
 
-use Laravel\Forge\Resource;
 use Laravel\Forge\Commands\ResourceCommand;
 use Laravel\Forge\Commands\RawBodyResponseTrait;
 use Laravel\Forge\Commands\NotSupportingResourceClassTrait;

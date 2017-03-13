@@ -2,9 +2,9 @@
 
 namespace Laravel\Forge\SshKeys;
 
-use Laravel\Forge\Resource;
+use Laravel\Forge\ApiResource;
 
-class SshKey extends Resource
+class SshKey extends ApiResource
 {
     /**
      * Resource type.

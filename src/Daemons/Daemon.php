@@ -2,9 +2,9 @@
 
 namespace Laravel\Forge\Daemons;
 
-use Laravel\Forge\Resource;
+use Laravel\Forge\ApiResource;
 
-class Daemon extends Resource
+class Daemon extends ApiResource
 {
     /**
      * Resource type.
