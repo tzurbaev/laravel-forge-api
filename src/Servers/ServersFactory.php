@@ -52,7 +52,7 @@ class ServersFactory
      *
      * @param string $provider = null
      */
-    public function resetDefaultCredential(string $provider = null)
+    public static function resetDefaultCredential(string $provider = null)
     {
         if (is_null($provider)) {
             static::$defaultCredentials = [];
