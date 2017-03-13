@@ -53,4 +53,12 @@ Alternatively, you can specify the SDK as a dependency in your project's existin
 }
 ```
 
+# Laravel Integration
+
+1. Add `Laravel\Forge\Laravel\ForgeServiceProvider` to your providers list (`config/app.php`);
+2. Run `php artisan vendor:publish --provider="Laravel\Forge\Laravel\ForgeServiceProvider"` command;
+3. Edit `config/forge.php` configuration file or add token to `FORGE_TOKEN` environment variable (`.env` file);
+
+Now you should be able to run `php artisan forge:credentials` command to list your Forge credentials and `php artisan forge:servers` to list, create and delete servers.
+
 [Back to Table of Contents](./readme.md)

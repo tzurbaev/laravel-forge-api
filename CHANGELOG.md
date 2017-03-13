@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Allow to set default credential ID for specific server providers;
 - `hasPayload` method added to `Provider` class;
 - Workers Management;
-- `Forge::credentials` method to get stored credentials.
+- `Forge::credentials` method to get stored credentials;
+- Laravel Integration: service provider and sample console commands.
 
 ### Changed
 - `ForgeServers` class was renamed to `Forge`;
