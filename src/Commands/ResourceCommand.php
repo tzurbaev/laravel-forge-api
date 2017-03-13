@@ -6,7 +6,7 @@ use Laravel\Forge\Contracts\ResourceContract;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 
-abstract class ResourceCommand extends Command
+abstract class ResourceCommand extends ApiCommand
 {
     /**
      * Resource ID.

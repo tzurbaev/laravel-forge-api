@@ -1,12 +1,11 @@
 <?php
 
-namespace Laravel\Forge\Services\Commands;
+namespace Laravel\Forge\Commands;
 
-use Laravel\Forge\Commands\Command;
 use Laravel\Forge\Contracts\ServiceContract;
 use Laravel\Forge\Contracts\ResourceContract;
 
-abstract class ServiceCommand extends Command
+abstract class ServiceCommand extends ApiCommand
 {
     /**
      * Associated service.

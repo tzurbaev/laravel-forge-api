@@ -43,8 +43,6 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
         $this->api = $api;
         $this->data = $data;
         $this->owner = $owner;
-
-        $this->initializeResource();
     }
 
     /**
@@ -60,16 +58,6 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
      * @return string
      */
     abstract public function resourcePath();
-
-    /**
-     * Initialize new resource.
-     *
-     * @return mixed
-     */
-    protected function initializeResource()
-    {
-        return $this;
-    }
 
     /**
      * Create new Resource instance from HTTP response.
@@ -262,13 +250,24 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
     }
 
     /**
+     * Throw resource exception.
+     *
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param string                              $action
+     * @param string                              $exceptionClass
+     *
      * @throws \Exception
      */
-    protected function throwResourceException(ResponseInterface $response, string $action, string $className)
+    protected function throwResourceException(ResponseInterface $response, string $action, string $exceptionClass)
     {
-        $message = 'Unable to '.$action.' resource (type: '.static::resourceType().', ID: '.$this->id().'). ';
-        $message .= 'Server response: "'.((string) $response->getBody()).'".';
+        $message = 'Unable to '.$action.' resource (type: '.static::resourceType().', ID: '.$this->id().').';
 
-        throw new $className($message, $response->getStatusCode());
+        if (is_null($response)) {
+            throw new InvalidArgumentException($message);
+        }
+
+        $message .= ' Server response: "'.((string) $response->getBody()).'".';
+
+        throw new $exceptionClass($message, $response->getStatusCode());
     }
 }

@@ -5,7 +5,7 @@ namespace Laravel\Forge\Commands;
 use Laravel\Forge\Contracts\ResourceContract;
 use InvalidArgumentException;
 
-abstract class Command
+abstract class ApiCommand
 {
     /**
      * Command payload.

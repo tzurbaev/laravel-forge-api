@@ -2,6 +2,8 @@
 
 namespace Laravel\Forge\Services\Commands;
 
+use Laravel\Forge\Commands\ServiceCommand;
+
 class UninstallServiceCommand extends ServiceCommand
 {
     /**
