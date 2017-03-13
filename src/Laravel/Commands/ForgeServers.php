@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use GuzzleHttp\Exception\RequestException;
 use Laravel\Forge\Servers\Providers\Provider;
 
-class ForgeServersCommand extends Command
+class ForgeServers extends Command
 {
     /**
      * The name and signature of the console command.
@@ -203,7 +203,7 @@ class ForgeServersCommand extends Command
             return $this->error((string) $response->getBody());
         }
 
-        $this->info('Great! Your new server was created!');
+        $this->info('Great! Your new server "'.$server->name().'" was created!');
         $this->info('Please allow up to 10-15 minutes to finish server provision.');
     }
 
