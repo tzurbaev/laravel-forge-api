@@ -11,7 +11,7 @@ use GuzzleHttp\Exception\RequestException;
 use Laravel\Forge\Traits\AbstractCollection;
 use Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException;
 
-class ForgeServers implements ArrayAccess, Iterator
+class Forge implements ArrayAccess, Iterator
 {
     use AbstractCollection, LazyIterator, LazyArrayAccess;
 

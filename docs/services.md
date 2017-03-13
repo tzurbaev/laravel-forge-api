@@ -17,7 +17,7 @@ By default SDK provides following services:
 # Usage
 
 > Documentation assumes that you've already retrieved
-> server instance from `ForgeServers` collection.
+> server instance from `Forge` collection.
 > 
 > Also, you can perform operations on multiple servers at once
 > (see "Excute commands on multiple servers" section of this page).
@@ -153,16 +153,16 @@ By default, documentation assumes that you're performing operations on single se
 <?php
 
 use Laravel\Forge\ApiProvider;
-use Laravel\Forge\ForgeServers;
+use Laravel\Forge\Forge;
 use Laravel\Forge\Services\ServicesManager;
 
 $api = new ApiProvider('forge-token');
-$forgeServers = new ForgeServers($api);
+$forge = new Forge($api);
 
 $servers = [
-  $forgeServers['database-01'],
-  $forgeServers['database-02'],
-  $forgeServers['database-03'],
+  $forge['database-01'],
+  $forge['database-02'],
+  $forge['database-03'],
 ];
 
 $services = new ServicesManager();

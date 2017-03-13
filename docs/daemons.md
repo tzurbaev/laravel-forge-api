@@ -4,7 +4,7 @@ SDK provides Daemons Manager that allows you to create, list and delete daemons 
 
 # Usage
 
-Documentation assumes that you've already retrieved server instance from `ForgeServers` collection.
+Documentation assumes that you've already retrieved server instance from `Forge` collection.
 
 All operations are performed via `Laravel\Forge\Daemons\DaemonsManager` instance.
 

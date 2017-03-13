@@ -5,7 +5,7 @@ namespace Laravel\Tests\Forge;
 use Closure;
 use Mockery;
 use Laravel\Forge\Server;
-use Laravel\Forge\ForgeServers;
+use Laravel\Forge\Forge;
 use PHPUnit\Framework\TestCase;
 use Laravel\Tests\Forge\Helpers\Api;
 use Laravel\Forge\Servers\Factory;
@@ -47,8 +47,8 @@ class CreateServerTest extends TestCase
                 );
         });
 
-        $servers = new ForgeServers($api);
-        $server = $factory($servers);
+        $forge = new Forge($api);
+        $server = $factory($forge);
 
         $this->assertInstanceOf(Server::class, $server);
         $this->assertSame($payload['name'], $server->name());
@@ -78,8 +78,8 @@ class CreateServerTest extends TestCase
 
         Factory::setDefaultCredential($payload['provider'], $credentialId);
 
-        $servers = new ForgeServers($api);
-        $server = $factory($servers);
+        $forge = new Forge($api);
+        $server = $factory($forge);
 
         Factory::resetDefaultCredential($payload['provider']);
 
@@ -119,8 +119,8 @@ class CreateServerTest extends TestCase
             [
                 'payload' => $this->payload(),
                 'response' => $this->response(),
-                'factory' => function (ForgeServers $servers) {
-                    return $servers
+                'factory' => function (Forge $forge) {
+                    return $forge
                         ->create()
                         ->droplet('northrend')
                         ->withMemoryOf('512MB')
@@ -143,8 +143,8 @@ class CreateServerTest extends TestCase
                     'size' => '1GB',
                     'region' => 'Frankfurt',
                 ]),
-                'factory' => function (ForgeServers $servers) {
-                    return $servers
+                'factory' => function (Forge $forge) {
+                    return $forge
                         ->create()
                         ->linode('northrend')
                         ->withMemoryOf('1GB')
@@ -167,8 +167,8 @@ class CreateServerTest extends TestCase
                     'size' => '1GB',
                     'region' => 'us-west-1'
                 ]),
-                'factory' => function (ForgeServers $servers) {
-                    return $servers
+                'factory' => function (Forge $forge) {
+                    return $forge
                         ->create()
                         ->aws('northrend')
                         ->withMemoryOf('1GB')
@@ -208,8 +208,8 @@ class CreateServerTest extends TestCase
                     'network' => [],
                     'provision_command' => 'echo 1',
                 ],
-                'factory' => function (ForgeServers $servers) {
-                    return $servers
+                'factory' => function (Forge $forge) {
+                    return $forge
                         ->create()
                         ->custom('northrend')
                         ->withMemoryOf('5GB')
@@ -230,8 +230,8 @@ class CreateServerTest extends TestCase
                 'credentialId' => 2,
                 'payload' => $this->payload(['credential_id' => 2]),
                 'response' => $this->response(),
-                'factory' => function (ForgeServers $servers) {
-                    return $servers
+                'factory' => function (Forge $forge) {
+                    return $forge
                         ->create()
                         ->droplet('northrend')
                         ->withMemoryOf('512MB')
@@ -252,8 +252,8 @@ class CreateServerTest extends TestCase
                     'region' => 10,
                 ]),
                 'response' => $this->response(['size' => '1GB']),
-                'factory' => function (ForgeServers $servers) {
-                    return $servers
+                'factory' => function (Forge $forge) {
+                    return $forge
                         ->create()
                         ->linode('northrend')
                         ->withMemoryOf('1GB')

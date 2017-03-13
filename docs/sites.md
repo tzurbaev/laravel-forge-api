@@ -4,7 +4,7 @@ SDK provides Sites Manager that allows you to create, list and delete sites on y
 
 # Usage
 
-Documentation assumes that you've already retrieved server instance from `ForgeServers` collection.
+Documentation assumes that you've already retrieved server instance from `Forge` collection.
 
 All operations are performed via `Laravel\Forge\Sites\SitesManager` instance.
 

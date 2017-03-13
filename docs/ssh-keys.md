@@ -4,7 +4,7 @@ SDK provides SSH Keys Manager that allows you to create, list and delete SSH key
 
 # Usage
 
-Documentation assumes that you've already retrieved server instance from `ForgeServers` collection.
+Documentation assumes that you've already retrieved server instance from `Forge` collection.
 
 All operations are performed via `Laravel\Forge\SshKeys\SshKeysManager` instance.
 

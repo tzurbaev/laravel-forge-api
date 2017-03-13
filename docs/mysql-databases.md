@@ -4,7 +4,7 @@ SDK provides extended MySQL Service that allows you to create, list and delete M
 
 # Usage
 
-Documentation assumes that you've already retrieved server instance from `ForgeServers` collection.
+Documentation assumes that you've already retrieved server instance from `Forge` collection.
 
 All operations are performed via `Laravel\Forge\Services\MysqlService` instance.
 

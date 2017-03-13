@@ -1,6 +1,6 @@
 # Overview
 
-SDK provides fluent builders for all supported server providers. You can start building new server by calling `create` method on `Laravel\Forge\ForgeServers` instance.
+SDK provides fluent builders for all supported server providers. You can start building new server by calling `create` method on `Laravel\Forge\Forge` instance.
 
 # Server Providers
 
@@ -11,11 +11,11 @@ Use `droplet` method to create new DigitalOcean droplet.
 ```php
 <?php
 
-use Laravel\Forge\ForgeServers;
+use Laravel\Forge\Forge;
 
-$servers = new ForgeServers($api);
+$forge = new Forge($api);
 
-$droplet = $servers->create()
+$droplet = $forge->create()
   ->droplet('my-droplet-name')
   ->usingCredential(1234)
   ->withMemoryOf('2GB')
@@ -30,11 +30,11 @@ Use `linode` method to create new Linode server.
 ```php
 <?php
 
-use Laravel\Forge\ForgeServers;
+use Laravel\Forge\Forge;
 
-$servers = new ForgeServers($api);
+$forge = new Forge($api);
 
-$node = $servers->create()
+$node = $forge->create()
   ->linode('my-server-name')
   ->usingCredential(1234)
   ->withMemoryOf('2GB')
@@ -49,11 +49,11 @@ Use `aws` method to create new AWS instance.
 ```php
 <?php
 
-use Laravel\Forge\ForgeServers;
+use Laravel\Forge\Forge;
 
-$servers = new ForgeServers($api);
+$forge = new Forge($api);
 
-$aws = $servers->create()
+$aws = $forge->create()
   ->aws('my-server-name')
   ->usingCredential(1234)
   ->withMemoryOf('2GB')
@@ -68,11 +68,11 @@ Use `custom` method to create new custom VPS server. You'll be required to provi
 ```php
 <?php
 
-use Laravel\Forge\ForgeServers;
+use Laravel\Forge\Forge;
 
-$servers = new ForgeServers($api);
+$forge = new Forge($api);
 
-$vps = $servers->create()
+$vps = $forge->create()
   ->custom('my-server-name')
   ->usingPublicIp('93.184.216.34')
   ->usingPrivateIp('10.0.10.1')
@@ -94,11 +94,11 @@ After doing so you may ommit `usingCredential` method call on `DigitalOcean` pro
 ```php
 <?php
 
-use Laravel\Forge\ForgeServers;
+use Laravel\Forge\Forge;
 
-$servers = new ForgeServers($api);
+$forge = new Forge($api);
 
-$droplet = $servers->create()
+$droplet = $forge->create()
   ->droplet('my-droplet-name')
   ->withMemoryOf('2GB')
   ->at('fra1')
@@ -131,7 +131,7 @@ Just call `asLoadBalancer()` on methods chain to indicate that new server should
 ```php
 <?php
 
-$loadBalancer = $servers->create()
+$loadBalancer = $forge->create()
   ->droplet('balancer-01')
   ->usingCredential(1234)
   ->withMemoryOf('512MB')
@@ -147,7 +147,7 @@ $loadBalancer = $servers->create()
 ```php
 <?php
 
-$droplet = $servers->create()
+$droplet = $forge->create()
   ->droplet('web-01')
   ->usingCredential(1234)
   ->withMemoryOf('512MB')
@@ -163,7 +163,7 @@ By default Forge will install MySQL server and create `forge` database. If you n
 ```php
 <?php
 
-$droplet = $servers->create()
+$droplet = $forge->create()
   ->droplet('web-01')
   ->usingCredential(1234)
   ->withMemoryOf('512MB')
@@ -185,7 +185,7 @@ You're required to set server size for all providers except `custom`. Use `withM
 ```php
 <?php
 
-$heavyBackendDroplet = $servers->create()
+$heavyBackendDroplet = $forge->create()
   ->droplet('heavy-backend-01')
   ->usingCredential(1234)
   ->withMemoryOf('32GB')
@@ -200,7 +200,7 @@ With an addition to server size, you're required to provide new server region (u
 ```php
 <?php
 
-$londonDroplet = $servers->create()
+$londonDroplet = $forge->create()
   ->droplet('web-01')
   ->usingCredential(1234)
   ->withMemoryOf('8GB')
@@ -219,7 +219,7 @@ Forge allows to provision new servers with PHP 5.6, PHP 7.0 or PHP 7.1. You can 
 ```php
 <?php
 
-$legacyDroplet = $servers->create()
+$legacyDroplet = $forge->create()
   ->droplet('web-01')
   ->usingCredential(1234)
   ->withMemoryOf('1GB')
@@ -238,11 +238,11 @@ If you need your new server to be connected to some existed servers, you should 
 // Our new droplet should be able to connect
 // to database droplet and Redis cache droplet.
 $serverIds = [
-  $servers['database-01']->id(),
-  $servers['redis-01']->id(),
+  $forge['database-01']->id(),
+  $forge['redis-01']->id(),
 ];
 
-$web = $servers->create()
+$web = $forge->create()
   ->droplet('web-02')
   ->usingCredential(1234)
   ->withMemoryOf('1GB')
@@ -264,7 +264,7 @@ When creating Custom VPS you're requried to provide public and private IP addres
 ```php
 <?php
 
-$vps = $servers->create()
+$vps = $forge->create()
   ->custom('web-01')
   ->runningPhp('7.1')
   ->usingPublicIp('93.184.216.34')

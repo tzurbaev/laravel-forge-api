@@ -4,7 +4,7 @@ With addition to MySQL databases management, SDK provides command to create, lis
 
 # Usage
 
-Documentation assumes that you've already retrieved server instance from `ForgeServers` collection.
+Documentation assumes that you've already retrieved server instance from `Forge` collection.
 
 All operations are performed via `Laravel\Forge\Services\Mysql\MysqlUsers` instance.
 

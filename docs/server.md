@@ -4,7 +4,7 @@
 
 # Usage
 
-All examples below assuming that you've already created `ApiProvider` and `ForgeServers` classes and retrieved (or created new) server via API.
+All examples below assuming that you've already created `ApiProvider` and `Forge` classes and retrieved (or created new) server via API.
 
 ## Getters
 

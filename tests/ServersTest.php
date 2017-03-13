@@ -4,7 +4,7 @@ namespace Laravel\Tests\Forge;
 
 use Mockery;
 use Laravel\Forge\Server;
-use Laravel\Forge\ForgeServers;
+use Laravel\Forge\Forge;
 use PHPUnit\Framework\TestCase;
 use Laravel\Tests\Forge\Helpers\Api;
 use Laravel\Tests\Forge\Helpers\FakeResponse;
@@ -40,11 +40,11 @@ class ServersTests extends TestCase
                 );
         });
 
-        $servers = new ForgeServers($api);
+        $forge = new Forge($api);
         $jsonServers = $serversList['servers'];
 
         foreach ($jsonServers as $jsonServer) {
-            $server = $servers[$jsonServer['name']];
+            $server = $forge[$jsonServer['name']];
 
             $this->assertInstanceOf(Server::class, $server);
             $this->assertSame($jsonServer['name'], $server->name());
@@ -72,8 +72,8 @@ class ServersTests extends TestCase
                 );
         });
 
-        $servers = new ForgeServers($api);
-        $server = $servers->get($data['id']);
+        $forge = new Forge($api);
+        $server = $forge->get($data['id']);
 
         $this->assertInstanceOf(Server::class, $server);
         $this->assertSame($data['name'], $server->name());
@@ -98,10 +98,10 @@ class ServersTests extends TestCase
                 ->andReturn(FakeResponse::fake()->withStatus(404)->toResponse());
         });
 
-        $servers = new ForgeServers($api);
+        $forge = new Forge($api);
 
         $this->expectException(ServerWasNotFoundException::class);
-        $server = $servers->get($serverId);
+        $server = $forge->get($serverId);
     }
 
     /**
@@ -132,8 +132,8 @@ class ServersTests extends TestCase
                 );
         });
 
-        $servers = new ForgeServers($api);
-        $server = $servers->get($data['id']);
+        $forge = new Forge($api);
+        $server = $forge->get($data['id']);
 
         $this->assertTrue($server->update($payload));
 
@@ -170,8 +170,8 @@ class ServersTests extends TestCase
                 );
         });
 
-        $servers = new ForgeServers($api);
-        $server = $servers->get($data['id']);
+        $forge = new Forge($api);
+        $server = $forge->get($data['id']);
 
         $this->assertTrue($server->delete());
     }
@@ -204,8 +204,8 @@ class ServersTests extends TestCase
                 );
         });
 
-        $servers = new ForgeServers($api);
-        $server = $servers->get($data['id']);
+        $forge = new Forge($api);
+        $server = $forge->get($data['id']);
 
         $this->assertSame($expectedResult, $server->{$method}());
     }

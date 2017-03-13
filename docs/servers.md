@@ -4,21 +4,21 @@ Servers collection holds all your Forge Servers in one place.
 
 # Initialize Collection
 
-You can start use collection by instantiating `Laravel\Forge\ForgeServers` class. Make sure you've created `Laravel\Forge\ApiProvider` instance - `ForgeServers` depends on it.
+You can start use collection by instantiating `Laravel\Forge\Forge` class. Make sure you've created `Laravel\Forge\ApiProvider` instance - `Forge` depends on it.
 
 ```php
 <?php
 
 use Laravel\Forge\ApiProvider;
-use Laravel\Forge\ForgeServers;
+use Laravel\Forge\Forge;
 
 $api = new ApiProvider('token');
-$servers = new ForgeServers($api);
+$forge = new Forge($api);
 ```
 
 # Usage
 
-Since `ForgeServers` implements `ArrayAccess` and `Iterator` interfaces, you have several methods to access your servers.
+Since `Forge` implements `ArrayAccess` and `Iterator` interfaces, you have several methods to access your servers.
 
 ## Access existed servers
 
@@ -27,7 +27,7 @@ You can iterate through entire collection:
 ```php
 <?php
 
-foreach ($servers as $server) {
+foreach ($forge as $server) {
   // Each $server variable holds instance of `Laravel\Forge\Server` class.
   echo $server->name();
 }
@@ -38,25 +38,25 @@ Or use it as array:
 ```php
 <?php
 
-$server = $servers['server-name'];
+$server = $forge['server-name'];
 echo $server->name();
 ```
 
 > Lazy Loading
 > 
 > ArrayAccess and Iterator implementations uses lazy loading.
-> This means ForgeServers class won't load any data until you
+> This means `Forge` class won't load any data until you
 > start iterating or performing array operations.
 
 ## Get single server
 
-Additionally, `ForgeServers` class can be used to retrieve single server by ID:
+Additionally, `Forge` class can be used to retrieve single server by ID:
 
 ```php
 <?php
 
 $serverId = 12345;
-$server = $servers->get($serverId);
+$server = $forge->get($serverId);
 ```
 
 ## Create new Server
@@ -68,7 +68,7 @@ Or create new server via fluent servers builder:
 
 $oceanCredentialId = 1234;
 
-$droplet = $servers->create()
+$droplet = $forge->create()
     ->droplet('my-droplet-name')
     ->usingCredential($oceanCredentialId)
     ->withMemoryOf('1GB')
