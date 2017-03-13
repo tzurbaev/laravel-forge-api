@@ -8,7 +8,7 @@ use Laravel\Forge\Server;
 use Laravel\Forge\ForgeServers;
 use PHPUnit\Framework\TestCase;
 use Laravel\Tests\Forge\Helpers\Api;
-use Laravel\Forge\Servers\ServersFactory;
+use Laravel\Forge\Servers\Factory;
 use Laravel\Tests\Forge\Helpers\FakeResponse;
 
 class CreateServerTest extends TestCase
@@ -76,12 +76,12 @@ class CreateServerTest extends TestCase
                 );
         });
 
-        ServersFactory::setDefaultCredential($payload['provider'], $credentialId);
+        Factory::setDefaultCredential($payload['provider'], $credentialId);
 
         $servers = new ForgeServers($api);
         $server = $factory($servers);
 
-        ServersFactory::resetDefaultCredential($payload['provider']);
+        Factory::resetDefaultCredential($payload['provider']);
 
         $this->assertInstanceOf(Server::class, $server);
         $this->assertSame($payload['name'], $server->name());

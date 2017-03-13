@@ -10,7 +10,7 @@ use Laravel\Forge\Servers\Providers\Linode;
 use Laravel\Forge\Servers\Providers\Provider;
 use Laravel\Forge\Servers\Providers\DigitalOcean;
 
-class ServersFactory
+class Factory
 {
     /**
      * API Provider.

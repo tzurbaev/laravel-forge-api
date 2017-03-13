@@ -4,8 +4,8 @@ namespace Laravel\Forge;
 
 use Iterator;
 use ArrayAccess;
+use Laravel\Forge\Servers\Factory;
 use Laravel\Forge\Traits\LazyIterator;
-use Laravel\Forge\Servers\ServersFactory;
 use Laravel\Forge\Traits\LazyArrayAccess;
 use GuzzleHttp\Exception\RequestException;
 use Laravel\Forge\Traits\AbstractCollection;
@@ -80,11 +80,11 @@ class ForgeServers implements ArrayAccess, Iterator
     /**
      * Initialize servers factory.
      *
-     * @return \Laravel\Forge\Servers\ServersFactory
+     * @return \Laravel\Forge\Servers\Factory
      */
     public function create()
     {
-        return new ServersFactory($this->api);
+        return new Factory($this->api);
     }
 
     /**
