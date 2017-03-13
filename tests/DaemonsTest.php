@@ -21,7 +21,9 @@ class DaemonsTest extends TestCase
     {
         $daemons = new DaemonsManager();
 
-        $result = $daemons->create($payload)->on($server);
+        $result = $daemons->create($payload['command'])
+            ->runningAs($payload['user'])
+            ->on($server);
 
         $assertion($result);
     }

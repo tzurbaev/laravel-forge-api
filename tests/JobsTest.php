@@ -121,7 +121,7 @@ class JobsTest extends TestCase
                 'payload' => $this->payload(['frequency' => 'minutely']),
                 'factory' => function (JobsManager $jobs, Server $server) {
                     return $jobs->schedule($this->command)
-                        ->runAs('forge')
+                        ->runningAs('forge')
                         ->everyMinute();
                 },
             ],
@@ -130,7 +130,7 @@ class JobsTest extends TestCase
                 'payload' => $this->payload(['frequency' => 'hourly']),
                 'factory' => function (JobsManager $jobs, Server $server) {
                     return $jobs->schedule($this->command)
-                        ->runAs('forge')
+                        ->runningAs('forge')
                         ->hourly();
                 },
             ],
@@ -139,7 +139,7 @@ class JobsTest extends TestCase
                 'payload' => $this->payload(['frequency' => 'nightly']),
                 'factory' => function (JobsManager $jobs, Server $server) {
                     return $jobs->schedule($this->command)
-                        ->runAs('forge')
+                        ->runningAs('forge')
                         ->nightly();
                 },
             ],
@@ -148,7 +148,7 @@ class JobsTest extends TestCase
                 'payload' => $this->payload(['frequency' => 'weekly']),
                 'factory' => function (JobsManager $jobs, Server $server) {
                     return $jobs->schedule($this->command)
-                        ->runAs('forge')
+                        ->runningAs('forge')
                         ->weekly();
                 },
             ],
@@ -157,7 +157,7 @@ class JobsTest extends TestCase
                 'payload' => $this->payload(['frequency' => 'monthly']),
                 'factory' => function (JobsManager $jobs, Server $server) {
                     return $jobs->schedule($this->command)
-                        ->runAs('forge')
+                        ->runningAs('forge')
                         ->monthly();
                 },
             ],
@@ -180,7 +180,7 @@ class JobsTest extends TestCase
                 ]),
                 'factory' => function (JobsManager $jobs, Server $server) {
                     return $jobs->schedule($this->command)
-                        ->runAs('forge')
+                        ->runningAs('forge')
                         ->atTime('12:00')
                         ->atDay(15)
                         ->atMonth('*')
@@ -200,7 +200,7 @@ class JobsTest extends TestCase
                 ]),
                 'factory' => function (JobsManager $jobs, Server $server) {
                     return $jobs->schedule($this->command)
-                        ->runAs('forge')
+                        ->runningAs('forge')
                         ->atTime('12:00');
                 },
                 'exception' => true,

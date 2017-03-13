@@ -19,7 +19,10 @@ class FirewallTest extends TestCase
     {
         $firewall = new FirewallManager();
 
-        $result = $firewall->create($rule)->on($server);
+        $result = $firewall
+            ->create($rule['name'])
+            ->usingPort($rule['port'])
+            ->on($server);
 
         $assertion($result);
     }

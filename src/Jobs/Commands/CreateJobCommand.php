@@ -42,7 +42,7 @@ class CreateJobCommand extends JobCommand
      *
      * @return static
      */
-    public function runAs(string $user)
+    public function runningAs(string $user)
     {
         return $this->attachPayload('user', $user);
     }

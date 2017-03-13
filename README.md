@@ -17,6 +17,10 @@ You can install the package via composer:
 $ composer require tzurbaev/laravel-forge-api
 ```
 
+## Documentation
+
+Package documentation is available [here](./docs/readme.md).
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

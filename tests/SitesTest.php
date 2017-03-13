@@ -141,6 +141,128 @@ class SitesTest extends TestCase
                     $this->assertSame('php', $site->projectType());
                 }
             ],
+            [
+                'server' => Api::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites', [
+                            'form_params' => $this->payload(),
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()->withJson(['site' => Api::siteData()])->toResponse()
+                        );
+                }),
+                'factory' => function (SitesManager $sites, $server) {
+                    return $sites
+                        ->create('example.org')
+                        ->asLaravel()
+                        ->on($server);
+                },
+                'assertion' => function ($site) {
+                    $this->assertInstanceOf(Site::class, $site);
+                    $this->assertSame('example.org', $site->domain());
+                    $this->assertSame('php', $site->projectType());
+                }
+            ],
+            [
+                'server' => Api::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites', [
+                            'form_params' => $this->payload(['project_type' => 'html']),
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()->withJson([
+                                'site' => Api::siteData(['project_type' => 'html']),
+                            ])
+                            ->toResponse()
+                        );
+                }),
+                'factory' => function (SitesManager $sites, $server) {
+                    return $sites
+                        ->create('example.org')
+                        ->asStatic()
+                        ->on($server);
+                },
+                'assertion' => function ($site) {
+                    $this->assertInstanceOf(Site::class, $site);
+                    $this->assertSame('example.org', $site->domain());
+                    $this->assertSame('html', $site->projectType());
+                }
+            ],
+            [
+                'server' => Api::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites', [
+                            'form_params' => $this->payload(['project_type' => 'html']),
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()->withJson([
+                                'site' => Api::siteData(['project_type' => 'html']),
+                            ])
+                            ->toResponse()
+                        );
+                }),
+                'factory' => function (SitesManager $sites, $server) {
+                    return $sites
+                        ->create('example.org')
+                        ->asHtml()
+                        ->on($server);
+                },
+                'assertion' => function ($site) {
+                    $this->assertInstanceOf(Site::class, $site);
+                    $this->assertSame('example.org', $site->domain());
+                    $this->assertSame('html', $site->projectType());
+                }
+            ],
+            [
+                'server' => Api::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites', [
+                            'form_params' => $this->payload(['project_type' => 'symfony']),
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()->withJson([
+                                'site' => Api::siteData(['project_type' => 'symfony']),
+                            ])
+                            ->toResponse()
+                        );
+                }),
+                'factory' => function (SitesManager $sites, $server) {
+                    return $sites
+                        ->create('example.org')
+                        ->asSymfony()
+                        ->on($server);
+                },
+                'assertion' => function ($site) {
+                    $this->assertInstanceOf(Site::class, $site);
+                    $this->assertSame('example.org', $site->domain());
+                    $this->assertSame('symfony', $site->projectType());
+                }
+            ],
+            [
+                'server' => Api::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites', [
+                            'form_params' => $this->payload(['project_type' => 'symfony_dev']),
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()->withJson([
+                                'site' => Api::siteData(['project_type' => 'symfony_dev']),
+                            ])
+                            ->toResponse()
+                        );
+                }),
+                'factory' => function (SitesManager $sites, $server) {
+                    return $sites
+                        ->create('example.org')
+                        ->asSymfonyDev()
+                        ->on($server);
+                },
+                'assertion' => function ($site) {
+                    $this->assertInstanceOf(Site::class, $site);
+                    $this->assertSame('example.org', $site->domain());
+                    $this->assertSame('symfony_dev', $site->projectType());
+                }
+            ],
         ];
     }
 

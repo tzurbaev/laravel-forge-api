@@ -11,13 +11,13 @@ class DaemonsManager
     /**
      * Initialize new create daemon command.
      *
-     * @param array $payload = []
+     * @param string $command
      *
      * @return \Laravel\Forge\Daemons\Commands\CreateDaemonCommand
      */
-    public function create(array $payload = [])
+    public function create(string $command)
     {
-        return (new CreateDaemonCommand())->withPayload($payload);
+        return (new CreateDaemonCommand())->start($command);
     }
 
     /**

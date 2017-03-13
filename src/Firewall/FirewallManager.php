@@ -11,13 +11,13 @@ class FirewallManager
     /**
      * Initialize new create firewall rule command.
      *
-     * @param array $payload = []
+     * @param string $name
      *
      * @return \Laravel\Forge\Firewall\Commands\CreateFirewallRuleCommand
      */
-    public function create(array $payload = [])
+    public function create(string $name)
     {
-        return (new CreateFirewallRuleCommand())->withPayload($payload);
+        return (new CreateFirewallRuleCommand())->identifiedAs($name);
     }
 
     /**
