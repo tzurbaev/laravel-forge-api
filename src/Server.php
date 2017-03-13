@@ -97,6 +97,16 @@ class Server implements ArrayAccess
     }
 
     /**
+     * Credential ID.
+     *
+     * @return int
+     */
+    public function credentialId(): int
+    {
+        return intval($this->serverData('credential_id'));
+    }
+
+    /**
      * Server name.
      *
      * @return string|null
@@ -117,6 +127,16 @@ class Server implements ArrayAccess
     }
 
     /**
+     * Server region.
+     *
+     * @return string|null
+     */
+    public function region()
+    {
+        return $this->serverData('region');
+    }
+
+    /**
      * Server's PHP version.
      *
      * @return string|null
@@ -127,6 +147,54 @@ class Server implements ArrayAccess
     }
 
     /**
+     * Server public IP address.
+     *
+     * @return string|null
+     */
+    public function ip()
+    {
+        return $this->serverData('ip_address');
+    }
+
+    /**
+     * Server private IP address.
+     */
+    public function privateIp()
+    {
+        return $this->serverData('private_ip_address');
+    }
+
+    /**
+     * Blackfire service status.
+     *
+     * @return string|null
+     */
+    public function blackfireStatus()
+    {
+        return $this->serverData('blackfire_status');
+    }
+
+    /**
+     * Papertrail service status.
+     *
+     * @return string
+     */
+    public function parerTrailStatus()
+    {
+        return $this->serverData('papertrail_status');
+    }
+
+    /**
+     * Determines if server access was revoked from Forge.
+     *
+     * @return bool
+     */
+    public function isRevoked(): bool
+    {
+        return intval($this->serverData('revoked')) === 1;
+    }
+
+    /**
      * Determines if server was provisioned and ready to use.
      *
      * @return bool
@@ -134,6 +202,16 @@ class Server implements ArrayAccess
     public function isReady(): bool
     {
         return intval($this->serverData('is_ready')) === 1;
+    }
+
+    /**
+     * Network status.
+     *
+     * @return array|null
+     */
+    public function network()
+    {
+        return $this->serverData('network');
     }
 
     /**

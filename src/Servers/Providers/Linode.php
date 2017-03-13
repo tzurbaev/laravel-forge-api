@@ -18,14 +18,15 @@ class Linode extends Provider
     public function regions()
     {
         return [
-            1 => 'Frankfurt',
             2 => 'Dallas',
             3 => 'Fremont',
             4 => 'Atlanta',
             6 => 'Newark',
             7 => 'London',
-            8 => 'Tokyo',
+            8 => 'Tokyo 1',
             9 => 'Singapore',
+            10 => 'Frankfurt',
+            11 => 'Tokyo 2',
         ];
     }
 
