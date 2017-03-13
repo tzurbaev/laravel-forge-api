@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.0] - 2017-03-14
 ### Added
 - Allow to set default credential ID for specific server providers;
 - `hasPayload` method added to `Provider` class;
@@ -56,6 +58,7 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/0.9.1...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/tzurbaev/laravel-forge-api/compare/0.9.1...1.0.0
 [0.9.1]: https://github.com/tzurbaev/laravel-forge-api/compare/0.9.0...0.9.1
 [0.9.0]: https://github.com/tzurbaev/laravel-forge-api/releases/tag/0.9.0
