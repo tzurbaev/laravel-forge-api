@@ -1,19 +1,9 @@
 <?php
 
-namespace Laravel\Forge\Sites\Commands\Workers;
+namespace Laravel\Forge\Workers\Commands;
 
 class CreateWorkerCommand extends WorkerCommand
 {
-    /**
-     * HTTP request method.
-     *
-     * @return string
-     */
-    public function requestMethod()
-    {
-        return 'POST';
-    }
-
     /**
      * Set connection name.
      *

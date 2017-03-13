@@ -40,6 +40,6 @@ class MysqlUsers
      */
     public function get(int $userId)
     {
-        return (new GetMysqlUserCommand())->setItemId($userId);
+        return (new GetMysqlUserCommand())->setResourceId($userId);
     }
 }

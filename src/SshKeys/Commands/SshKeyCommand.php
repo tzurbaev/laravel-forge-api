@@ -3,9 +3,9 @@
 namespace Laravel\Forge\SshKeys\Commands;
 
 use Laravel\Forge\SshKeys\SshKey;
-use Laravel\Forge\ServerResources\Commands\ServerResourceCommand;
+use Laravel\Forge\Commands\ResourceCommand;
 
-abstract class SshKeyCommand extends ServerResourceCommand
+abstract class SshKeyCommand extends ResourceCommand
 {
     /**
      * Server resource path.

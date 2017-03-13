@@ -105,7 +105,14 @@ class MysqlUsersTest extends TestCase
     {
         $server = Api::fakeServer();
 
-        return new MysqlDatabase($server, $this->response($replace));
+        return new MysqlDatabase($server->getApi(), $this->response($replace), $server);
+    }
+
+    public function fakeUser(Closure $callback, array $replace = []): MysqlUser
+    {
+        $server = Api::fakeServer($callback);
+
+        return new MysqlUser($server->getApi(), $this->response($replace), $server);
     }
 
     public function createUserDataProvider(): array
@@ -184,26 +191,23 @@ class MysqlUsersTest extends TestCase
     {
         return [
             [
-                'user' => new MysqlUser(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('PUT', 'servers/1/mysql-users/1', [
-                                'form_params' => [
-                                    'databases' => [1, 2],
-                                ]
-                            ])
-                            ->andReturn(
-                                FakeResponse::fake()
-                                    ->withJson([
-                                        'user' => $this->response([
-                                            'databases' => [1, 2],
-                                        ]),
-                                    ])
-                                    ->toResponse()
-                            );
-                    }),
-                    $this->response()
-                ),
+                'user' => $this->fakeUser(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('PUT', 'servers/1/mysql-users/1', [
+                            'form_params' => [
+                                'databases' => [1, 2],
+                            ]
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()
+                                ->withJson([
+                                    'user' => $this->response([
+                                        'databases' => [1, 2],
+                                    ]),
+                                ])
+                                ->toResponse()
+                        );
+                }),
                 'payload' => [
                     'databases' => [1, 2],
                 ],
@@ -216,14 +220,11 @@ class MysqlUsersTest extends TestCase
     {
         return [
             [
-                'user' => new MysqlUser(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('DELETE', 'servers/1/mysql-users/1')
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'user' => $this->fakeUser(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('DELETE', 'servers/1/mysql-users/1')
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'expectedResult' => true,
             ],
         ];

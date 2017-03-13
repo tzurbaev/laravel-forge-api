@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use Laravel\Forge\Sites\Site;
 use PHPUnit\Framework\TestCase;
 use Laravel\Tests\Forge\Helpers\Api;
-use Laravel\Forge\Sites\DeploymentManager;
+use Laravel\Forge\Deployment\DeploymentManager;
 use Laravel\Tests\Forge\Helpers\FakeResponse;
 
 class DeploymentTest extends TestCase
@@ -19,7 +19,7 @@ class DeploymentTest extends TestCase
     {
         $deployment = new DeploymentManager();
 
-        $result = $deployment->enable($site);
+        $result = $deployment->enable()->on($site);
 
         $assertion($result);
     }
@@ -31,7 +31,7 @@ class DeploymentTest extends TestCase
     {
         $deployment = new DeploymentManager();
 
-        $result = $deployment->disable($site);
+        $result = $deployment->disable()->on($site);
 
         $assertion($result);
     }
@@ -43,7 +43,7 @@ class DeploymentTest extends TestCase
     {
         $deployment = new DeploymentManager();
 
-        $result = $deployment->getScript($site);
+        $result = $deployment->script()->from($site);
 
         $assertion($result);
     }
@@ -55,7 +55,7 @@ class DeploymentTest extends TestCase
     {
         $deployment = new DeploymentManager();
 
-        $result = $deployment->updateScript($site, $script);
+        $result = $deployment->updateScript($script)->on($site);
 
         $assertion($result);
     }
@@ -67,7 +67,7 @@ class DeploymentTest extends TestCase
     {
         $deployment = new DeploymentManager();
 
-        $result = $deployment->deploy($site);
+        $result = $deployment->deploy()->on($site);
 
         $assertion($result);
     }
@@ -79,7 +79,7 @@ class DeploymentTest extends TestCase
     {
         $deployment = new DeploymentManager();
 
-        $result = $deployment->reset($site);
+        $result = $deployment->reset()->on($site);
 
         $assertion($result);
     }
@@ -91,7 +91,7 @@ class DeploymentTest extends TestCase
     {
         $deployment = new DeploymentManager();
 
-        $result = $deployment->log($site);
+        $result = $deployment->log()->from($site);
 
         $assertion($result);
     }

@@ -6,18 +6,18 @@ SDK provides Deployment Manager that allows you to enable or disable quick deplo
 
 Documentation assumes that you've already retrieved site instance from `SitesManager` class.
 
-All operations are performed via `Laravel\Forge\Sites\DeploymentManager` instance.
+All operations are performed via `Laravel\Forge\Deployment\DeploymentManager` instance.
 
 ## Enable quick deployment
 
 ```php
 <?php
 
-use Laravel\Forge\Sites\DeploymentManager;
+use Laravel\Forge\Deployment\DeploymentManager;
 
 $deployment = new DeploymentManager();
 
-if ($deployment->enable($site)) {
+if ($deployment->enable()->on($site)) {
     echo 'Quick deployment enabled on '.$site->domain().' site.';
 }
 ```
@@ -27,11 +27,11 @@ if ($deployment->enable($site)) {
 ```php
 <?php
 
-use Laravel\Forge\Sites\DeploymentManager;
+use Laravel\Forge\Deployment\DeploymentManager;
 
 $deployment = new DeploymentManager();
 
-if ($deployment->disable($site)) {
+if ($deployment->disable()->on($site)) {
     echo 'Quick deployment disabled on '.$site->domain().' site.';
 }
 ```
@@ -41,11 +41,11 @@ if ($deployment->disable($site)) {
 ```php
 <?php
 
-use Laravel\Forge\Sites\DeploymentManager;
+use Laravel\Forge\Deployment\DeploymentManager;
 
 $deployment = new DeploymentManager();
 
-$script = $deployment->getScript($site);
+$script = $deployment->script()->from($site);
 ```
 
 ## Update deployment script
@@ -53,13 +53,13 @@ $script = $deployment->getScript($site);
 ```php
 <?php
 
-use Laravel\Forge\Sites\DeploymentManager;
+use Laravel\Forge\Deployment\DeploymentManager;
 
 $deployment = new DeploymentManager();
 
 $script = "php artisan down\ngit pull origin master\nphp artisan up";
 
-$deployment->updateScript($site, $script);
+$deployment->updateScript($script)->on($site);
 ```
 
 ## Reset deployment status
@@ -67,11 +67,11 @@ $deployment->updateScript($site, $script);
 ```php
 <?php
 
-use Laravel\Forge\Sites\DeploymentManager;
+use Laravel\Forge\Deployment\DeploymentManager;
 
 $deployment = new DeploymentManager();
 
-$deployment->reset($site);
+$deployment->reset()->on($site);
 ```
 
 ## Get latest deployment log
@@ -79,11 +79,11 @@ $deployment->reset($site);
 ```php
 <?php
 
-use Laravel\Forge\Sites\DeploymentManager;
+use Laravel\Forge\Deployment\DeploymentManager;
 
 $deployment = new DeploymentManager();
 
-$log = $deployment->log($site);
+$log = $deployment->log()->from($site);
 ```
 
 ## Deploy now
@@ -91,11 +91,11 @@ $log = $deployment->log($site);
 ```php
 <?php
 
-use Laravel\Forge\Sites\DeploymentManager;
+use Laravel\Forge\Deployment\DeploymentManager;
 
 $deployment = new DeploymentManager();
 
-$deployment->deploy($site);
+$deployment->deploy()->on($site);
 ```
 
 [Back to Table of Contents](./readme.md)

@@ -2,98 +2,39 @@
 
 namespace Laravel\Forge;
 
-use ArrayAccess;
-use Psr\Http\Message\ResponseInterface;
-use Laravel\Forge\Traits\ArrayAccessTrait;
 use Laravel\Forge\Exceptions\Servers\PublicKeyWasNotFound;
 use Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException;
 
-class Server implements ArrayAccess
+class Server extends Resource
 {
-    use ArrayAccessTrait;
-
     /**
-     * API provider.
+     * Resource type.
      *
-     * @var \Laravel\Forge\ApiProvider
+     * @return string
      */
-    protected $api;
-
-    /**
-     * Server data.
-     *
-     * @var array
-     */
-    protected $data;
-
-    /**
-     * Create new server instance.
-     *
-     * @param \Laravel\Forge\ApiProvider $api  = null
-     * @param array                      $data = []
-     */
-    public function __construct(ApiProvider $api = null, array $data = [])
+    public static function resourceType()
     {
-        $this->api = $api;
-        $this->data = $data;
+        return 'server';
     }
 
     /**
-     * Create new server instance from HTTP response.
+     * Resource path (relative to owner or API root).
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Laravel\Forge\ApiProvider          $api      = null
-     *
-     * @throws \Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException
-     *
-     * @return static
+     * @return string
      */
-    public static function createFromResponse(ResponseInterface $response, ApiProvider $api = null)
+    public function resourcePath()
     {
-        $json = json_decode((string) $response->getBody(), true);
-
-        if (empty($json['server'])) {
-            throw new ServerWasNotFoundException('Given response is not a server response.');
-        }
-
-        return new static($api, $json['server']);
+        return 'servers';
     }
 
     /**
-     * Server data.
+     * Throw HTTP Not Found exception.
      *
-     * @param string $key     = null
-     * @param mixed  $default = null
-     *
-     * @return mixed|array|null
+     * @throws \Exception
      */
-    protected function serverData(string $key = null, $default = null)
+    protected static function throwNotFoundException()
     {
-        if (is_null($key)) {
-            return $this->data;
-        }
-
-        return $this->data[$key] ?? $default;
-    }
-
-    /**
-     * API provider.
-     *
-     * @return \Laravel\Forge\ApiProvider
-     */
-    public function getApi(): ApiProvider
-    {
-        return $this->api;
-    }
-
-    /**
-     * Server ID.
-     *
-     * @return int
-     */
-    public function id(): int
-    {
-        return intval($this->serverData('id'));
+        throw new ServerWasNotFoundException('Given response is not a server response.');
     }
 
     /**
@@ -103,17 +44,7 @@ class Server implements ArrayAccess
      */
     public function credentialId(): int
     {
-        return intval($this->serverData('credential_id'));
-    }
-
-    /**
-     * Server name.
-     *
-     * @return string|null
-     */
-    public function name()
-    {
-        return $this->serverData('name');
+        return intval($this->getData('credential_id'));
     }
 
     /**
@@ -123,7 +54,7 @@ class Server implements ArrayAccess
      */
     public function size()
     {
-        return $this->serverData('size');
+        return $this->getData('size');
     }
 
     /**
@@ -133,7 +64,7 @@ class Server implements ArrayAccess
      */
     public function region()
     {
-        return $this->serverData('region');
+        return $this->getData('region');
     }
 
     /**
@@ -143,7 +74,7 @@ class Server implements ArrayAccess
      */
     public function phpVersion()
     {
-        return $this->serverData('php_version');
+        return $this->getData('php_version');
     }
 
     /**
@@ -153,7 +84,7 @@ class Server implements ArrayAccess
      */
     public function ip()
     {
-        return $this->serverData('ip_address');
+        return $this->getData('ip_address');
     }
 
     /**
@@ -161,7 +92,7 @@ class Server implements ArrayAccess
      */
     public function privateIp()
     {
-        return $this->serverData('private_ip_address');
+        return $this->getData('private_ip_address');
     }
 
     /**
@@ -171,7 +102,7 @@ class Server implements ArrayAccess
      */
     public function blackfireStatus()
     {
-        return $this->serverData('blackfire_status');
+        return $this->getData('blackfire_status');
     }
 
     /**
@@ -181,7 +112,7 @@ class Server implements ArrayAccess
      */
     public function parerTrailStatus()
     {
-        return $this->serverData('papertrail_status');
+        return $this->getData('papertrail_status');
     }
 
     /**
@@ -191,7 +122,7 @@ class Server implements ArrayAccess
      */
     public function isRevoked(): bool
     {
-        return intval($this->serverData('revoked')) === 1;
+        return intval($this->getData('revoked')) === 1;
     }
 
     /**
@@ -201,7 +132,7 @@ class Server implements ArrayAccess
      */
     public function isReady(): bool
     {
-        return intval($this->serverData('is_ready')) === 1;
+        return intval($this->getData('is_ready')) === 1;
     }
 
     /**
@@ -211,47 +142,7 @@ class Server implements ArrayAccess
      */
     public function network()
     {
-        return $this->serverData('network');
-    }
-
-    /**
-     * Server's API URL.
-     *
-     * @param string $path = ''
-     *
-     * @return string
-     */
-    public function apiUrl(string $path = ''): string
-    {
-        $path = ($path ? '/'.ltrim($path, '/') : '');
-
-        return 'servers/'.$this->id().$path;
-    }
-
-    /**
-     * Update server data.
-     *
-     * @param array $payload
-     *
-     * @return bool
-     */
-    public function update(array $payload): bool
-    {
-        ksort($payload);
-
-        $response = $this->api->getClient()->request('PUT', $this->apiUrl(), [
-            'form_params' => $payload,
-        ]);
-
-        $json = json_decode((string) $response->getBody(), true);
-
-        if (empty($json['server'])) {
-            return false;
-        }
-
-        $this->data = $json['server'];
-
-        return true;
+        return $this->getData('network');
     }
 
     /**
@@ -261,7 +152,7 @@ class Server implements ArrayAccess
      */
     public function reboot(): bool
     {
-        $this->api->getClient()->request('POST', $this->apiUrl('reboot'));
+        $this->getHttpClient()->request('POST', $this->apiUrl('reboot'));
 
         return true;
     }
@@ -273,7 +164,7 @@ class Server implements ArrayAccess
      **/
     public function revokeAccess(): bool
     {
-        $this->api->getClient()->request('POST', $this->apiUrl('/revoke'));
+        $this->getHttpClient()->request('POST', $this->apiUrl('/revoke'));
 
         return true;
     }
@@ -285,7 +176,7 @@ class Server implements ArrayAccess
      */
     public function reconnect(): string
     {
-        $response = $this->api->getClient()->request('POST', $this->apiUrl('/reconnect'));
+        $response = $this->getHttpClient()->request('POST', $this->apiUrl('/reconnect'));
         $json = json_decode((string) $response->getBody(), true);
 
         if (empty($json['public_key'])) {
@@ -306,19 +197,7 @@ class Server implements ArrayAccess
      */
     public function reactivate(): bool
     {
-        $this->api->getClient()->request('POST', $this->apiUrl('/reactivate'));
-
-        return true;
-    }
-
-    /**
-     * Delete the server.
-     *
-     * @return bool
-     */
-    public function delete(): bool
-    {
-        $this->api->getClient()->request('DELETE', $this->apiUrl());
+        $this->getHttpClient()->request('POST', $this->apiUrl('/reactivate'));
 
         return true;
     }

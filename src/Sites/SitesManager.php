@@ -37,6 +37,6 @@ class SitesManager
      */
     public function get(int $siteId)
     {
-        return (new GetSiteCommand())->setItemId($siteId);
+        return (new GetSiteCommand())->setResourceId($siteId);
     }
 }

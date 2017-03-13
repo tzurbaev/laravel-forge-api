@@ -3,9 +3,9 @@
 namespace Laravel\Forge\Sites;
 
 use Laravel\Forge\Contracts\ApplicationContract;
-use Laravel\Forge\ServerResources\ServerResource;
+use Laravel\Forge\Resource;
 
-class Site extends ServerResource
+class Site extends Resource
 {
     /**
      * Resource type.

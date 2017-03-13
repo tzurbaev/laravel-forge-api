@@ -113,6 +113,13 @@ class JobsTest extends TestCase
         ], $replace);
     }
 
+    public function fakeJob(Closure $callback, array $replace = []): Job
+    {
+        $server = Api::fakeServer($callback);
+
+        return new Job($server->getApi(), $this->response($replace), $server);
+    }
+
     public function createJobDataProvider(): array
     {
         return [
@@ -265,14 +272,11 @@ class JobsTest extends TestCase
     {
         return [
             [
-                'daemon' => new Job(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('DELETE', 'servers/1/jobs/1')
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'daemon' => $this->fakeJob(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('DELETE', 'servers/1/jobs/1')
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'expectedResult' => true,
             ],
         ];

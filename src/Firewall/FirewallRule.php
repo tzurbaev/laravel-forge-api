@@ -2,9 +2,9 @@
 
 namespace Laravel\Forge\Firewall;
 
-use Laravel\Forge\ServerResources\ServerResource;
+use Laravel\Forge\Resource;
 
-class FirewallRule extends ServerResource
+class FirewallRule extends Resource
 {
     /**
      * Resource type.
@@ -24,16 +24,6 @@ class FirewallRule extends ServerResource
     public function resourcePath()
     {
         return 'firewall-rules';
-    }
-
-    /**
-     * Rule name.
-     *
-     * @return string|null
-     */
-    public function name()
-    {
-        return $this->getData('name');
     }
 
     /**

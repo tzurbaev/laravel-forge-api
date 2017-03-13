@@ -3,9 +3,9 @@
 namespace Laravel\Forge\Firewall\Commands;
 
 use Laravel\Forge\Firewall\FirewallRule;
-use Laravel\Forge\ServerResources\Commands\ServerResourceCommand;
+use Laravel\Forge\Commands\ResourceCommand;
 
-abstract class FirewallRuleCommand extends ServerResourceCommand
+abstract class FirewallRuleCommand extends ResourceCommand
 {
     /**
      * Server resource path.

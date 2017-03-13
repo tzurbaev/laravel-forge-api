@@ -39,6 +39,6 @@ class FirewallManager
      */
     public function get(int $daemonId)
     {
-        return (new GetFirewallRuleCommand())->setItemId($daemonId);
+        return (new GetFirewallRuleCommand())->setResourceId($daemonId);
     }
 }

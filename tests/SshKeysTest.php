@@ -154,20 +154,24 @@ class SshKeysTest extends TestCase
         ];
     }
 
+    public function fakeKey(Closure $callback, array $replace = []): SshKey
+    {
+        $server = Api::fakeServer($callback);
+
+        return new SshKey($server->getApi(), $this->response($replace), $server);
+    }
+
     public function deleteKeyDataProvider(): array
     {
         return [
             [
-                'key' => new SshKey(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('DELETE', 'servers/1/keys/1')
-                            ->andReturn(
-                                FakeResponse::fake()->withJson(['key' => $this->response()])->toResponse()
-                            );
-                    }),
-                    $this->response()
-                ),
+                'key' => $this->fakeKey(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('DELETE', 'servers/1/keys/1')
+                        ->andReturn(
+                            FakeResponse::fake()->withJson(['key' => $this->response()])->toResponse()
+                        );
+                }),
                 'expectedResult' => true,
             ],
         ];

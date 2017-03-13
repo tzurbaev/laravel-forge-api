@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Forge\Sites\Applications;
+namespace Laravel\Forge\Applications;
 
 abstract class Application
 {

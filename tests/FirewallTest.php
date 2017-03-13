@@ -65,7 +65,7 @@ class FirewallTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    public function rule(array $replace = []): array
+    public function response(array $replace = []): array
     {
         return array_merge([
             'id' => 1,
@@ -75,6 +75,13 @@ class FirewallTest extends TestCase
             'status' => 'installing',
             'created_at' => '2016-12-16 15:50:17',
         ], $replace);
+    }
+
+    public function fakeRule(Closure $callback, array $replace = []): FirewallRule
+    {
+        $server = Api::fakeServer($callback);
+
+        return new FirewallRule($server->getApi(), $this->response($replace), $server);
     }
 
     public function createFirewallRuleDataProvider(): array
@@ -90,7 +97,7 @@ class FirewallTest extends TestCase
                             ],
                         ])
                         ->andReturn(
-                            FakeResponse::fake()->withJson(['rule' => $this->rule()])->toResponse()
+                            FakeResponse::fake()->withJson(['rule' => $this->response()])->toResponse()
                         );
                 }),
                 'rule' => [
@@ -117,9 +124,9 @@ class FirewallTest extends TestCase
                             FakeResponse::fake()
                                 ->withJson([
                                     'rules' => [
-                                        $this->rule(['id' => 1]),
-                                        $this->rule(['id' => 2]),
-                                        $this->rule(['id' => 3]),
+                                        $this->response(['id' => 1]),
+                                        $this->response(['id' => 2]),
+                                        $this->response(['id' => 3]),
                                     ],
                                 ])
                                 ->toResponse()
@@ -146,7 +153,7 @@ class FirewallTest extends TestCase
                     $http->shouldReceive('request')
                         ->with('GET', 'servers/1/firewall-rules/1', ['form_params' => []])
                         ->andReturn(
-                            FakeResponse::fake()->withJson(['rule' => $this->rule()])->toResponse()
+                            FakeResponse::fake()->withJson(['rule' => $this->response()])->toResponse()
                         );
                 }),
                 'ruleId' => 1,
@@ -163,14 +170,11 @@ class FirewallTest extends TestCase
     {
         return [
             [
-                'rule' => new FirewallRule(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('DELETE', 'servers/1/firewall-rules/1')
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->rule()
-                ),
+                'rule' => $this->fakeRule(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('DELETE', 'servers/1/firewall-rules/1')
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'expectedResult' => true,
             ],
         ];

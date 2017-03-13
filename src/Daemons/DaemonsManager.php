@@ -39,6 +39,6 @@ class DaemonsManager
      */
     public function get(int $daemonId)
     {
-        return (new GetDaemonCommand())->setItemId($daemonId);
+        return (new GetDaemonCommand())->setResourceId($daemonId);
     }
 }
