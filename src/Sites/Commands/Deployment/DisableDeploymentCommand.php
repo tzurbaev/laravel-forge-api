@@ -1,6 +1,8 @@
 <?php
 
-namespace Laravel\Forge\Sites\Commands;
+namespace Laravel\Forge\Sites\Commands\Deployment;
+
+use Laravel\Forge\Sites\Commands\SiteResourceCommand;
 
 class DisableDeploymentCommand extends SiteResourceCommand
 {

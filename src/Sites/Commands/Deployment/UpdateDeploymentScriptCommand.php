@@ -1,9 +1,10 @@
 <?php
 
-namespace Laravel\Forge\Sites\Commands;
+namespace Laravel\Forge\Sites\Commands\Deployment;
 
 use Laravel\Forge\Server;
 use Psr\Http\Message\ResponseInterface;
+use Laravel\Forge\Sites\Commands\SiteResourceCommand;
 
 class UpdateDeploymentScriptCommand extends SiteResourceCommand
 {

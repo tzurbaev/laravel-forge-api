@@ -1,8 +1,8 @@
 <?php
 
-namespace Laravel\Forge\Sites\Commands;
+namespace Laravel\Forge\Sites\Commands\Workers;
 
-class EnableDeploymentCommand extends SiteResourceCommand
+class GetWorkerCommand extends WorkerCommand
 {
     /**
      * Site resource path.
@@ -11,7 +11,7 @@ class EnableDeploymentCommand extends SiteResourceCommand
      */
     public function siteResourcePath()
     {
-        return 'deployment';
+        return 'workers/'.$this->getSiteResourceId();
     }
 
     /**
@@ -21,6 +21,6 @@ class EnableDeploymentCommand extends SiteResourceCommand
      */
     public function requestMethod()
     {
-        return 'POST';
+        return 'GET';
     }
 }

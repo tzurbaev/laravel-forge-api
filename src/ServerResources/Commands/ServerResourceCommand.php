@@ -105,6 +105,18 @@ abstract class ServerResourceCommand extends ServerCommand
     }
 
     /**
+     * Processes new response item.
+     *
+     * @param mixed $item
+     *
+     * @return mixed
+     */
+    public function processResponseItem($item)
+    {
+        return $item;
+    }
+
+    /**
      * Handle command response.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
@@ -120,7 +132,9 @@ abstract class ServerResourceCommand extends ServerCommand
 
         $className = $this->resourceClass();
 
-        return $className::createFromResponse($response, $server);
+        return $this->processResponseItem(
+            $className::createFromResponse($response, $server)
+        );
     }
 
     /**
@@ -147,7 +161,7 @@ abstract class ServerResourceCommand extends ServerCommand
         $className = $this->resourceClass();
 
         foreach ($json[$itemsKey] as $item) {
-            $items[] = new $className($server, $item);
+            $items[] = $this->processResponseItem(new $className($server, $item));
         }
 
         return $items;

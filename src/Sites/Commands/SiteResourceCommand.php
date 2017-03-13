@@ -16,6 +16,13 @@ abstract class SiteResourceCommand extends SiteCommand
     protected $site;
 
     /**
+     * Resource ID.
+     *
+     * @var int
+     */
+    protected $siteResourceId = 0;
+
+    /**
      * Site resource path.
      *
      * @return string
@@ -23,7 +30,17 @@ abstract class SiteResourceCommand extends SiteCommand
     abstract public function siteResourcePath();
 
     /**
-     * Set associated site.
+     * Site resource class.
+     *
+     * @return string|null
+     */
+    public function siteResourceClass()
+    {
+        //
+    }
+
+    /**
+     * Set associated site and execute command on site server.
      *
      * @param \Laravel\Forge\Sites\Site $site
      *
@@ -34,7 +51,41 @@ abstract class SiteResourceCommand extends SiteCommand
         $this->site = $site;
         $this->setItemId($site->id());
 
+        return $this->on($site->getServer());
+    }
+
+    /**
+     * Set site resource ID.
+     *
+     * @param int $resourceId
+     *
+     * @return static
+     */
+    public function setSiteResourceId(int $resourceId)
+    {
+        $this->siteResourceId = $resourceId;
+
         return $this;
+    }
+
+    /**
+     * Get site resource ID.
+     *
+     * @return int
+     */
+    public function getSiteResourceId(): int
+    {
+        return $this->siteResourceId;
+    }
+
+    /**
+     * Get associated site.
+     *
+     * @return \Laravel\Forge\Sites\Site
+     */
+    public function getSite(): Site
+    {
+        return $this->site;
     }
 
     /**
@@ -52,6 +103,18 @@ abstract class SiteResourceCommand extends SiteCommand
     }
 
     /**
+     * Processes new response item.
+     *
+     * @param mixed $item
+     *
+     * @return mixed
+     */
+    public function processResponseItem($item)
+    {
+        return $item->setSite($this->getSite());
+    }
+
+    /**
      * Handle command response.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
@@ -61,6 +124,12 @@ abstract class SiteResourceCommand extends SiteCommand
      */
     public function handleResponse(ResponseInterface $response, Server $server)
     {
-        return true;
+        $siteResourceClass = $this->siteResourceClass();
+
+        if (is_null($siteResourceClass)) {
+            return true;
+        }
+
+        return parent::handleResponse($response, $server);
     }
 }

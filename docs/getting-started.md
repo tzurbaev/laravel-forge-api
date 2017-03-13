@@ -21,7 +21,6 @@ This SDK supports following Forge API features:
 ## Coming soon
 
 - SSL certificates management;
-- Workers;
 - Services configuration;
 - Recipes.
 

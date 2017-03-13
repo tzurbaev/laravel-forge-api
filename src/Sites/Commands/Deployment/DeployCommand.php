@@ -1,11 +1,12 @@
 <?php
 
-namespace Laravel\Forge\Sites\Commands;
+namespace Laravel\Forge\Sites\Commands\Deployment;
 
 use Laravel\Forge\Server;
 use Psr\Http\Message\ResponseInterface;
+use Laravel\Forge\Sites\Commands\SiteResourceCommand;
 
-class ResetDeploymentStatusCommand extends SiteResourceCommand
+class DeployCommand extends SiteResourceCommand
 {
     /**
      * Site resource path.
@@ -14,7 +15,7 @@ class ResetDeploymentStatusCommand extends SiteResourceCommand
      */
     public function siteResourcePath()
     {
-        return 'deployment/reset';
+        return 'deployment/deploy';
     }
 
     /**

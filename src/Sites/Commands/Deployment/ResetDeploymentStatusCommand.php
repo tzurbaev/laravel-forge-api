@@ -1,11 +1,12 @@
 <?php
 
-namespace Laravel\Forge\Sites\Commands;
+namespace Laravel\Forge\Sites\Commands\Deployment;
 
 use Laravel\Forge\Server;
 use Psr\Http\Message\ResponseInterface;
+use Laravel\Forge\Sites\Commands\SiteResourceCommand;
 
-class GetDeploymentScriptCommand extends SiteResourceCommand
+class ResetDeploymentStatusCommand extends SiteResourceCommand
 {
     /**
      * Site resource path.
@@ -14,7 +15,7 @@ class GetDeploymentScriptCommand extends SiteResourceCommand
      */
     public function siteResourcePath()
     {
-        return 'deployment/script';
+        return 'deployment/reset';
     }
 
     /**
@@ -24,7 +25,7 @@ class GetDeploymentScriptCommand extends SiteResourceCommand
      */
     public function requestMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 
     /**
@@ -33,10 +34,10 @@ class GetDeploymentScriptCommand extends SiteResourceCommand
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \Laravel\Forge\Server               $server
      *
-     * @return string
+     * @return bool
      */
     public function handleResponse(ResponseInterface $response, Server $server)
     {
-        return (string) $response->getBody();
+        return true;
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Laravel\Forge\Sites;
 
-use Laravel\Forge\Sites\Commands\DeployCommand;
-use Laravel\Forge\Sites\Commands\EnableDeploymentCommand;
-use Laravel\Forge\Sites\Commands\GetDeploymentLogCommand;
-use Laravel\Forge\Sites\Commands\DisableDeploymentCommand;
-use Laravel\Forge\Sites\Commands\GetDeploymentScriptCommand;
-use Laravel\Forge\Sites\Commands\ResetDeploymentStatusCommand;
-use Laravel\Forge\Sites\Commands\UpdateDeploymentScriptCommand;
+use Laravel\Forge\Sites\Commands\Deployment\DeployCommand;
+use Laravel\Forge\Sites\Commands\Deployment\EnableDeploymentCommand;
+use Laravel\Forge\Sites\Commands\Deployment\GetDeploymentLogCommand;
+use Laravel\Forge\Sites\Commands\Deployment\DisableDeploymentCommand;
+use Laravel\Forge\Sites\Commands\Deployment\GetDeploymentScriptCommand;
+use Laravel\Forge\Sites\Commands\Deployment\ResetDeploymentStatusCommand;
+use Laravel\Forge\Sites\Commands\Deployment\UpdateDeploymentScriptCommand;
 
 class DeploymentManager
 {
@@ -21,9 +21,7 @@ class DeploymentManager
      */
     public function enable(Site $site)
     {
-        return (new EnableDeploymentCommand())
-            ->for($site)
-            ->on($site->getServer());
+        return (new EnableDeploymentCommand())->for($site);
     }
 
     /**
@@ -35,9 +33,7 @@ class DeploymentManager
      */
     public function disable(Site $site)
     {
-        return (new DisableDeploymentCommand())
-            ->for($site)
-            ->on($site->getServer());
+        return (new DisableDeploymentCommand())->for($site);
     }
 
     /**
@@ -49,9 +45,7 @@ class DeploymentManager
      */
     public function getScript(Site $site)
     {
-        return (new GetDeploymentScriptCommand())
-            ->for($site)
-            ->from($site->getServer());
+        return (new GetDeploymentScriptCommand())->for($site);
     }
 
     /**
@@ -65,9 +59,8 @@ class DeploymentManager
     public function updateScript(Site $site, string $script)
     {
         return (new UpdateDeploymentScriptCommand())
-            ->for($site)
             ->withPayload(['content' => $script])
-            ->on($site->getServer());
+            ->for($site);
     }
 
     /**
@@ -79,9 +72,7 @@ class DeploymentManager
      */
     public function deploy(Site $site)
     {
-        return (new DeployCommand())
-            ->for($site)
-            ->on($site->getServer());
+        return (new DeployCommand())->for($site);
     }
 
     /**
@@ -93,9 +84,7 @@ class DeploymentManager
      */
     public function reset(Site $site)
     {
-        return (new ResetDeploymentStatusCommand())
-            ->for($site)
-            ->on($site->getServer());
+        return (new ResetDeploymentStatusCommand())->for($site);
     }
 
     /**
@@ -107,8 +96,6 @@ class DeploymentManager
      */
     public function log(Site $site)
     {
-        return (new GetDeploymentLogCommand())
-            ->for($site)
-            ->from($site->getServer());
+        return (new GetDeploymentLogCommand())->for($site);
     }
 }

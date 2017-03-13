@@ -14,3 +14,4 @@
 - [Sites](./sites.md)
     + [Site Applications](./site-applications.md)
     + [Deployment](./deployment.md)
+    + [Workers](./workers.md)

@@ -24,6 +24,11 @@ abstract class SiteCommand extends ServerResourceCommand
      */
     public function resourceClass()
     {
+        // Check if we're working with site resource.
+        if (method_exists($this, 'siteResourceClass') && !is_null($this->siteResourceClass())) {
+            return $this->siteResourceClass();
+        }
+
         return Site::class;
     }
 }
