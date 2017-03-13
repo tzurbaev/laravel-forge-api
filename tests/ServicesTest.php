@@ -181,7 +181,7 @@ class ServicesTest extends TestCase
                 'service' => new BlackfireService(),
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/blackfire/remove', ['form_params' => []])
+                        ->with('DELETE', 'servers/1/blackfire/remove', ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -190,7 +190,7 @@ class ServicesTest extends TestCase
                 'service' => new PapertrailService(),
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/papertrail/remove', ['form_params' => []])
+                        ->with('DELETE', 'servers/1/papertrail/remove', ['form_params' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
