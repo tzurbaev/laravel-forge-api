@@ -125,6 +125,18 @@ abstract class Provider
     }
 
     /**
+     * Determines if given key exists in current payload.
+     *
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function hasPayload(string $key): bool
+    {
+        return !empty($this->payload[$key]);
+    }
+
+    /**
      * Set credential ID to create server with.
      *
      * @param int $credentialId

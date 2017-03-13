@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- Allow to set default credential ID for specific server providers.
+- Allow to set default credential ID for specific server providers;
+- `hasPayload` method added to `Provider` class.
+
+### Fixed
+- Fixed `ArrayAccessTrait`'s `offsetExists` method.
 
 ## [0.9.1] - 2017-03-13
 ### Added

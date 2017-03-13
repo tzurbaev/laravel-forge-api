@@ -13,7 +13,7 @@ trait ArrayAccessTrait
      */
     public function offsetExists($offset)
     {
-        return isset($this->data[$key]);
+        return isset($this->data[$offset]);
     }
 
     /**
