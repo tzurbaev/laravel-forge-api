@@ -79,6 +79,23 @@ $vps = $forge->create()
   ->save();
 ```
 
+# Getting credential ID
+
+`Forge` class provides `credentials` method to retrieve array of stored credentials.
+
+```php
+<?php
+
+use Laravel\Forge\Forge;
+
+$forge = new Forge($api);
+$credentials = $forge->credentials();
+
+foreach ($credentials as $credential) {
+  echo 'Using credential #'.$credential['id'].' to create '.$credential['type'].' servers.';
+}
+```
+
 # Specifying default credential
 
 You may specify default credential for the specific server provider by calling static `Factory::setDefaultCredential` method.

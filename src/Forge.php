@@ -106,6 +106,23 @@ class Forge implements ArrayAccess, Iterator
     }
 
     /**
+     * Get server provider credentials.
+     *
+     * @return array
+     */
+    public function credentials(): array
+    {
+        $response = $this->api->getClient()->request('GET', 'credentials');
+        $json = json_decode((string) $response->getBody(), true);
+
+        if (empty($json['credentials'])) {
+            return [];
+        }
+
+        return $json['credentials'];
+    }
+
+    /**
      * Load single server from API and save it to memory cache.
      *
      * @param int $serverId

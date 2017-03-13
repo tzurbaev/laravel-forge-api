@@ -8,9 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Allow to set default credential ID for specific server providers;
 - `hasPayload` method added to `Provider` class;
-- Workers Management.
+- Workers Management;
+- `Forge::credentials` method to get stored credentials.
 
 ### Changed
+- `ForgeServers` class was renamed to `Forge`;
+- `ServersFactory` class was renamed to `Factory`;
 - All SDK entities are now extended from base `Laravel\Forge\ApiResource` class;
 - Resource commands system was reworked and now any Resource can execute commands (previously only Server had this possibility);
 - `enable`, `disable`, `reset`, `log` and `deploy` methods of `DeploymentManager` class have new signatures;
