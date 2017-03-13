@@ -110,7 +110,7 @@ class Server extends ApiResource
      *
      * @return string
      */
-    public function parerTrailStatus()
+    public function papertrailStatus()
     {
         return $this->getData('papertrail_status');
     }

@@ -16,10 +16,18 @@ With getter methods you can retrieve server ID, name, size, PHP version, check i
 $server = $servers['my-server'];
 
 $id = $server->id(); // Forge Server ID
+$credentialId = $server->credentialId(); // Credential ID
 $name = $server->name();
 $size = $server->size(); // 1GB, 512MB, etc.
+$region = $server->region(); // Frankfurt
 $phpVersion = $server->phpVersion(); // php56, php70 or php71
+$publicIp = $server->ip();
+$privateIp = $server->privateIp();
+$blackfireStatus = $server->blackfireStatus();
+$papertrailStatus = $server->papertrailStatus();
+$isRevoked = $server->isRevoked();
 $isReady = $server->isReady();
+$connectedServerIds = $server->network();
 ```
 
 ## Update server data
