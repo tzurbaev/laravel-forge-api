@@ -2,12 +2,13 @@
 
 namespace Laravel\Tests\Forge;
 
-use Mockery;
 use Closure;
+use Mockery;
 use Laravel\Forge\Server;
 use Laravel\Forge\ForgeServers;
 use PHPUnit\Framework\TestCase;
 use Laravel\Tests\Forge\Helpers\Api;
+use Laravel\Forge\Servers\ServersFactory;
 use Laravel\Tests\Forge\Helpers\FakeResponse;
 
 class CreateServerTest extends TestCase
@@ -48,6 +49,39 @@ class CreateServerTest extends TestCase
 
         $servers = new ForgeServers($api);
         $server = $factory($servers);
+
+        $this->assertInstanceOf(Server::class, $server);
+        $this->assertSame($payload['name'], $server->name());
+        $this->assertSame($payload['size'], $server->size());
+        $this->assertSame($payload['php_version'], $server->phpVersion());
+        $this->assertFalse($server->isReady());
+    }
+
+    /**
+     * @dataProvider createServerWithDefaultCredentialDataProvider
+     */
+    public function testCreateServerWithDefaultCredential(int $credentialId, array $payload, array $response, Closure $factory)
+    {
+        $api = Api::fake(function ($http) use ($payload, $response) {
+            $http->shouldReceive('request')
+                ->with('POST', 'servers', ['form_params' => $payload])
+                ->andReturn(
+                    FakeResponse::fake()
+                        ->withJson([
+                            'server' => $response,
+                            'sudo_password' => 'secret',
+                            'database_password' => 'secret',
+                        ])
+                        ->toResponse()
+                );
+        });
+
+        ServersFactory::setDefaultCredential($payload['provider'], $credentialId);
+
+        $servers = new ForgeServers($api);
+        $server = $factory($servers);
+
+        ServersFactory::resetDefaultCredential($payload['provider']);
 
         $this->assertInstanceOf(Server::class, $server);
         $this->assertSame($payload['name'], $server->name());
@@ -103,7 +137,7 @@ class CreateServerTest extends TestCase
                 'payload' => $this->payload([
                     'provider' => 'linode',
                     'size' => '1GB',
-                    'region' => 1,
+                    'region' => 10,
                 ]),
                 'response' => $this->response([
                     'size' => '1GB',
@@ -115,7 +149,7 @@ class CreateServerTest extends TestCase
                         ->linode('northrend')
                         ->withMemoryOf('1GB')
                         ->usingCredential(1)
-                        ->at(1)
+                        ->at(10)
                         ->runningPhp('7.1')
                         ->withMariaDb('laravel')
                         ->asLoadBalancer()
@@ -183,6 +217,51 @@ class CreateServerTest extends TestCase
                         ->withMariaDb('laravel')
                         ->usingPublicIp('37.139.3.148')
                         ->usingPrivateIp('10.129.3.252')
+                        ->save();
+                },
+            ],
+        ];
+    }
+
+    public function createServerWithDefaultCredentialDataProvider(): array
+    {
+        return [
+            [
+                'credentialId' => 2,
+                'payload' => $this->payload(['credential_id' => 2]),
+                'response' => $this->response(),
+                'factory' => function (ForgeServers $servers) {
+                    return $servers
+                        ->create()
+                        ->droplet('northrend')
+                        ->withMemoryOf('512MB')
+                        ->at('fra1')
+                        ->runningPhp('7.1')
+                        ->withMariaDb('laravel')
+                        ->asLoadBalancer()
+                        ->connectedTo([1, 2, 3])
+                        ->save();
+                },
+            ],
+            [
+                'credentialId' => 3,
+                'payload' => $this->payload([
+                    'provider' => 'linode',
+                    'credential_id' => 3,
+                    'size' => '1GB',
+                    'region' => 10,
+                ]),
+                'response' => $this->response(['size' => '1GB']),
+                'factory' => function (ForgeServers $servers) {
+                    return $servers
+                        ->create()
+                        ->linode('northrend')
+                        ->withMemoryOf('1GB')
+                        ->at(10)
+                        ->runningPhp('7.1')
+                        ->withMariaDb('laravel')
+                        ->asLoadBalancer()
+                        ->connectedTo([1, 2, 3])
                         ->save();
                 },
             ],

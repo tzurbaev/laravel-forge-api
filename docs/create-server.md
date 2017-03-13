@@ -79,6 +79,47 @@ $vps = $servers->create()
   ->save();
 ```
 
+# Specifying default credential
+
+You may specify default credential for the specific server provider by calling static `ServersFactory::setDefaultCredential` method.
+
+```php
+use Laravel\Forge\Servers\ServersFactory;
+
+ServersFactory::setDefaultCredential('ocean2', 12345);
+```
+
+After doing so you may ommit `usingCredential` method call on `DigitalOcean` provider (instance returned by `droplet` method).
+
+```php
+<?php
+
+use Laravel\Forge\ForgeServers;
+
+$servers = new ForgeServers($api);
+
+$droplet = $servers->create()
+  ->droplet('my-droplet-name')
+  ->withMemoryOf('2GB')
+  ->at('fra1')
+  ->save();
+```
+
+If you still need to create new droplet using different credential, simply call `usingCredential` method and provide appropriate credential ID.
+
+Also you can reset default credential for single provider or for all providers.
+
+```php
+
+use Laravel\Forge\Servers\ServersFactory;
+
+// Reset credential only for DigitalOcean.
+ServersFactory::resetDefaultCredential('ocean2');
+
+// Reset credentials for all providers.
+ServersFactory::resetDefaultCredential();
+```
+
 # Shared methods
 
 You can call additional methods on all providers.

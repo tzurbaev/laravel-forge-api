@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- Allow to set default credential ID for specific server providers.
+
+## [0.9.1] - 2017-03-13
+### Added
 - Package documentation;
 - `start` and `runningAs` methods were added to `CreateDaemonCommand` class;
 - `identifiedAs` and `usingPort` methods were added to `CreateFirewallRuleCommand` class.
@@ -31,5 +35,6 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/0.9.0...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/0.9.1...HEAD
+[0.9.1]: https://github.com/tzurbaev/laravel-forge-api/compare/0.9.0...0.9.1
 [0.9.0]: https://github.com/tzurbaev/laravel-forge-api/releases/tag/0.9.0
