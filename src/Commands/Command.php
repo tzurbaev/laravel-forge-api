@@ -2,10 +2,10 @@
 
 namespace Laravel\Forge\Commands;
 
-use Laravel\Forge\Server;
+use Laravel\Forge\Contracts\ResourceContract;
 use InvalidArgumentException;
 
-abstract class ServerCommand
+abstract class Command
 {
     /**
      * Command payload.
@@ -54,13 +54,13 @@ abstract class ServerCommand
     /**
      * HTTP request URL.
      *
-     * @param \Laravel\Forge\Server
+     * @param \Laravel\Forge\Contracts\ResourceContract $owner
      *
      * @return string
      */
-    public function requestUrl(Server $server)
+    public function requestUrl(ResourceContract $owner)
     {
-        return $server->apiUrl();
+        return $owner->apiUrl();
     }
 
     /**
@@ -152,31 +152,31 @@ abstract class ServerCommand
     }
 
     /**
-     * Execute command on single or multiple servers.
+     * Execute command on single or multiple resources.
      *
-     * @param array|\Laravel\Forge\Server $server
+     * @param array|\Laravel\Forge\Contracts\ResourceContract $resource
      *
      * @throws \InvalidArgumentException
      *
      * @return bool|array
      */
-    public function on($server)
+    public function on($resource)
     {
         if (!$this->runnable()) {
             throw new InvalidArgumentException('Command execution is restricted.');
         }
 
-        if (is_array($server)) {
-            return $this->executeOnMulitpleServers($server);
+        if (is_array($resource)) {
+            return $this->executeOnMulitpleResources($resource);
         }
 
-        return $this->executeOn($server);
+        return $this->executeOn($resource);
     }
 
     /**
      * Alias for "on" command.
      *
-     * @param array|\Laravel\Forge\Server $server
+     * @param array|\Laravel\Forge\Contracts\ResourceContract $resource
      *
      * @throws \InvalidArgumentException
      *
@@ -184,40 +184,42 @@ abstract class ServerCommand
      *
      * @return bool|array
      */
-    public function from($server)
+    public function from($resource)
     {
-        return $this->on($server);
+        return $this->on($resource);
     }
 
     /**
-     * Execute current command on given server.
+     * Execute current command on given resource.
+     *
+     * @param \Laravel\Forge\Contracts\ResourceContract $resource
      *
      * @return bool|mixed
      */
-    protected function executeOn(Server $server)
+    protected function executeOn(ResourceContract $resource)
     {
-        $response = $this->execute($server);
+        $response = $this->execute($resource);
 
         if (method_exists($this, 'handleResponse')) {
-            return $this->handleResponse($response, $server);
+            return $this->handleResponse($response, $resource);
         }
 
         return true;
     }
 
     /**
-     * Execute current command on multiple servers.
+     * Execute current command on multiple resources.
      *
-     * @param array $servers
+     * @param array $resources
      *
      * @return array
      */
-    protected function executeOnMulitpleServers(array $servers): array
+    protected function executeOnMulitpleResources(array $resources): array
     {
         $results = [];
 
-        foreach ($servers as $server) {
-            $results[$server->name()] = $this->executeOn($server);
+        foreach ($resources as $resource) {
+            $results[$resource->name()] = $this->executeOn($resource);
         }
 
         return $results;
@@ -226,13 +228,13 @@ abstract class ServerCommand
     /**
      * Execute current command.
      *
-     * @param \Laravel\Forge\Server $server
+     * @param \Laravel\Forge\Contracts\ResourceContract $resource
      */
-    protected function execute(Server $server)
+    protected function execute(ResourceContract $resource)
     {
-        return $server->getApi()->getClient()->request(
+        return $resource->getHttpClient()->request(
             $this->requestMethod(),
-            $this->requestUrl($server),
+            $this->requestUrl($resource),
             $this->requestOptions()
         );
     }

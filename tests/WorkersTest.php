@@ -5,10 +5,10 @@ namespace Laravel\Tests\Forge;
 use Closure;
 use InvalidArgumentException;
 use Laravel\Forge\Sites\Site;
-use Laravel\Forge\Sites\Worker;
+use Laravel\Forge\Workers\Worker;
 use PHPUnit\Framework\TestCase;
 use Laravel\Tests\Forge\Helpers\Api;
-use Laravel\Forge\Sites\WorkersManager;
+use Laravel\Forge\Workers\WorkersManager;
 use Laravel\Tests\Forge\Helpers\FakeResponse;
 
 class WorkersTest extends TestCase
@@ -32,7 +32,7 @@ class WorkersTest extends TestCase
     {
         $workers = new WorkersManager();
 
-        $result = $workers->list()->for($site);
+        $result = $workers->list()->from($site);
 
         $assertion($result);
     }
@@ -44,7 +44,7 @@ class WorkersTest extends TestCase
     {
         $workers = new WorkersManager();
 
-        $result = $workers->get($workerId)->for($site);
+        $result = $workers->get($workerId)->from($site);
 
         $assertion($result);
     }
@@ -108,7 +108,7 @@ class WorkersTest extends TestCase
                         ->sleepFor(60)
                         ->maxTries(3)
                         ->asDaemon()
-                        ->for($site);
+                        ->on($site);
                 },
                 'assertion' => function ($worker) {
                     $this->assertInstanceOf(Worker::class, $worker);
@@ -184,9 +184,8 @@ class WorkersTest extends TestCase
     public function fakeWorker(Closure $callback = null, array $replace = []): Worker
     {
         $site = Api::fakeSite($callback);
-        $worker = new Worker($site->getServer(), $this->response($replace));
 
-        return $worker->setSite($site);
+        return new Worker($site->getApi(), $this->response($replace), $site);
     }
 
     public function deleteWorkerDataProvider(): array

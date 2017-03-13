@@ -11,7 +11,7 @@ SDK supports Github, Bitbucket, Gitlab and custom git repositories.
 ```php
 <?php
 
-use Laravel\Forge\Sites\Applications\GitApplication;
+use Laravel\Forge\Applications\GitApplication;
 
 $app = (new GitApplication())->fromGithub('username/repository');
 $site->install($app);
@@ -22,7 +22,7 @@ You can specify which repository provider should be used by calling respective m
 ```php
 <?php
 
-use Laravel\Forge\Sites\Applications\GitApplication;
+use Laravel\Forge\Applications\GitApplication;
 
 // Install application from Github repository.
 $app = (new GitApplication())->fromGithub('username/repository');
@@ -48,7 +48,7 @@ You are not required to provide repository provider or source while uninstalling
 ```php
 <?php
 
-use Laravel\Forge\Sites\Applications\GitApplication;
+use Laravel\Forge\Applications\GitApplication;
 
 $site->uninstall(new GitApplication());
 ```
@@ -60,7 +60,7 @@ Provide database name and database user name while installing new WordPress appl
 ```php
 <?php
 
-use Laravel\Forge\Sites\Applications\WordPressApplication;
+use Laravel\Forge\Applications\WordPressApplication;
 
 $app = (new WordPressApplication())->usingDatabase('database-name', 'user');
 $site->install($app);
@@ -73,7 +73,7 @@ Same as Git applications, you only need to provide empty instance of `WordPressA
 ```php
 <?php
 
-use Laravel\Forge\Sites\Applications\WordPressApplication;
+use Laravel\Forge\Applications\WordPressApplication;
 
 $site->uninstall(new WordPressApplication());
 ```

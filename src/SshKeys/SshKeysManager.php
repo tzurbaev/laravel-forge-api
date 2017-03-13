@@ -39,6 +39,6 @@ class SshKeysManager
      */
     public function get(int $keyId)
     {
-        return (new GetSshKeyCommand())->setItemId($keyId);
+        return (new GetSshKeyCommand())->setResourceId($keyId);
     }
 }

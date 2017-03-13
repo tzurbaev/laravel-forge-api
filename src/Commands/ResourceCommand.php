@@ -1,28 +1,27 @@
 <?php
 
-namespace Laravel\Forge\ServerResources\Commands;
+namespace Laravel\Forge\Commands;
 
-use Laravel\Forge\Server;
+use Laravel\Forge\Contracts\ResourceContract;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
-use Laravel\Forge\Commands\ServerCommand;
 
-abstract class ServerResourceCommand extends ServerCommand
+abstract class ResourceCommand extends Command
 {
     /**
-     * Item ID.
+     * Resource ID.
      */
-    protected $itemId;
+    protected $resourceId;
 
     /**
-     * Server resource path.
+     * Resource path.
      *
      * @return string
      */
     abstract public function resourcePath();
 
     /**
-     * Server resource class name.
+     * Resource class name.
      *
      * @return string
      */
@@ -59,95 +58,81 @@ abstract class ServerResourceCommand extends ServerCommand
             return 'GET';
         }
 
-        return is_null($this->itemId) ? 'POST' : 'GET';
+        return is_null($this->getResourceId()) ? 'POST' : 'GET';
     }
 
     /**
      * HTTP request URL.
      *
-     * @param \Laravel\Forge\Server
+     * @param \Laravel\Forge\Contracts\ResourceContract $resource
      *
      * @return string
      */
-    public function requestUrl(Server $server)
+    public function requestUrl(ResourceContract $resource)
     {
         $resourcePath = $this->resourcePath();
 
-        if (!is_null($this->getItemId())) {
-            $resourcePath .= '/'.$this->getItemId();
+        if (!is_null($this->getResourceId())) {
+            $resourcePath .= '/'.$this->getResourceId();
         }
 
-        return $server->apiUrl($resourcePath);
+        return $resource->apiUrl($resourcePath);
     }
 
     /**
-     * Set Item ID.
+     * Set resource ID.
      *
-     * @param int|string $itemId
+     * @param int|string $resourceId
      *
      * @return static
      */
-    public function setItemId($itemId)
+    public function setResourceId($resourceId)
     {
-        $this->itemId = $itemId;
+        $this->resourceId = $resourceId;
 
         return $this;
     }
 
     /**
-     * Get Item ID.
+     * Get resource ID.
      *
      * @return int|string|null
      */
-    public function getItemId()
+    public function getResourceId()
     {
-        return $this->itemId;
-    }
-
-    /**
-     * Processes new response item.
-     *
-     * @param mixed $item
-     *
-     * @return mixed
-     */
-    public function processResponseItem($item)
-    {
-        return $item;
+        return $this->resourceId;
     }
 
     /**
      * Handle command response.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Laravel\Forge\Server               $server
+     * @param \Psr\Http\Message\ResponseInterface       $response
+     * @param \Laravel\Forge\Contracts\ResourceContract $owner
      *
-     * @return \Laravel\Forge\ServerResources\ServerResource|array|bool|string
+     * @return \Laravel\Forge\Contracts\ResourceContract|array|bool|string
      */
-    public function handleResponse(ResponseInterface $response, Server $server)
+    public function handleResponse(ResponseInterface $response, ResourceContract $owner)
     {
         if ($this->isListCommand()) {
-            return $this->handleListCommandResponse($response, $server);
+            return $this->handleListCommandResponse($response, $owner);
         }
 
         $className = $this->resourceClass();
 
-        return $this->processResponseItem(
-            $className::createFromResponse($response, $server)
-        );
+        return $className::createFromResponse($response, $owner->getApi(), $owner);
     }
 
     /**
      * List response handler.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Laravel\Forge\Server               $server
+     * @param \Psr\Http\Message\ResponseInterface       $response
+     * @param \Laravel\Forge\Contracts\ResourceContract $owner
      *
      * @throws \InvalidArgumentException
      *
      * @return array
      */
-    public function handleListCommandResponse(ResponseInterface $response, Server $server)
+    public function handleListCommandResponse(ResponseInterface $response, ResourceContract $owner)
     {
         $itemsKey = $this->listResponseItemsKey();
 
@@ -161,7 +146,7 @@ abstract class ServerResourceCommand extends ServerCommand
         $className = $this->resourceClass();
 
         foreach ($json[$itemsKey] as $item) {
-            $items[] = $this->processResponseItem(new $className($server, $item));
+            $items[] = new $className($owner->getApi(), $item, $owner);
         }
 
         return $items;

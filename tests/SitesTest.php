@@ -11,8 +11,8 @@ use Laravel\Tests\Forge\Helpers\Api;
 use Laravel\Forge\Sites\SitesManager;
 use Laravel\Tests\Forge\Helpers\FakeResponse;
 use Laravel\Forge\Contracts\ApplicationContract;
-use Laravel\Forge\Sites\Applications\GitApplication;
-use Laravel\Forge\Sites\Applications\WordPressApplication;
+use Laravel\Forge\Applications\GitApplication;
+use Laravel\Forge\Applications\WordPressApplication;
 
 class SitesTest extends TestCase
 {

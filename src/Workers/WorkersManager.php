@@ -1,10 +1,10 @@
 <?php
 
-namespace Laravel\Forge\Sites;
+namespace Laravel\Forge\Workers;
 
-use Laravel\Forge\Sites\Commands\Workers\GetWorkerCommand;
-use Laravel\Forge\Sites\Commands\Workers\ListWorkersCommand;
-use Laravel\Forge\Sites\Commands\Workers\CreateWorkerCommand;
+use Laravel\Forge\Workers\Commands\GetWorkerCommand;
+use Laravel\Forge\Workers\Commands\ListWorkersCommand;
+use Laravel\Forge\Workers\Commands\CreateWorkerCommand;
 
 class WorkersManager
 {
@@ -13,7 +13,7 @@ class WorkersManager
      *
      * @param string $connection
      *
-     * @return \Laravel\Forge\Sites\Commands\Workers\CreateWorkerCommand
+     * @return \Laravel\Forge\Workers\Commands\CreateWorkerCommand
      */
     public function start(string $connection)
     {
@@ -25,7 +25,7 @@ class WorkersManager
      *
      * @param string $connection
      *
-     * @return \Laravel\Forge\Sites\Commands\Workers\CreateWorkerCommand
+     * @return \Laravel\Forge\Workers\Commands\CreateWorkerCommand
      */
     public function create(string $connection)
     {
@@ -37,17 +37,17 @@ class WorkersManager
      *
      * @param int $workerId
      *
-     * @return \Laravel\Forge\Sites\Commands\Workers\GetWorkerCommand
+     * @return \Laravel\Forge\Workers\Commands\GetWorkerCommand
      */
     public function get(int $workerId)
     {
-        return (new GetWorkerCommand())->setSiteResourceId($workerId);
+        return (new GetWorkerCommand())->setResourceId($workerId);
     }
 
     /**
      * Initialize new list workers command.
      *
-     * @return \Laravel\Forge\Sites\Commands\Workers\ListWorkersCommand
+     * @return \Laravel\Forge\Workers\Commands\ListWorkersCommand
      */
     public function list()
     {

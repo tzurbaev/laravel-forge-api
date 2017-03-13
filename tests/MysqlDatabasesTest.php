@@ -181,18 +181,22 @@ class MysqlDatabasesTest extends TestCase
         ];
     }
 
+    public function fakeDatabase(Closure $callback, array $replace = []): MysqlDatabase
+    {
+        $server = Api::fakeServer($callback);
+
+        return new MysqlDatabase($server->getApi(), $this->response($replace), $server);
+    }
+
     public function deleteDatabaseDataProvider(): array
     {
         return [
             [
-                'database' => new MysqlDatabase(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('DELETE', 'servers/1/mysql/1')
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->response()
-                ),
+                'database' => $this->fakeDatabase(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('DELETE', 'servers/1/mysql/1')
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'expectedResult' => true,
             ],
         ];

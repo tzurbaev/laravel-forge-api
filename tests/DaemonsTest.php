@@ -80,7 +80,7 @@ class DaemonsTest extends TestCase
         $this->assertSame($expectedResult, $result);
     }
 
-    public function daemon(array $replace = [])
+    public function response(array $replace = [])
     {
         return array_merge([
             'id' => 1,
@@ -89,6 +89,13 @@ class DaemonsTest extends TestCase
             'status' => 'installing',
             'created_at' => '2016-12-16 15:46:22',
         ], $replace);
+    }
+
+    public function fakeDaemon(Closure $callback = null, array $replace = []): Daemon
+    {
+        $server = Api::fakeServer($callback);
+
+        return new Daemon($server->getApi(), $this->response($replace), $server);
     }
 
     public function createDaemonDataProvider(): array
@@ -104,7 +111,7 @@ class DaemonsTest extends TestCase
                             ]
                         ])
                         ->andReturn(
-                            FakeResponse::fake()->withJson(['daemon' => $this->daemon()])->toResponse()
+                            FakeResponse::fake()->withJson(['daemon' => $this->response()])->toResponse()
                         );
                 }),
                 'payload' => [
@@ -130,9 +137,9 @@ class DaemonsTest extends TestCase
                             FakeResponse::fake()
                                 ->withJson([
                                     'daemons' => [
-                                        $this->daemon(['id' => 1]),
-                                        $this->daemon(['id' => 2]),
-                                        $this->daemon(['id' => 3]),
+                                        $this->response(['id' => 1]),
+                                        $this->response(['id' => 2]),
+                                        $this->response(['id' => 3]),
                                     ],
                                 ])
                                 ->toResponse()
@@ -159,7 +166,7 @@ class DaemonsTest extends TestCase
                     $http->shouldReceive('request')
                         ->with('GET', 'servers/1/daemons/1', ['form_params' => []])
                         ->andReturn(
-                            FakeResponse::fake()->withJson(['daemon' => $this->daemon()])->toResponse()
+                            FakeResponse::fake()->withJson(['daemon' => $this->response()])->toResponse()
                         );
                 }),
                 'daemonId' => 1,
@@ -176,14 +183,11 @@ class DaemonsTest extends TestCase
     {
         return [
             [
-                'daemon' => new Daemon(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('DELETE', 'servers/1/daemons/1')
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->daemon()
-                ),
+                'daemon' => $this->fakeDaemon(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('DELETE', 'servers/1/daemons/1')
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'expectedResult' => true,
             ],
         ];
@@ -193,14 +197,11 @@ class DaemonsTest extends TestCase
     {
         return [
             [
-                'daemon' => new Daemon(
-                    Api::fakeServer(function ($http) {
-                        $http->shouldReceive('request')
-                            ->with('POST', 'servers/1/daemons/1/restart')
-                            ->andReturn(FakeResponse::fake()->toResponse());
-                    }),
-                    $this->daemon()
-                ),
+                'daemon' => $this->fakeDaemon(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/daemons/1/restart')
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
                 'expectedResult' => true,
             ],
         ];

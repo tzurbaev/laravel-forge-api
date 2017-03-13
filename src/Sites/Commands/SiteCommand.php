@@ -3,9 +3,9 @@
 namespace Laravel\Forge\Sites\Commands;
 
 use Laravel\Forge\Sites\Site;
-use Laravel\Forge\ServerResources\Commands\ServerResourceCommand;
+use Laravel\Forge\Commands\ResourceCommand;
 
-abstract class SiteCommand extends ServerResourceCommand
+abstract class SiteCommand extends ResourceCommand
 {
     /**
      * Server resource path.
@@ -24,11 +24,6 @@ abstract class SiteCommand extends ServerResourceCommand
      */
     public function resourceClass()
     {
-        // Check if we're working with site resource.
-        if (method_exists($this, 'siteResourceClass') && !is_null($this->siteResourceClass())) {
-            return $this->siteResourceClass();
-        }
-
         return Site::class;
     }
 }

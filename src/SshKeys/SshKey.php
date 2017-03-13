@@ -2,9 +2,9 @@
 
 namespace Laravel\Forge\SshKeys;
 
-use Laravel\Forge\ServerResources\ServerResource;
+use Laravel\Forge\Resource;
 
-class SshKey extends ServerResource
+class SshKey extends Resource
 {
     /**
      * Resource type.
@@ -24,15 +24,5 @@ class SshKey extends ServerResource
     public function resourcePath()
     {
         return 'keys';
-    }
-
-    /**
-     * Key name.
-     *
-     * @return string|null
-     */
-    public function name()
-    {
-        return $this->getData('name');
     }
 }

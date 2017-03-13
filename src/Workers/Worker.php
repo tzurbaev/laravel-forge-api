@@ -1,8 +1,10 @@
 <?php
 
-namespace Laravel\Forge\Sites;
+namespace Laravel\Forge\Workers;
 
-class Worker extends SiteResource
+use Laravel\Forge\Resource;
+
+class Worker extends Resource
 {
     /**
      * Resource type.
@@ -21,7 +23,7 @@ class Worker extends SiteResource
      */
     public function resourcePath()
     {
-        return 'sites/'.$this->getSite()->id().'/workers';
+        return 'workers';
     }
 
     /**

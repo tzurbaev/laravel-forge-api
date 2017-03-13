@@ -6,9 +6,9 @@ SDK provides Workers Manager that allows you to create, list and delete workers 
 
 Documentation assumes that you've already retrieved site instance from `SitesManager` class.
 
-All operations are performed via `Laravel\Forge\Sites\WorkersManager` instance.
+All operations are performed via `Laravel\Forge\Workers\WorkersManager` instance.
 
-All methods return either instance of `Laravel\Forge\Sites\Worker` or array of `Laravel\Forge\Sites\Worker` instances.
+All methods return either instance of `Laravel\Forge\Workers\Worker` or array of `Laravel\Forge\Workers\Worker` instances.
 
 ## Create new worker
 
@@ -17,7 +17,7 @@ You can specify worker connection, queue name, timeout, sleep seconds, max tries
 ```php
 <?php
 
-use Laravel\Forge\Sites\WorkersManager;
+use Laravel\Forge\Workers\WorkersManager;
 
 $workers = new WorkersManager();
 
@@ -27,7 +27,7 @@ $worker = $workers()->start('sqs')
     ->maxTries(3)
     ->asDaemon()
     ->onQueue('my-queue-name')
-    ->for($site);
+    ->on($site);
 ```
 
 ## List workers
@@ -35,11 +35,11 @@ $worker = $workers()->start('sqs')
 ```php
 <?php
 
-use Laravel\Forge\Sites\WorkersManager;
+use Laravel\Forge\Workers\WorkersManager;
 
 $workers = new WorkersManager();
 
-$siteWorkers = $workers->list()->for($site);
+$siteWorkers = $workers->list()->from($site);
 
 foreach ($siteWorkers as $worker) {
     echo 'Worker is running on '.$worker->connection().' connection, has timeout of '.$worker->timeout().' seconds and '.$worker->maxTries().'max tries.';
@@ -51,12 +51,12 @@ foreach ($siteWorkers as $worker) {
 ```php
 <?php
 
-use Laravel\Forge\Sites\WorkersManager;
+use Laravel\Forge\Workers\WorkersManager;
 
 $workers = new WorkersManager();
 
 $workerId = 1234;
-$worker = $workers->get($workerId)->for($site);
+$worker = $workers->get($workerId)->from($site);
 
 echo 'Worker is running on '.$worker->connection().' connection, has timeout of '.$worker->timeout().' seconds and '.$worker->maxTries().'max tries.';
 ```
@@ -66,11 +66,11 @@ echo 'Worker is running on '.$worker->connection().' connection, has timeout of 
 ```php
 <?php
 
-use Laravel\Forge\Sites\WorkersManager;
+use Laravel\Forge\Workers\WorkersManager;
 
 $workers = new WorkersManager();
 
-$worker = $workers->get($workerId)->for($site);
+$worker = $workers->get($workerId)->from($site);
 
 if ($worker->delete()) {
     echo 'Worker was deleted.';

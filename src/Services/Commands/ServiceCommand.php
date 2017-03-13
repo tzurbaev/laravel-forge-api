@@ -2,11 +2,11 @@
 
 namespace Laravel\Forge\Services\Commands;
 
-use Laravel\Forge\Server;
-use Laravel\Forge\Commands\ServerCommand;
+use Laravel\Forge\Commands\Command;
 use Laravel\Forge\Contracts\ServiceContract;
+use Laravel\Forge\Contracts\ResourceContract;
 
-abstract class ServiceCommand extends ServerCommand
+abstract class ServiceCommand extends Command
 {
     /**
      * Associated service.
@@ -38,12 +38,12 @@ abstract class ServiceCommand extends ServerCommand
     /**
      * HTTP request URL.
      *
-     * @param \Laravel\Forge\Server
+     * @param \Laravel\Forge\Contracts\ResourceContract $resource
      *
      * @return string
      */
-    public function requestUrl(Server $server)
+    public function requestUrl(ResourceContract $resource)
     {
-        return $server->apiUrl('/'.$this->getService()->name().'/'.$this->command());
+        return $resource->apiUrl('/'.$this->getService()->name().'/'.$this->command());
     }
 }

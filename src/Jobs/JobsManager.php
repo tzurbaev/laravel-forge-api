@@ -39,6 +39,6 @@ class JobsManager
      */
     public function get(int $jobId)
     {
-        return (new GetJobCommand())->setItemId($jobId);
+        return (new GetJobCommand())->setResourceId($jobId);
     }
 }

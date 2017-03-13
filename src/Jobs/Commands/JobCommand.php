@@ -3,9 +3,9 @@
 namespace Laravel\Forge\Jobs\Commands;
 
 use Laravel\Forge\Jobs\Job;
-use Laravel\Forge\ServerResources\Commands\ServerResourceCommand;
+use Laravel\Forge\Commands\ResourceCommand;
 
-abstract class JobCommand extends ServerResourceCommand
+abstract class JobCommand extends ResourceCommand
 {
     /**
      * Server resource path.

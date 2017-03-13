@@ -99,7 +99,7 @@ class Api
     public static function fakeSite(Closure $callback = null, array $replaceSiteData = []): Site
     {
         $server = static::fakeServer($callback);
-        $site = new Site($server, static::siteData($replaceSiteData));
+        $site = new Site($server->getApi(), static::siteData($replaceSiteData), $server);
 
         return $site;
     }

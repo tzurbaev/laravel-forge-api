@@ -47,6 +47,6 @@ class MysqlService extends Service
      */
     public function get(int $databaseId)
     {
-        return (new GetMysqlDatabaseCommand())->setItemId($databaseId);
+        return (new GetMysqlDatabaseCommand())->setResourceId($databaseId);
     }
 }

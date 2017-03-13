@@ -3,9 +3,9 @@
 namespace Laravel\Forge\Daemons\Commands;
 
 use Laravel\Forge\Daemons\Daemon;
-use Laravel\Forge\ServerResources\Commands\ServerResourceCommand;
+use Laravel\Forge\Commands\ResourceCommand;
 
-abstract class DaemonCommand extends ServerResourceCommand
+abstract class DaemonCommand extends ResourceCommand
 {
     /**
      * Server resource path.

@@ -10,6 +10,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `hasPayload` method added to `Provider` class;
 - Workers Management.
 
+### Changed
+- All SDK entities are now extended from base `Laravel\Forge\Resource` class;
+- Resource commands system was reworked and now any Resource can execute commands (previously only Server had this possibility);
+- `enable`, `disable`, `reset`, `log` and `deploy` methods of `DeploymentManager` class have new signatures;
+- `DeploymentManager::getScript` method was renamed to `DeploymentManager::script`;
+- All `WorkerManager` commands should be used with `on($site)`/`from($site)` methods instead of `for($site)` as last method in chains;
+- FQCN of `Laravel\Forge\Sites\DeploymentManager` class was changed to `Laravel\Forge\Deployment\DeploymentManager`;
+- FQCN of `Laravel\Forge\Sites\Applications\GitApplication` class was changed to `Laravel\Forge\Applications\GitApplication`;
+- FQCN of `Laravel\Forge\Sites\Applications\WordPressApplication` was changed to `Laravel\Forge\Applications\WordPressApplication`;
+- FQCN of `Laravel\Forge\Sites\Worker` was changed to `Laravel\Forge\Workers\Worker`;
+- FQCN of `Laravel\Forge\Sites\WorkersManager` was changed to `Laravel\Forge\Workers\WorkersManager`.
+- 
+
 ### Fixed
 - Fixed `ArrayAccessTrait`'s `offsetExists` method.
 

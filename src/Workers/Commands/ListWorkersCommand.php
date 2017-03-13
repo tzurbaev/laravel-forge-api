@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Forge\Sites\Commands\Workers;
+namespace Laravel\Forge\Workers\Commands;
 
 class ListWorkersCommand extends WorkerCommand
 {
@@ -12,15 +12,5 @@ class ListWorkersCommand extends WorkerCommand
     public function listResponseItemsKey()
     {
         return 'workers';
-    }
-
-    /**
-     * HTTP request method.
-     *
-     * @return string
-     */
-    public function requestMethod()
-    {
-        return 'GET';
     }
 }
