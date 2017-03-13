@@ -16,7 +16,8 @@ This SDK supports following Forge API features:
 - SSH keys;
 - Daemons;
 - Firewall rules;
-- Scheduled jobs.
+- Scheduled jobs;
+- Workers.
 
 ## Coming soon
 

@@ -21,7 +21,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - FQCN of `Laravel\Forge\Sites\Applications\WordPressApplication` was changed to `Laravel\Forge\Applications\WordPressApplication`;
 - FQCN of `Laravel\Forge\Sites\Worker` was changed to `Laravel\Forge\Workers\Worker`;
 - FQCN of `Laravel\Forge\Sites\WorkersManager` was changed to `Laravel\Forge\Workers\WorkersManager`.
-- 
 
 ### Fixed
 - Fixed `ArrayAccessTrait`'s `offsetExists` method.
