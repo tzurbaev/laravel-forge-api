@@ -12,6 +12,7 @@ This SDK supports following Forge API features:
 - Services management - install, uninstall, reboot & stop nginx, MySQL, Postgres and other services;
 - MySQL databases & users;
 - Sites & applications management;
+- Site configuration (`nginx.conf` & `.env` files);
 - Deployment management - enable to disable quick deployment, view logs, edit deployment script & deploy-on-demand;
 - SSH keys;
 - Daemons;
@@ -22,7 +23,6 @@ This SDK supports following Forge API features:
 ## Coming soon
 
 - SSL certificates management;
-- Services configuration;
 - Recipes.
 
 # Requirements
