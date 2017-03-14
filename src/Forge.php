@@ -123,6 +123,28 @@ class Forge implements ArrayAccess, Iterator
     }
 
     /**
+     * Get first credential for given provider.
+     *
+     * @param string $provider
+     *
+     * @return int|null
+     */
+    public function credentialFor(string $provider)
+    {
+        $credentials = $this->credentials();
+
+        if (!count($credentials)) {
+            return;
+        }
+
+        foreach ($credentials as $credential) {
+            if ($credential['type'] === $provider) {
+                return intval($credential['id']);
+            }
+        }
+    }
+
+    /**
      * Load single server from API and save it to memory cache.
      *
      * @param int $serverId
