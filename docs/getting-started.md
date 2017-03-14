@@ -61,4 +61,30 @@ Alternatively, you can specify the SDK as a dependency in your project's existin
 
 Now you should be able to run `php artisan forge:credentials` command to list your Forge credentials and `php artisan forge:servers` to list, create and delete servers.
 
+Since package's Service Provider bootstraps Forge class with your credentials, you can simply inject `Laravel\Forge\Forge` class via Laravel's Dependency Injection:
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Laravel\Forge\Forge;
+use Illuminate\Http\Request;
+
+class ForgeController extends Controller
+{
+    public function index(Request $request, Forge $forge)
+    {
+        // $forge is ready to use.
+    }
+
+    public function update(Request $request)
+    {
+        $forge = app(Forge::class);
+
+        // $forge is ready to use.
+    }
+}
+```
+
 [Back to Table of Contents](./readme.md)

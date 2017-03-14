@@ -17,9 +17,113 @@ You can install the package via composer:
 $ composer require tzurbaev/laravel-forge-api
 ```
 
+## Examples
+
+Here are few examples of what this package can do for you.
+
+### Create new server
+
+```php
+<?php
+
+use Laravel\Forge\ApiProvider;
+use Laravel\Forge\Forge;
+
+$forge = new Forge(new ApiProvider('api-token'));
+$credential = $forge->credentialFor('ocean2');
+
+// This will create new droplet on DigitalOcean with 1GB memory,
+// PHP 7.1 and MariaDb at Frankfurt region.
+$server = $forge->create()
+    ->droplet()
+    ->usingCredential($credential)
+    ->withMemoryOf('1GB')
+    ->at('fra1')
+    ->runningPhp('7.1')
+    ->withMariaDb()
+    ->save();
+```
+
+### Create new site
+
+```php
+<?php
+
+use Laravel\Forge\Forge;
+use Laravel\Forge\ApiProvider;
+use Laravel\Forge\Sites\SitesManager;
+
+$forge = new Forge(new ApiProvider('api-token'));
+$server = $forge['web-01'];
+
+// This will create new example.org site
+// with General PHP/Laravel project type.
+$site = (new SitesManager())->create('example.org')->asLaravel()->on($server);
+```
+
+### Install Git/WordPress application on site
+
+```php
+<?php
+
+use Laravel\Forge\Forge;
+use Laravel\Forge\ApiProvider;
+use Laravel\Forge\Sites\SitesManager;
+use Laravel\Forge\Applications\GitApplication;
+
+$forge = new Forge(new ApiProvider('api-token'));
+$server = $forge['web-01'];
+
+$siteId = 1234;
+$site = (new SitesManager())->get($siteId)->from($server);
+
+$app = (new GitApplication())->fromGithub('username/repository');
+$site->install($app);
+```
+
+### Restart MySQL
+
+```php
+<?php
+
+use Laravel\Forge\Forge;
+use Laravel\Forge\ApiProvider;
+use Laravel\Forge\Services\MysqlService;
+use Laravel\Forge\Services\ServicesManager;
+
+$forge = new Forge(new ApiProvider('api-token'));
+
+$databaseServer = $forge['database-01'];
+$services = new ServicesManager();
+
+$services->restart(new MysqlService())->on($databaseServer);
+```
+
+Or even restart MySQL (or any other service) on multiple servers:
+
+```php
+<?php
+
+use Laravel\Forge\Forge;
+use Laravel\Forge\ApiProvider;
+use Laravel\Forge\Services\MysqlService;
+use Laravel\Forge\Services\ServicesManager;
+
+$forge = new Forge(new ApiProvider('api-token'));
+
+$servers = [
+    $forge['database-01'],
+    $forge['database-02'],
+    $forge['database-03'],
+];
+
+$services = new ServicesManager();
+$services->restart(new MysqlService())->on($servers);
+```
+
 ## Documentation
 
-Package documentation is available [here](./docs/readme.md).
+Full documentation is available [here](./docs/readme.md).
 
 ## Change log
 
