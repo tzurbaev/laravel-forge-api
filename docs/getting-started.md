@@ -18,12 +18,12 @@ This SDK supports following Forge API features:
 - Daemons;
 - Firewall rules;
 - Scheduled jobs;
-- Workers.
+- Workers;
+- Recipes.
 
 ## Coming soon
 
-- SSL certificates management;
-- Recipes.
+- SSL certificates management.
 
 # Requirements
 

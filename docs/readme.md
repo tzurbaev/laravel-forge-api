@@ -16,3 +16,4 @@
     + [Configuration Files](./config-files.md)
     + [Deployment](./deployment.md)
     + [Workers](./workers.md)
+- [Recipes](./recipes.md)
