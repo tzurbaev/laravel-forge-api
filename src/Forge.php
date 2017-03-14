@@ -4,14 +4,16 @@ namespace Laravel\Forge;
 
 use Iterator;
 use ArrayAccess;
+use GuzzleHttp\ClientInterface;
 use Laravel\Forge\Servers\Factory;
 use Laravel\Forge\Traits\LazyIterator;
 use Laravel\Forge\Traits\LazyArrayAccess;
 use GuzzleHttp\Exception\RequestException;
 use Laravel\Forge\Traits\AbstractCollection;
+use Laravel\Forge\Contracts\ResourceContract;
 use Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException;
 
-class Forge implements ArrayAccess, Iterator
+class Forge implements ArrayAccess, Iterator, ResourceContract
 {
     use AbstractCollection, LazyIterator, LazyArrayAccess;
 
@@ -44,6 +46,49 @@ class Forge implements ArrayAccess, Iterator
     public function __construct(ApiProvider $api)
     {
         $this->api = $api;
+    }
+
+    /**
+     * Get API provider.
+     *
+     * @return \Laravel\Forge\ApiProvider
+     */
+    public function getApi(): ApiProvider
+    {
+        return $this->api;
+    }
+
+    /**
+     * Get underlying API provider's HTTP client.
+     *
+     * @return \GuzzleHttp\ClientInterface
+     */
+    public function getHttpClient(): ClientInterface
+    {
+        return $this->api->getClient();
+    }
+
+    /**
+     * Resource API URL.
+     *
+     * @param string $path            = ''
+     * @param bool   $withPropagation = true
+     *
+     * @return string
+     */
+    public function apiUrl(string $path = '', bool $withPropagation = true): string
+    {
+        return $path;
+    }
+
+    /**
+     * Resource name.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return 'forge';
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Laravel\Tests\Forge\Helpers;
 use Closure;
 use Mockery;
 use GuzzleHttp\Client;
+use Laravel\Forge\Forge;
 use Laravel\Forge\Server;
 use Laravel\Forge\Sites\Site;
 use Laravel\Forge\ApiProvider;
@@ -118,6 +119,13 @@ class Api
         $server = new Server($api, static::serverData($replaceServerData));
 
         return $server;
+    }
+
+    public static function fakeForge(Closure $callback = null)
+    {
+        $api = static::fake($callback);
+
+        return new Forge($api);
     }
 
     /**

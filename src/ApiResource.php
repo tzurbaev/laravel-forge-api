@@ -34,11 +34,11 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
     /**
      * Create new resource instance.
      *
-     * @param \Laravel\Forge\ApiProvider $api   = null
-     * @param array                      $data  = []
-     * @param \Laravel\Forge\ApiResource $owner
+     * @param \Laravel\Forge\ApiProvider                $api   = null
+     * @param array                                     $data  = []
+     * @param \Laravel\Forge\Contracts\ResourceContract $owner
      */
-    public function __construct(ApiProvider $api = null, array $data = [], ApiResource $owner = null)
+    public function __construct(ApiProvider $api = null, array $data = [], ResourceContract $owner = null)
     {
         $this->api = $api;
         $this->data = $data;
@@ -62,11 +62,11 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
     /**
      * Create new Resource instance from HTTP response.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \Laravel\Forge\ApiProvider          $api
-     * @param \Laravel\Forge\ApiResource          $owner    = null
+     * @param \Psr\Http\Message\ResponseInterface       $response
+     * @param \Laravel\Forge\ApiProvider                $api
+     * @param \Laravel\Forge\Contracts\ResourceContract $owner    = null
      */
-    public static function createFromResponse(ResponseInterface $response, ApiProvider $api, ApiResource $owner = null)
+    public static function createFromResponse(ResponseInterface $response, ApiProvider $api, ResourceContract $owner = null)
     {
         $json = json_decode((string) $response->getBody(), true);
         $resourceType = static::resourceType();
