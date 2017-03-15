@@ -12,18 +12,15 @@ This SDK supports following Forge API features:
 - Services management - install, uninstall, reboot & stop nginx, MySQL, Postgres and other services;
 - MySQL databases & users;
 - Sites & applications management;
+- Site configuration (`nginx.conf` & `.env` files);
 - Deployment management - enable to disable quick deployment, view logs, edit deployment script & deploy-on-demand;
 - SSH keys;
 - Daemons;
 - Firewall rules;
 - Scheduled jobs;
-- Workers.
-
-## Coming soon
-
-- SSL certificates management;
-- Services configuration;
-- Recipes.
+- Workers;
+- Recipes;
+- SSL certificates management.
 
 # Requirements
 
@@ -40,7 +37,7 @@ This package depends on `guzzlehttp/guzzle ~6.0`. If you're using older version 
 The recommended way to install the SDK is with [Composer](https://getcomposer.org).
 
 ```sh
-composer require tzurbaev/laravel-forge-api ^1.0
+composer require tzurbaev/laravel-forge-api ^1.1
 ```
 
 Alternatively, you can specify the SDK as a dependency in your project's existing composer.json file:
@@ -48,7 +45,7 @@ Alternatively, you can specify the SDK as a dependency in your project's existin
 ```json
 {
   "require": {
-    "tzurbaev/laravel-forge-api": "^1.0"
+    "tzurbaev/laravel-forge-api": "^1.1"
   }
 }
 ```

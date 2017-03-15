@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2017-03-15
+### Added
+- Configuration (nginx and ENV) files management;
+- Recipes management;
+- SSL Certificates management.
+
 ## [1.0.1] - 2017-03-14
 ### Added
 - `Forge::credentialFor` method to retrieve first credential ID for given provider.
@@ -62,7 +68,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.0.1...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/tzurbaev/laravel-forge-api/compare/0.9.1...1.0.0
 [0.9.1]: https://github.com/tzurbaev/laravel-forge-api/compare/0.9.0...0.9.1

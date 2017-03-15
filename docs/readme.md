@@ -13,5 +13,8 @@
 - [Firewall Rules](./firewall-rules.md)
 - [Sites](./sites.md)
     + [Site Applications](./site-applications.md)
+    + [Configuration Files](./config-files.md)
     + [Deployment](./deployment.md)
     + [Workers](./workers.md)
+- [Recipes](./recipes.md)
+- [SSL Certificates](./certificates.md)
