@@ -19,7 +19,7 @@ class ObtainLetsEncryptCertificateCommand extends CertificateCommand
     /**
      * Set LetsEncrypt certificate domains.
      *
-     * @param string|array $domain
+     * @param string|array $domains
      *
      * @return static
      */

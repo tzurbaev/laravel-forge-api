@@ -46,7 +46,7 @@ class CreateCertificateCommand extends CertificateCommand
     /**
      * Set certificate department.
      *
-     * @param string $department*
+     * @param string $department
      *
      * @return static
      */

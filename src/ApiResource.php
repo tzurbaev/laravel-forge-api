@@ -27,7 +27,7 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
     protected $data = [];
 
     /**
-     * @var \Laravel\Forge\ApiResource
+     * @var \Laravel\Forge\Contracts\ResourceContract
      */
     protected $owner;
 
