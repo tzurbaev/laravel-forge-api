@@ -19,7 +19,7 @@ class DeploymentManager
      */
     public function enable()
     {
-        return (new EnableDeploymentCommand());
+        return new EnableDeploymentCommand();
     }
 
     /**
@@ -29,7 +29,7 @@ class DeploymentManager
      */
     public function disable()
     {
-        return (new DisableDeploymentCommand());
+        return new DisableDeploymentCommand();
     }
 
     /**
@@ -39,7 +39,7 @@ class DeploymentManager
      */
     public function script()
     {
-        return (new GetDeploymentScriptCommand());
+        return new GetDeploymentScriptCommand();
     }
 
     /**
@@ -61,7 +61,7 @@ class DeploymentManager
      */
     public function deploy()
     {
-        return (new DeployCommand());
+        return new DeployCommand();
     }
 
     /**
@@ -71,7 +71,7 @@ class DeploymentManager
      */
     public function reset()
     {
-        return (new ResetDeploymentStatusCommand());
+        return new ResetDeploymentStatusCommand();
     }
 
     /**
@@ -81,6 +81,6 @@ class DeploymentManager
      */
     public function log()
     {
-        return (new GetDeploymentLogCommand());
+        return new GetDeploymentLogCommand();
     }
 }

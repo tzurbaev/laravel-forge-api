@@ -21,6 +21,18 @@ class JobsManager
     }
 
     /**
+     * Alias for "schedule" method.
+     *
+     * @param string $command
+     *
+     * @return \Laravel\Forge\Jobs\Commands\CreateJobCommand
+     */
+    public function create(string $command)
+    {
+        return $this->schedule($command);
+    }
+
+    /**
      * Initialize new list jobs command.
      *
      * @return \Laravel\Forge\Jobs\Commands\ListJobsCommand
