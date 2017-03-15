@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Configuration (nginx and ENV) files management;
 - Recipes management;
+- SSL Certificates management.
 
 ## [1.0.1] - 2017-03-14
 ### Added

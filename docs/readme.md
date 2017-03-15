@@ -17,3 +17,4 @@
     + [Deployment](./deployment.md)
     + [Workers](./workers.md)
 - [Recipes](./recipes.md)
+- [SSL Certificates](./certificates.md)

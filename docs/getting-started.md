@@ -19,10 +19,7 @@ This SDK supports following Forge API features:
 - Firewall rules;
 - Scheduled jobs;
 - Workers;
-- Recipes.
-
-## Coming soon
-
+- Recipes;
 - SSL certificates management.
 
 # Requirements
