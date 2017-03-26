@@ -12,3 +12,4 @@
 /composer.lock   export-ignore
 /CONTRIBUTING.md export-ignore
 /README.md       export-ignore
+/phpunit.xml     export-ignore
