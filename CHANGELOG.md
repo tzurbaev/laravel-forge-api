@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.1] - 2017-03-31
+Small fixes & updates.
+
 ## [1.1.0] - 2017-03-15
 ### Added
 - Configuration (nginx and ENV) files management;
@@ -68,7 +71,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.1...HEAD
+[1.1.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/tzurbaev/laravel-forge-api/compare/0.9.1...1.0.0
