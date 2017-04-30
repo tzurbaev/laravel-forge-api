@@ -86,7 +86,8 @@ use Laravel\Forge\Recipes\RecipesManager;
 $recipes = new RecipesManager();
 $recipe = $recipes->get(1234)->from($forge);
 
-$recipe->run();
+$serverIds = [1234, 1235];
+$recipe->run($serverIds);
 ```
 
 ## Delete recipe

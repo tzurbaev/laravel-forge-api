@@ -49,11 +49,14 @@ class Recipe extends ApiResource
     /**
      * Run the recipe.
      *
+     * @param array $serverIds
+     *
      * @return bool
      */
-    public function run()
+    public function run(array $serverIds)
     {
-        $this->getHttpClient()->request('POST', 'recipes/'.$this->id().'/run');
+        $formParams = ['form_params' => ['servers' => $serverIds]];
+        $this->getHttpClient()->request('POST', 'recipes/'.$this->id().'/run', $formParams);
 
         return true;
     }
