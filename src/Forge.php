@@ -140,7 +140,7 @@ class Forge implements ArrayAccess, Iterator, ResourceContract
      *
      * @return \Laravel\Forge\Server
      */
-    public function get(int $serverId, boolean $reload = null)
+    public function get(int $serverId, bool $reload = null)
     {
         if (!$reload) {
             if ($this->lazyLoadInitiated() && isset($this->serversMap[$serverId])) {
