@@ -135,12 +135,12 @@ class Forge implements ArrayAccess, Iterator, ResourceContract
     /**
      * Returns single server.
      *
-     * @param int $serverId
-     * @param boolean $reload (optional) indicates whether the server should be reloaded
+     * @param int     $serverId
+     * @param boolean $reload   (optional) indicates whether the server should be reloaded
      *
      * @return \Laravel\Forge\Server
      */
-    public function get(int $serverId, boolean $reload = false)
+    public function get(int $serverId, boolean $reload = null)
     {
         if (!$reload) {
             if ($this->lazyLoadInitiated() && isset($this->serversMap[$serverId])) {
@@ -149,7 +149,7 @@ class Forge implements ArrayAccess, Iterator, ResourceContract
                 return $this->serversCache[$serverId];
             }
         }
-        
+
         return $this->loadSingleServer($serverId);
     }
 
