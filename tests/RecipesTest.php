@@ -110,7 +110,7 @@ class RecipesTest extends TestCase
             $this->expectException(InvalidArgumentException::class);
         }
 
-        $result = $recipe->run();
+        $result = $recipe->run([1,2]);
         $this->assertSame($expectedResult, $result);
     }
 
@@ -237,7 +237,7 @@ class RecipesTest extends TestCase
             [
                 'recipe' => $this->fakeRecipe(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'recipes/1/run')
+                        ->with('POST', 'recipes/1/run', ["form_params" => ["servers" => [1,2]]])
                         ->andReturn(
                             FakeResponse::fake()->toResponse()
                         );
