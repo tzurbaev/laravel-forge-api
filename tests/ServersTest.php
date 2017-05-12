@@ -80,6 +80,43 @@ class ServersTests extends TestCase
     }
 
     /**
+     * @dataProvider getServerDataProvider
+     */
+    public function testReloadServer(array $data)
+    {
+        // Single server is retrieved from the server cache.
+
+        // Create API provider.
+        // Create Servers manager.
+        // Load single server by ID.
+        // Reload single server by ID, from cache
+        // Force reload single server by ID
+
+        // Assert that the same server was loaded each time
+        // Assert that only two requests were made
+
+        $api = Api::fake(function ($http) use ($data) {
+            $http->shouldReceive('request')
+                ->with('GET', 'servers/'.$data['id'])
+                ->twice()
+                ->andReturn(
+                    FakeResponse::fake()->withJson(['server' => $data])->toResponse()
+                );
+        });
+
+        $forge = new Forge($api);
+        $server = $forge->get($data['id']);
+        $serverReload = $forge->get($data['id'], false);
+        $serverReloadWithRefresh = $forge->get($data['id'], true);
+        //
+        $this->assertInstanceOf(Server::class, $server);
+        $this->assertInstanceOf(Server::class, $serverReload);
+        $this->assertInstanceOf(Server::class, $serverReloadWithRefresh);
+        $this->assertSame($server->name(), $serverReload->name());
+        $this->assertSame($server->name(), $serverReloadWithRefresh->name());
+    }
+
+    /**
      * @dataProvider getServerFailDataProvider
      */
     public function testGetServerFail(int $serverId)
