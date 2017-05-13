@@ -43,7 +43,7 @@ echo $server->name();
 ```
 
 > Lazy Loading
-> 
+>
 > ArrayAccess and Iterator implementations uses lazy loading.
 > This means `Forge` class won't load any data until you
 > start iterating or performing array operations.
@@ -57,6 +57,10 @@ Additionally, `Forge` class can be used to retrieve single server by ID:
 
 $serverId = 12345;
 $server = $forge->get($serverId);
+
+// Force a reload of the server details, overwriting the cached version
+$reload = true;
+$server = $forge->get($serverId, $reload);
 ```
 
 ## Create new Server
