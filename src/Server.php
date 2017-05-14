@@ -4,6 +4,8 @@ namespace Laravel\Forge;
 
 use Laravel\Forge\Exceptions\Servers\PublicKeyWasNotFound;
 use Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException;
+use Psr\Http\Message\ResponseInterface;
+use Laravel\Forge\Contracts\ResourceContract;
 
 class Server extends ApiResource
 {
@@ -93,6 +95,22 @@ class Server extends ApiResource
     public function privateIp()
     {
         return $this->getData('private_ip_address');
+    }
+
+    /**
+     * Server sudo password - only set on server save.
+     */
+    public function sudoPassword()
+    {
+        return $this->getData('sudo_password');
+    }
+
+    /**
+     * Server sudo password - only set on server save.
+     */
+    public function databasePassword()
+    {
+        return $this->getData('database_password');
     }
 
     /**
@@ -201,4 +219,34 @@ class Server extends ApiResource
 
         return true;
     }
+
+    /**
+     * Create new Resource instance from HTTP response.
+     *
+     * @param \Psr\Http\Message\ResponseInterface       $response
+     * @param \Laravel\Forge\ApiProvider                $api
+     * @param \Laravel\Forge\Contracts\ResourceContract $owner    = null
+     */
+    public static function createFromResponse(ResponseInterface $response, ApiProvider $api, ResourceContract $owner = null)
+    {
+        $json = json_decode((string) $response->getBody(), true);
+
+        if (empty($json['server'])) {
+            static::throwNotFoundException();
+        }
+        else {
+            $result = $json['server'];
+        }
+
+        if (!empty($json['sudo_password'])) {
+            $result['sudo_password'] = $json['sudo_password'];
+        }
+
+        if (!empty($json['database_password'])) {
+            $result['database_password'] = $json['database_password'];
+        }
+
+        return new static($api, $result, $owner);
+    }
+
 }

@@ -28,6 +28,10 @@ $papertrailStatus = $server->papertrailStatus();
 $isRevoked = $server->isRevoked();
 $isReady = $server->isReady();
 $connectedServerIds = $server->network();
+
+// The following getters are available on new server instances only.
+$sudoPassword = $server->sudoPassword();
+$databasePassword = $server->databasePassword();
 ```
 
 ## Update server data

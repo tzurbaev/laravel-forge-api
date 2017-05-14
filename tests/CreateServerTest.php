@@ -54,6 +54,8 @@ class CreateServerTest extends TestCase
         $this->assertSame($payload['name'], $server->name());
         $this->assertSame($payload['size'], $server->size());
         $this->assertSame($payload['php_version'], $server->phpVersion());
+        $this->assertSame('secret', $server->databasePassword());
+        $this->assertSame('secret', $server->sudoPassword());
         $this->assertFalse($server->isReady());
     }
 
