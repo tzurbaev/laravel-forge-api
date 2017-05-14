@@ -233,8 +233,7 @@ class Server extends ApiResource
 
         if (empty($json['server'])) {
             static::throwNotFoundException();
-        }
-        else {
+        } else {
             $result = $json['server'];
         }
 
@@ -248,5 +247,4 @@ class Server extends ApiResource
 
         return new static($api, $result, $owner);
     }
-
 }
