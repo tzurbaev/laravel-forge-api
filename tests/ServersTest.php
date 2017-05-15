@@ -163,7 +163,7 @@ class ServersTests extends TestCase
                 );
 
             $http->shouldReceive('request')
-                ->with('PUT', 'servers/'.$data['id'], ['form_params' => $payload])
+                ->with('PUT', 'servers/'.$data['id'], ['json' => $payload])
                 ->andReturn(
                     FakeResponse::fake()->withJson(['server' => $response])->toResponse()
                 );

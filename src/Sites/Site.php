@@ -57,7 +57,7 @@ class Site extends ApiResource
     public function install(ApplicationContract $application)
     {
         $this->getHttpClient()->request('POST', $this->apiUrl($application->type()), [
-            'form_params' => $application->payload(),
+            'json' => $application->payload(),
         ]);
 
         return true;

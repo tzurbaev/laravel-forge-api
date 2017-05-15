@@ -91,7 +91,7 @@ class FirewallTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/firewall-rules', [
-                            'form_params' => [
+                            'json' => [
                                 'name' => 'rule name',
                                 'port' => 88,
                             ],
@@ -119,7 +119,7 @@ class FirewallTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/firewall-rules', ['form_params' => []])
+                        ->with('GET', 'servers/1/firewall-rules', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withJson([
@@ -151,7 +151,7 @@ class FirewallTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/firewall-rules/1', ['form_params' => []])
+                        ->with('GET', 'servers/1/firewall-rules/1', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['rule' => $this->response()])->toResponse()
                         );

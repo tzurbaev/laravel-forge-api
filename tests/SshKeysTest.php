@@ -88,7 +88,7 @@ class SshKeysTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/keys', ['form_params' => $this->payload()])
+                        ->with('POST', 'servers/1/keys', ['json' => $this->payload()])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['key' => $this->response()])->toResponse()
                         );
@@ -108,7 +108,7 @@ class SshKeysTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/keys', ['form_params' => []])
+                        ->with('GET', 'servers/1/keys', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withJson([
@@ -140,7 +140,7 @@ class SshKeysTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/keys/1', ['form_params' => []])
+                        ->with('GET', 'servers/1/keys/1', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['key' => $this->response()])->toResponse()
                         );

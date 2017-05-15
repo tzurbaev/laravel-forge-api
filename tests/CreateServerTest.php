@@ -35,7 +35,7 @@ class CreateServerTest extends TestCase
 
         $api = Api::fake(function ($http) use ($payload, $response) {
             $http->shouldReceive('request')
-                ->with('POST', 'servers', ['form_params' => $payload])
+                ->with('POST', 'servers', ['json' => $payload])
                 ->andReturn(
                     FakeResponse::fake()
                         ->withJson([
@@ -64,7 +64,7 @@ class CreateServerTest extends TestCase
     {
         $api = Api::fake(function ($http) use ($payload, $response) {
             $http->shouldReceive('request')
-                ->with('POST', 'servers', ['form_params' => $payload])
+                ->with('POST', 'servers', ['json' => $payload])
                 ->andReturn(
                     FakeResponse::fake()
                         ->withJson([

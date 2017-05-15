@@ -97,7 +97,7 @@ class WorkersTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/sites/1/workers', ['form_params' => $this->payload()])
+                        ->with('POST', 'servers/1/sites/1/workers', ['json' => $this->payload()])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['worker' => $this->response()])->toResponse()
                         );
@@ -127,7 +127,7 @@ class WorkersTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites/1/workers', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites/1/workers', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson([
                                 'workers' => [
@@ -161,7 +161,7 @@ class WorkersTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites/1/workers/2', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites/1/workers/2', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson([
                                 'worker' => $this->response(['id' => 2]),

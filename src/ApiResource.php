@@ -214,7 +214,7 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
 
         try {
             $response = $this->getHttpClient()->request('PUT', $this->apiUrl(), [
-                'form_params' => $payload,
+                'json' => $payload,
             ]);
         } catch (RequestException $e) {
             $this->throwResourceException($e->getResponse(), 'update', UpdateResourceException::class);

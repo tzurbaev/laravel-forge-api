@@ -131,7 +131,7 @@ class Factory
         ksort($payload);
 
         $response = $this->api->getClient()->request('POST', 'servers', [
-            'form_params' => $payload,
+            'json' => $payload,
         ]);
 
         return Server::createFromResponse($response, $this->api);

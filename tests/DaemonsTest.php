@@ -105,7 +105,7 @@ class DaemonsTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/daemons', [
-                            'form_params' => [
+                            'json' => [
                                 'command' => $this->command,
                                 'user' => 'forge',
                             ]
@@ -132,7 +132,7 @@ class DaemonsTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/daemons', ['form_params' => []])
+                        ->with('GET', 'servers/1/daemons', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withJson([
@@ -164,7 +164,7 @@ class DaemonsTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/daemons/1', ['form_params' => []])
+                        ->with('GET', 'servers/1/daemons/1', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['daemon' => $this->response()])->toResponse()
                         );
