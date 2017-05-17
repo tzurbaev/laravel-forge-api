@@ -65,6 +65,8 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
      * @param \Psr\Http\Message\ResponseInterface       $response
      * @param \Laravel\Forge\ApiProvider                $api
      * @param \Laravel\Forge\Contracts\ResourceContract $owner    = null
+     *
+     * @return static
      */
     public static function createFromResponse(ResponseInterface $response, ApiProvider $api, ResourceContract $owner = null)
     {
@@ -81,7 +83,7 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
     /**
      * Throw HTTP Not Found exception.
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     protected static function throwNotFoundException()
     {
@@ -101,7 +103,7 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
     /**
      * Get current resource owner.
      *
-     * @return \Laravel\Forge\ApiResource|null
+     * @return \Laravel\Forge\Contracts\ResourceContract|null
      */
     public function resourceOwner()
     {
@@ -203,6 +205,8 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
 
     /**
      * Update resource data.
+     *
+     * @param array $payload
      *
      * @throws UpdateResourceException
      *

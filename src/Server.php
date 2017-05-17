@@ -32,7 +32,7 @@ class Server extends ApiResource
     /**
      * Throw HTTP Not Found exception.
      *
-     * @throws \Exception
+     * @throws ServerWasNotFoundException
      */
     protected static function throwNotFoundException()
     {
@@ -91,6 +91,8 @@ class Server extends ApiResource
 
     /**
      * Server private IP address.
+     *
+     * @return string|null
      */
     public function privateIp()
     {
@@ -99,6 +101,8 @@ class Server extends ApiResource
 
     /**
      * Server sudo password - only set on server save.
+     *
+     * @return string|null
      */
     public function sudoPassword()
     {
@@ -107,6 +111,8 @@ class Server extends ApiResource
 
     /**
      * Server sudo password - only set on server save.
+     *
+     * @return string|null
      */
     public function databasePassword()
     {
@@ -226,15 +232,16 @@ class Server extends ApiResource
      * @param \Psr\Http\Message\ResponseInterface       $response
      * @param \Laravel\Forge\ApiProvider                $api
      * @param \Laravel\Forge\Contracts\ResourceContract $owner    = null
+     *
+     * @return static
      */
     public static function createFromResponse(ResponseInterface $response, ApiProvider $api, ResourceContract $owner = null)
     {
         $json = json_decode((string) $response->getBody(), true);
+        $result = $json['server'] ?? null;
 
-        if (empty($json['server'])) {
+        if (is_null($result)) {
             static::throwNotFoundException();
-        } else {
-            $result = $json['server'];
         }
 
         if (!empty($json['sudo_password'])) {

@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2017-05-17
+### Added
+- Optional boolean `$reload` parameter added to `Forge::get` method signature. If true, Forge will reload fresh server data from API instead of in-memory cache;
+- `Server::sudoPassword` and `Server::databasePassword` methods to retrieve sudo and database passwords respectively (both methods returns actual values only after server creation!);
+
+### Fixed
+- `Recipe::run` method correctly accepts `$serverIds` array parameter with required server IDs;
+
+### Changed
+- All API requests now uses Guzzle's `json` field instead of `form_params`.
+
+Big thanks to [@acurrieclark](https://github.com/acurrieclark) for helping with this release.
+
 ## [1.1.1] - 2017-03-31
 Small fixes & updates.
 
@@ -71,7 +84,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.1...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.0.0...1.0.1
