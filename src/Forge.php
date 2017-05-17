@@ -135,8 +135,8 @@ class Forge implements ArrayAccess, Iterator, ResourceContract
     /**
      * Returns single server.
      *
-     * @param int     $serverId
-     * @param bool    $reload   (optional) indicates whether the server should be reloaded
+     * @param int  $serverId
+     * @param bool $reload   (optional) indicates whether the server should be reloaded
      *
      * @return \Laravel\Forge\Server
      */

@@ -77,6 +77,8 @@ class ServersTests extends TestCase
 
         $this->assertInstanceOf(Server::class, $server);
         $this->assertSame($data['name'], $server->name());
+        $this->assertNull($server->databasePassword());
+        $this->assertNull($server->sudoPassword());
     }
 
     /**
