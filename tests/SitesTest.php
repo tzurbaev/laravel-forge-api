@@ -123,7 +123,7 @@ class SitesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites', [
-                            'form_params' => $this->payload(),
+                            'json' => $this->payload(),
                         ])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['site' => Api::siteData()])->toResponse()
@@ -145,7 +145,7 @@ class SitesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites', [
-                            'form_params' => $this->payload(),
+                            'json' => $this->payload(),
                         ])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['site' => Api::siteData()])->toResponse()
@@ -167,7 +167,7 @@ class SitesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites', [
-                            'form_params' => $this->payload(['project_type' => 'html']),
+                            'json' => $this->payload(['project_type' => 'html']),
                         ])
                         ->andReturn(
                             FakeResponse::fake()->withJson([
@@ -192,7 +192,7 @@ class SitesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites', [
-                            'form_params' => $this->payload(['project_type' => 'html']),
+                            'json' => $this->payload(['project_type' => 'html']),
                         ])
                         ->andReturn(
                             FakeResponse::fake()->withJson([
@@ -217,7 +217,7 @@ class SitesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites', [
-                            'form_params' => $this->payload(['project_type' => 'symfony']),
+                            'json' => $this->payload(['project_type' => 'symfony']),
                         ])
                         ->andReturn(
                             FakeResponse::fake()->withJson([
@@ -242,7 +242,7 @@ class SitesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites', [
-                            'form_params' => $this->payload(['project_type' => 'symfony_dev']),
+                            'json' => $this->payload(['project_type' => 'symfony_dev']),
                         ])
                         ->andReturn(
                             FakeResponse::fake()->withJson([
@@ -272,7 +272,7 @@ class SitesTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withJson([
@@ -305,7 +305,7 @@ class SitesTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites/1', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites/1', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['site' => Api::siteData()])->toResponse()
                         );
@@ -327,7 +327,7 @@ class SitesTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('PUT', 'servers/1/sites/1', [
-                            'form_params' => ['directory' => '/some/path']
+                            'json' => ['directory' => '/some/path']
                         ])
                         ->andReturn(
                             FakeResponse::fake()
@@ -350,7 +350,7 @@ class SitesTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites/1/git', [
-                            'form_params' => [
+                            'json' => [
                                 'provider' => 'github',
                                 'repository' => 'username/repository',
                             ],
@@ -364,7 +364,7 @@ class SitesTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites/1/git', [
-                            'form_params' => [
+                            'json' => [
                                 'provider' => 'bitbucket',
                                 'repository' => 'username/repository',
                             ],
@@ -378,7 +378,7 @@ class SitesTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites/1/git', [
-                            'form_params' => [
+                            'json' => [
                                 'provider' => 'gitlab',
                                 'repository' => 'username/repository',
                             ],
@@ -392,7 +392,7 @@ class SitesTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites/1/git', [
-                            'form_params' => [
+                            'json' => [
                                 'provider' => 'custom',
                                 'repository' => 'git@example.org:username/repository.git',
                             ],
@@ -406,7 +406,7 @@ class SitesTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites/1/wordpress', [
-                            'form_params' => [
+                            'json' => [
                                 'database' => 'forge',
                                 'user' => 'forge',
                             ],

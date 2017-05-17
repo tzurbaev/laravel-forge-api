@@ -323,7 +323,7 @@ abstract class Provider
         }
 
         $response = $this->api->getClient()->request('POST', 'servers', [
-            'form_params' => $this->sortPayload(),
+            'json' => $this->sortPayload(),
         ]);
 
         return Server::createFromResponse($response, $this->api);

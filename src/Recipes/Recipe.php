@@ -55,7 +55,7 @@ class Recipe extends ApiResource
      */
     public function run(array $serverIds)
     {
-        $formParams = ['form_params' => ['servers' => $serverIds]];
+        $formParams = ['json' => ['servers' => $serverIds]];
         $this->getHttpClient()->request('POST', 'recipes/'.$this->id().'/run', $formParams);
 
         return true;

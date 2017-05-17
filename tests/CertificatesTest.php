@@ -186,7 +186,7 @@ class CertificatesTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/sites/1/certificates', ['form_params' => $this->createPayload()])
+                        ->with('POST', 'servers/1/sites/1/certificates', ['json' => $this->createPayload()])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['certificate' => $this->response()])->toResponse()
                         );
@@ -215,7 +215,7 @@ class CertificatesTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/sites/1/certificates', ['form_params' => $this->installPayload()])
+                        ->with('POST', 'servers/1/sites/1/certificates', ['json' => $this->installPayload()])
                         ->andReturn(
                             FakeResponse::fake()
                             ->withJson([
@@ -244,7 +244,7 @@ class CertificatesTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/sites/1/certificates', ['form_params' => $this->clonePayload()])
+                        ->with('POST', 'servers/1/sites/1/certificates', ['json' => $this->clonePayload()])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['certificate' => $this->response()])->toResponse()
                         );
@@ -261,7 +261,7 @@ class CertificatesTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites/1/letsencrypt', [
-                            'form_params' => [
+                            'json' => [
                                 'domains' => ['example.org', 'www.example.org', 'api.example.org'],
                             ],
                         ])
@@ -289,7 +289,7 @@ class CertificatesTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites/1/certificates', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites/1/certificates', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withJson([
@@ -314,7 +314,7 @@ class CertificatesTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites/1/certificates/1', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites/1/certificates/1', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['certificate' => $this->response()])->toResponse()
                         );
@@ -354,7 +354,7 @@ class CertificatesTest extends TestCase
                 'certificate' => $this->fakeCertificate(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites/1/certificates/1/install', [
-                            'form_params' => [
+                            'json' => [
                                 'certificate' => 'certificate',
                                 'add_intermediates' => false,
                             ]

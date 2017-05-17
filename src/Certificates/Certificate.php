@@ -119,7 +119,7 @@ class Certificate extends ApiResource
     public function install(string $content, bool $addIntermediates = false): bool
     {
         $this->getHttpClient()->request('POST', $this->apiUrl('/install'), [
-            'form_params' => [
+            'json' => [
                 'certificate' => $content,
                 'add_intermediates' => $addIntermediates,
             ],

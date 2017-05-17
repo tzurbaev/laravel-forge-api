@@ -83,7 +83,7 @@ class MysqlDatabasesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/mysql', [
-                            'form_params' => ['name' => 'forge'],
+                            'json' => ['name' => 'forge'],
                         ])
                         ->andReturn(
                             FakeResponse::fake()
@@ -102,7 +102,7 @@ class MysqlDatabasesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/mysql', [
-                            'form_params' => [
+                            'json' => [
                                 'name' => 'forge',
                                 'user' => 'forge',
                                 'password' => 'secret',
@@ -135,7 +135,7 @@ class MysqlDatabasesTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/mysql', ['form_params' => []])
+                        ->with('GET', 'servers/1/mysql', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withJson([
@@ -167,7 +167,7 @@ class MysqlDatabasesTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/mysql/1', ['form_params' => []])
+                        ->with('GET', 'servers/1/mysql/1', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['database' => $this->response()])->toResponse()
                         );

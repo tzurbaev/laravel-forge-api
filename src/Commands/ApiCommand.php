@@ -71,7 +71,7 @@ abstract class ApiCommand
     public function requestOptions()
     {
         return [
-            'form_params' => $this->payload,
+            'json' => $this->payload,
         ];
     }
 

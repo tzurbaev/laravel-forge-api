@@ -83,7 +83,7 @@ class JobsTest extends TestCase
         return Api::fakeServer(function ($http) use ($payload, $response) {
             $http->shouldReceive('request')
                 ->with('POST', 'servers/1/jobs', [
-                    'form_params' => $payload,
+                    'json' => $payload,
                 ])
                 ->andReturn(
                     FakeResponse::fake()
@@ -221,7 +221,7 @@ class JobsTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/jobs', ['form_params' => []])
+                        ->with('GET', 'servers/1/jobs', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withJson([
@@ -253,7 +253,7 @@ class JobsTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/jobs/1', ['form_params' => []])
+                        ->with('GET', 'servers/1/jobs/1', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['job' => $this->response()])->toResponse()
                         );

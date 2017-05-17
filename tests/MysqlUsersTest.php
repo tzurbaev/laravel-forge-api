@@ -121,7 +121,7 @@ class MysqlUsersTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/mysql-users', ['form_params' => $this->payload()])
+                        ->with('POST', 'servers/1/mysql-users', ['json' => $this->payload()])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['user' => $this->response()])->toResponse()
                         );
@@ -137,7 +137,7 @@ class MysqlUsersTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/mysql-users', ['form_params' => []])
+                        ->with('GET', 'servers/1/mysql-users', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withJson([
@@ -171,7 +171,7 @@ class MysqlUsersTest extends TestCase
             [
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/mysql-users/1', ['form_params' => []])
+                        ->with('GET', 'servers/1/mysql-users/1', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['user' => $this->response()])->toResponse()
                         );
@@ -194,7 +194,7 @@ class MysqlUsersTest extends TestCase
                 'user' => $this->fakeUser(function ($http) {
                     $http->shouldReceive('request')
                         ->with('PUT', 'servers/1/mysql-users/1', [
-                            'form_params' => [
+                            'json' => [
                                 'databases' => [1, 2],
                             ]
                         ])

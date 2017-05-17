@@ -102,7 +102,7 @@ class DeploymentTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/sites/1/deployment', ['form_params' => []])
+                        ->with('POST', 'servers/1/sites/1/deployment', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->toResponse()
                         );
@@ -120,7 +120,7 @@ class DeploymentTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('DELETE', 'servers/1/sites/1/deployment', ['form_params' => []])
+                        ->with('DELETE', 'servers/1/sites/1/deployment', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->toResponse()
                         );
@@ -138,7 +138,7 @@ class DeploymentTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites/1/deployment/script', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites/1/deployment/script', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withBody('git pull origin master')
@@ -159,7 +159,7 @@ class DeploymentTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('PUT', 'servers/1/sites/1/deployment/script', [
-                            'form_params' => [
+                            'json' => [
                                 'content' => "cd /home/forge/default\ngit pull origin master",
                             ]
                         ])
@@ -183,7 +183,7 @@ class DeploymentTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/sites/1/deployment/deploy', ['form_params' => []])
+                        ->with('POST', 'servers/1/sites/1/deployment/deploy', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->toResponse()
                         );
@@ -201,7 +201,7 @@ class DeploymentTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/sites/1/deployment/reset', ['form_params' => []])
+                        ->with('POST', 'servers/1/sites/1/deployment/reset', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->toResponse()
                         );
@@ -229,7 +229,7 @@ class DeploymentTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) use ($log) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites/1/deployment/log', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites/1/deployment/log', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withBody($log)

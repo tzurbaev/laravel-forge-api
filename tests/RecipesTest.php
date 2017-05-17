@@ -140,7 +140,7 @@ class RecipesTest extends TestCase
             [
                 'forge' => Api::fakeForge(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'recipes', ['form_params' => $this->payload()])
+                        ->with('POST', 'recipes', ['json' => $this->payload()])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['recipe' => $this->response()])->toResponse()
                         );
@@ -157,7 +157,7 @@ class RecipesTest extends TestCase
             [
                 'forge' => Api::fakeForge(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'recipes', ['form_params' => []])
+                        ->with('GET', 'recipes', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()
                                 ->withJson([
@@ -181,7 +181,7 @@ class RecipesTest extends TestCase
             [
                 'forge' => Api::fakeForge(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'recipes/1', ['form_params' => []])
+                        ->with('GET', 'recipes/1', ['json' => []])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['recipe' => $this->response()])->toResponse()
                         );
@@ -204,7 +204,7 @@ class RecipesTest extends TestCase
             [
                 'recipe' => $this->fakeRecipe(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('PUT', 'recipes/1', ['form_params' => $this->payload()])
+                        ->with('PUT', 'recipes/1', ['json' => $this->payload()])
                         ->andReturn(
                             FakeResponse::fake()->withJson(['recipe' => $this->response()])->toResponse()
                         );
@@ -237,7 +237,7 @@ class RecipesTest extends TestCase
             [
                 'recipe' => $this->fakeRecipe(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'recipes/1/run', ["form_params" => ["servers" => [1,2]]])
+                        ->with('POST', 'recipes/1/run', ["json" => ["servers" => [1,2]]])
                         ->andReturn(
                             FakeResponse::fake()->toResponse()
                         );

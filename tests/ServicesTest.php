@@ -129,7 +129,7 @@ class ServicesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/blackfire/install', [
-                            'form_params' => [
+                            'json' => [
                                 'server_id' => 'server-id',
                                 'server_token' => 'server-token',
                             ],
@@ -144,7 +144,7 @@ class ServicesTest extends TestCase
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
                         ->with('POST', 'servers/1/papertrail/install', [
-                            'form_params' => ['host' => '192.241.143.108']
+                            'json' => ['host' => '192.241.143.108']
                         ])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
@@ -181,7 +181,7 @@ class ServicesTest extends TestCase
                 'service' => new BlackfireService(),
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('DELETE', 'servers/1/blackfire/remove', ['form_params' => []])
+                        ->with('DELETE', 'servers/1/blackfire/remove', ['json' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -190,7 +190,7 @@ class ServicesTest extends TestCase
                 'service' => new PapertrailService(),
                 'server' => Api::fakeServer(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('DELETE', 'servers/1/papertrail/remove', ['form_params' => []])
+                        ->with('DELETE', 'servers/1/papertrail/remove', ['json' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -246,7 +246,7 @@ class ServicesTest extends TestCase
                 'service' => new MysqlService(),
                 'server' => Api::fakeServer(function ($http) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/mysql/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/1/mysql/'.$command, ['json' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -255,7 +255,7 @@ class ServicesTest extends TestCase
                 'service' => new NginxService(),
                 'server' => Api::fakeServer(function ($http) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/nginx/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/1/nginx/'.$command, ['json' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -264,7 +264,7 @@ class ServicesTest extends TestCase
                 'service' => new PostgresService(),
                 'server' => Api::fakeServer(function ($http) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/postgres/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/1/postgres/'.$command, ['json' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => true,
@@ -287,7 +287,7 @@ class ServicesTest extends TestCase
                 'service' => new MysqlService(),
                 'server' => Api::multipleFakeServers(3, function ($http, $serverId) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/'.$serverId.'/mysql/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/'.$serverId.'/mysql/'.$command, ['json' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => [
@@ -300,7 +300,7 @@ class ServicesTest extends TestCase
                 'service' => new NginxService(),
                 'server' => Api::multipleFakeServers(3, function ($http, $serverId) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/'.$serverId.'/nginx/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/'.$serverId.'/nginx/'.$command, ['json' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => [
@@ -313,7 +313,7 @@ class ServicesTest extends TestCase
                 'service' => new PostgresService(),
                 'server' => Api::multipleFakeServers(3, function ($http, $serverId) use ($command) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/'.$serverId.'/postgres/'.$command, ['form_params' => []])
+                        ->with('POST', 'servers/'.$serverId.'/postgres/'.$command, ['json' => []])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'expectedResult' => [

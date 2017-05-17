@@ -87,7 +87,7 @@ class ConfigurationsTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites/1/nginx', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites/1/nginx', ['json' => []])
                         ->andReturn(FakeResponse::fake()->withBody($this->nginx())->toResponse());
                 }),
                 'expectedResult' => $this->nginx(),
@@ -102,7 +102,7 @@ class ConfigurationsTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('PUT', 'servers/1/sites/1/nginx', [
-                            'form_params' => ['content' => $this->nginx()],
+                            'json' => ['content' => $this->nginx()],
                         ])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
@@ -118,7 +118,7 @@ class ConfigurationsTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('GET', 'servers/1/sites/1/env', ['form_params' => []])
+                        ->with('GET', 'servers/1/sites/1/env', ['json' => []])
                         ->andReturn(FakeResponse::fake()->withBody($this->env())->toResponse());
                 }),
                 'expectedResult' => $this->env(),
@@ -133,7 +133,7 @@ class ConfigurationsTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('PUT', 'servers/1/sites/1/env', [
-                            'form_params' => ['content' => $this->env()],
+                            'json' => ['content' => $this->env()],
                         ])
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
