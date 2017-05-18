@@ -97,7 +97,7 @@ class CreateServerTest extends TestCase
         return array_merge([
             'credential_id' => 1,
             'database' => 'laravel',
-            'load_balancer' => 1,
+            'node_balancer' => 1,
             'maria' => 1,
             'name' => 'northrend',
             'network' => [1, 2, 3],
