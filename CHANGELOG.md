@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.2.1] - 2017-05-19
+### Fixed
+- Creating server as node balancer should be fixed now (thanks [@acurrieclark](https://github.com/acurrieclark)).
+
 ## [1.2.0] - 2017-05-17
 ### Added
 - Optional boolean `$reload` parameter added to `Forge::get` method signature. If true, Forge will reload fresh server data from API instead of in-memory cache;
@@ -84,7 +88,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.2.1...HEAD
+[1.2.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.0.1...1.1.0
