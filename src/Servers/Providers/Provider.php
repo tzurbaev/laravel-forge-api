@@ -259,7 +259,7 @@ abstract class Provider
      */
     public function asLoadBalancer(bool $install = true)
     {
-        return $this->togglePayload('load_balancer', $install);
+        return $this->togglePayload('node_balancer', $install);
     }
 
     /**
