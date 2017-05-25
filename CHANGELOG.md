@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.3.0] - 2017-05-25
+
+Updates by [@acurrieclark](https://github.com/acurrieclark)
+### Added
+- Added the option to specify a firewall rule IP address by using `$rule->usingIp('127.0.0.1')` method;
+- Added endpoint for configuring a load balancer's site network by using `$site->balance([$server->id])` method.
+## Fixed
+- Fixed LetsEncrypt certificates endpoint URL.
+
 ## [1.2.1] - 2017-05-19
 ### Fixed
 - Creating server as node balancer should be fixed now (thanks [@acurrieclark](https://github.com/acurrieclark)).
@@ -88,7 +97,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.2.1...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.2.1...1.3.0
 [1.2.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.1.0...1.1.1
