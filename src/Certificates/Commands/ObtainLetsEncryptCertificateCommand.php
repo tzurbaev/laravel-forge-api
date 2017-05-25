@@ -13,7 +13,7 @@ class ObtainLetsEncryptCertificateCommand extends CertificateCommand
      */
     public function resourcePath()
     {
-        return 'letsencrypt';
+        return 'certificates/letsencrypt';
     }
 
     /**
