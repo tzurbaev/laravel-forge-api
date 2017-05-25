@@ -98,6 +98,23 @@ $site = $sites->get(1234)->from($server);
 $site->update(['directory' => '/some/path']);
 ```
 
+## Load Balancing
+
+Use this method to describe which servers from your network should receive traffic from a load balancer.
+
+```php
+<?php
+
+use Laravel\Forge\Sites\SitesManager;
+
+$sites = new SitesManager();
+
+$site = $sites->get(1234)->from($server);
+
+$serverIds = [123, 124];
+$site->balance($serverIds);
+```
+
 ## Delete site
 
 ```php

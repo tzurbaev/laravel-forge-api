@@ -18,7 +18,7 @@ class SitesTest extends TestCase
 {
     /**
      * @dataProvider createSiteDataProvider
-     */ 
+     */
     public function testCreateSite($server, Closure $factory, Closure $assertion)
     {
         $sites = new SitesManager();
@@ -90,6 +90,20 @@ class SitesTest extends TestCase
         }
 
         $result = $site->uninstall($app);
+
+        $this->assertSame($expectedResult, $result);
+    }
+
+    /**
+     * @dataProvider balanceSiteDataProvider
+     */
+    public function testLoadBalanceSite(Site $site, array $payload, $expectedResult, bool $exception = false)
+    {
+        if ($exception === true) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $result = $site->balance($payload);
 
         $this->assertSame($expectedResult, $result);
     }
@@ -338,6 +352,27 @@ class SitesTest extends TestCase
                         );
                 }),
                 'payload' => ['directory' => '/some/path'],
+                'expectedResult' => true,
+            ],
+        ];
+    }
+
+    public function balanceSiteDataProvider(): array
+    {
+        return [
+            [
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites/1/balancing', [
+                            'json' => [1 , 2]
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()
+                                ->withBody('')
+                                ->toResponse()
+                        );
+                }),
+                'payload' => [1, 2],
                 'expectedResult' => true,
             ],
         ];
