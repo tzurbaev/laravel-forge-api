@@ -260,7 +260,7 @@ class CertificatesTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
-                        ->with('POST', 'servers/1/sites/1/letsencrypt', [
+                        ->with('POST', 'servers/1/sites/1/certificates/letsencrypt', [
                             'json' => [
                                 'domains' => ['example.org', 'www.example.org', 'api.example.org'],
                             ],
