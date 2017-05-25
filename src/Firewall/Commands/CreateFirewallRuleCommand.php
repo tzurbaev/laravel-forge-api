@@ -27,4 +27,16 @@ class CreateFirewallRuleCommand extends FirewallRuleCommand
     {
         return $this->attachPayload('port', $port);
     }
+
+    /**
+     * Set rule ip address.
+     *
+     * @param string $ipAddress
+     *
+     * @return static
+     */
+    public function usingIp(string $ipAddress)
+    {
+        return $this->attachPayload('ip_address', $ipAddress);
+    }
 }

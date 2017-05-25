@@ -20,6 +20,10 @@ use Laravel\Forge\Firewall\FirewallManager;
 $firewall = new FirewallManager();
 
 $rule = $firewall->create('rule-name')->usingPort(88)->on($server);
+
+// You can also use the optional usingIp() function to bind the rule to a specific IP
+$rule = $firewall->create('rule-name')->usingIp('192.168.0.1')->usingPort(88)->on($server);
+
 ```
 
 ## List rules

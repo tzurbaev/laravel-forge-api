@@ -22,6 +22,7 @@ class FirewallTest extends TestCase
         $result = $firewall
             ->create($rule['name'])
             ->usingPort($rule['port'])
+            ->usingIp($rule['ip_address'])
             ->on($server);
 
         $assertion($result);
@@ -71,7 +72,7 @@ class FirewallTest extends TestCase
             'id' => 1,
             'name' => 'rule name',
             'port' => 88,
-            'ip_address' => null,
+            'ip_address' => '192.168.0.1',
             'status' => 'installing',
             'created_at' => '2016-12-16 15:50:17',
         ], $replace);
@@ -93,6 +94,7 @@ class FirewallTest extends TestCase
                         ->with('POST', 'servers/1/firewall-rules', [
                             'json' => [
                                 'name' => 'rule name',
+                                'ip_address' => '192.168.0.1',
                                 'port' => 88,
                             ],
                         ])
@@ -102,11 +104,13 @@ class FirewallTest extends TestCase
                 }),
                 'rule' => [
                     'name' => 'rule name',
+                    'ip_address' => '192.168.0.1',
                     'port' => 88,
                 ],
                 'assertion' => function ($rule) {
                     $this->assertInstanceOf(FirewallRule::class, $rule);
                     $this->assertSame('rule name', $rule->name());
+                    $this->assertSame('192.168.0.1', $rule->ipAddress());
                     $this->assertSame(88, $rule->port());
                 }
             ],
