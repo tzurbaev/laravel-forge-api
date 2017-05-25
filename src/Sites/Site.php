@@ -85,7 +85,7 @@ class Site extends ApiResource
     public function balance(array $serverIds)
     {
         $this->getHttpClient()->request('PUT', $this->apiUrl('/balancing'), [
-            'json' => $serverIds
+            'json' => ['servers' => $serverIds]
         ]);
 
         return true;

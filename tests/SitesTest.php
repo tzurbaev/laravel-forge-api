@@ -364,7 +364,7 @@ class SitesTest extends TestCase
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
                         ->with('PUT', 'servers/1/sites/1/balancing', [
-                            'json' => [1 , 2]
+                            'json' => ['servers' => [1 , 2]]
                         ])
                         ->andReturn(
                             FakeResponse::fake()
