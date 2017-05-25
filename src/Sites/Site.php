@@ -76,4 +76,18 @@ class Site extends ApiResource
 
         return true;
     }
+
+    /**
+     * Connect load balancer.
+     *
+     * @return bool
+     */
+    public function balance(array $serverIds)
+    {
+        $this->getHttpClient()->request('PUT', $this->apiUrl('/balancing'), [
+            'json' => ['servers' => $serverIds]
+        ]);
+
+        return true;
+    }
 }
