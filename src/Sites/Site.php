@@ -48,6 +48,46 @@ class Site extends ApiResource
     }
 
     /**
+     * Site repository.
+     *
+     * @return string
+     */
+    public function repository()
+    {
+        return $this->getData('repository');
+    }
+
+    /**
+     * Site repository provider.
+     *
+     * @return string
+     */
+    public function repositoryProvider()
+    {
+        return $this->getData('repository_provider');
+    }
+
+    /**
+     * Site repository branch.
+     *
+     * @return string
+     */
+    public function repositoryBranch()
+    {
+        return $this->getData('repository_branch');
+    }
+
+    /**
+     * Site repository status.
+     *
+     * @return string
+     */
+    public function repositoryStatus()
+    {
+        return $this->getData('repository_status');
+    }
+
+    /**
      * Install new application on site.
      *
      * @param \Laravel\Forge\Contracts\ApplicationContract $application
