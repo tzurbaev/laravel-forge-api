@@ -143,7 +143,7 @@ You can call additional methods on all providers.
 
 ## Provision as load balancer
 
-Just call `asLoadBalancer()` on methods chain to indicate that new server should be provisioned as load balancer:
+Just call `asNodeBalancer()` on methods chain to indicate that new server should be provisioned as load balancer:
 
 ```php
 <?php
@@ -153,7 +153,7 @@ $loadBalancer = $forge->create()
   ->usingCredential(1234)
   ->withMemoryOf('512MB')
   ->at('fra1')
-  ->asLoadBalancer()
+  ->asNodeBalancer()
   ->save();
 ```
 

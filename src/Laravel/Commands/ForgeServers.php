@@ -169,8 +169,8 @@ class ForgeServers extends Command
             $this->comment('OK, MySQL server will be installed.');
         }
 
-        if ($this->confirm('Do you want to provision this server as load balancer?', false)) {
-            $provider->asLoadBalancer();
+        if ($this->confirm('Do you want to provision this server as node balancer?', false)) {
+            $provider->asNodeBalancer();
             $this->comment('OK, server will be provisioned as load balancer.');
         }
 

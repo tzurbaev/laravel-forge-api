@@ -255,9 +255,24 @@ abstract class Provider
      *
      * @param bool $install = true
      *
+     * @deprecated since 1.3.1
+     * @see Provider::asNodeBalancer()
+     *
      * @return static
      */
     public function asLoadBalancer(bool $install = true)
+    {
+        return $this->asNodeBalancer($install);
+    }
+
+    /**
+     * Indicates that server should be provisioned as load balancer.
+     *
+     * @param bool $install = true
+     *
+     * @return static
+     */
+    public function asNodeBalancer(bool $install = true)
     {
         return $this->togglePayload('node_balancer', $install);
     }

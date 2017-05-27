@@ -130,7 +130,7 @@ class CreateServerTest extends TestCase
                         ->at('fra1')
                         ->runningPhp('7.1')
                         ->withMariaDb('laravel')
-                        ->asLoadBalancer()
+                        ->asNodeBalancer()
                         ->connectedTo([1, 2, 3])
                         ->save();
                 },
@@ -154,7 +154,7 @@ class CreateServerTest extends TestCase
                         ->at(10)
                         ->runningPhp('7.1')
                         ->withMariaDb('laravel')
-                        ->asLoadBalancer()
+                        ->asNodeBalancer()
                         ->connectedTo([1, 2, 3])
                         ->save();
                 },
@@ -178,7 +178,7 @@ class CreateServerTest extends TestCase
                         ->at('us-west-1')
                         ->runningPhp('7.1')
                         ->withMariaDb('laravel')
-                        ->asLoadBalancer()
+                        ->asNodeBalancer()
                         ->connectedTo([1, 2, 3])
                         ->save();
                 },
@@ -240,7 +240,7 @@ class CreateServerTest extends TestCase
                         ->at('fra1')
                         ->runningPhp('7.1')
                         ->withMariaDb('laravel')
-                        ->asLoadBalancer()
+                        ->asNodeBalancer()
                         ->connectedTo([1, 2, 3])
                         ->save();
                 },
@@ -262,7 +262,7 @@ class CreateServerTest extends TestCase
                         ->at(10)
                         ->runningPhp('7.1')
                         ->withMariaDb('laravel')
-                        ->asLoadBalancer()
+                        ->asNodeBalancer()
                         ->connectedTo([1, 2, 3])
                         ->save();
                 },
