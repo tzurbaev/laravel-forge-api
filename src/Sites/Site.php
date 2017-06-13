@@ -48,6 +48,116 @@ class Site extends ApiResource
     }
 
     /**
+     * Site repository.
+     *
+     * @return string
+     */
+    public function repository()
+    {
+        return $this->getData('repository');
+    }
+
+    /**
+     * Site repository provider.
+     *
+     * @return string
+     */
+    public function repositoryProvider()
+    {
+        return $this->getData('repository_provider');
+    }
+
+    /**
+     * Site repository branch.
+     *
+     * @return string
+     */
+    public function repositoryBranch()
+    {
+        return $this->getData('repository_branch');
+    }
+
+    /**
+     * Site repository status.
+     *
+     * @return string
+     */
+    public function repositoryStatus()
+    {
+        return $this->getData('repository_status');
+    }
+
+    /**
+     * Site deployment status.
+     *
+     * @return string | null
+     */
+    public function deploymentStatus()
+    {
+        return $this->getData('deployment_status');
+    }
+
+    /**
+     * Site allows wildcard URIs.
+     *
+     * @return boolean
+     */
+    public function wildcards()
+    {
+        return $this->getData('wildcards');
+    }
+
+    /**
+     * Site quick deploy enabled.
+     *
+     * @return boolean
+     */
+    public function quickDeploy()
+    {
+        return $this->getData('quick_deploy');
+    }
+
+    /**
+     * Site hipchat room.
+     *
+     * @return string
+     */
+    public function hipchatRoom()
+    {
+        return $this->getData('hipchat_room');
+    }
+
+    /**
+     * Site slack channel.
+     *
+     * @return string
+     */
+    public function slackChannel()
+    {
+        return $this->getData('slack_channel');
+    }
+
+    /**
+     * Site app.
+     *
+     * @return string | null
+     */
+    public function app()
+    {
+        return $this->getData('app');
+    }
+
+    /**
+     * Site app status.
+     *
+     * @return string | null
+     */
+    public function appStatus()
+    {
+        return $this->getData('app_status');
+    }
+
+    /**
      * Install new application on site.
      *
      * @param \Laravel\Forge\Contracts\ApplicationContract $application
