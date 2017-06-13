@@ -321,7 +321,18 @@ class SitesTest extends TestCase
                     $http->shouldReceive('request')
                         ->with('GET', 'servers/1/sites/1', ['json' => []])
                         ->andReturn(
-                            FakeResponse::fake()->withJson(['site' => Api::siteData()])->toResponse()
+                            FakeResponse::fake()->withJson(['site' => Api::siteData([
+                                    'status'=> 'installed',
+                                    'repository'=> 'root/repo',
+                                    'repository_provider'=> 'github',
+                                    'repository_branch'=> 'master',
+                                    'repository_status'=> 'installed',
+                                    'quick_deploy' => true,
+                                    'wildcards' => true,
+                                    'hipchat_room' => 'Deployments',
+                                    'slack_channel' => "#Deployments",
+                                ]
+                            )])->toResponse()
                         );
                 }),
                 'siteId' => 1,
@@ -329,6 +340,17 @@ class SitesTest extends TestCase
                     $this->assertInstanceOf(Site::class, $site);
                     $this->assertSame('example.org', $site->domain());
                     $this->assertSame('php', $site->projectType());
+                    $this->assertSame('installed', $site->status());
+                    $this->assertSame('root/repo', $site->repository());
+                    $this->assertSame('github', $site->repositoryProvider());
+                    $this->assertSame('installed', $site->repositoryStatus());
+                    $this->assertNull($site->deploymentStatus());
+                    $this->assertTrue($site->wildcards());
+                    $this->assertTrue($site->quickDeploy());
+                    $this->assertSame('Deployments', $site->hipchatRoom());
+                    $this->assertSame('#Deployments', $site->slackChannel());
+                    $this->assertNull($site->app());
+                    $this->assertNull($site->appStatus());
                 }
             ],
         ];

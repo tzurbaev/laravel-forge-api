@@ -131,4 +131,28 @@ if ($site->delete()) {
 }
 ```
 
+## Site Properties
+
+The following site properties are accessible
+
+```php
+<?php
+
+$site->id();
+$site->domain();
+$site->projectType();
+$site->status();
+$site->repository();
+$site->repositoryProvider();
+$site->repositoryStatus();
+$site->deploymentStatus();
+$site->wildcards();
+$site->quickDeploy();
+$site->hipchatRoom();
+$site->slackChannel();
+$site->app();
+$site->appStatus();
+$site->createdAt();
+```
+
 [Back to Table of Contents](./readme.md)
