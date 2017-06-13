@@ -7,6 +7,8 @@ At the time of writing, the Laravel Forge API imposes a request rate limit of 30
 Add a rate limiting function of your choice by way of an optional closure, set on the main `$forge` instance.
 
 ```php
+<?php
+
 $forge->setRateLimiter(function() {
     rateLimitingFunction();
 });
@@ -29,6 +31,8 @@ composer require bandwidth-throttle/token-bucket
 Next, we create an in memory token bucket which will last only as long as the request/script runs. This particular package does allow for a number of storage options which are well beyond the scope of this example.
 
 ```php
+<?php
+
 use bandwidthThrottle\tokenBucket\Rate;
 use bandwidthThrottle\tokenBucket\TokenBucket;
 use bandwidthThrottle\tokenBucket\BlockingConsumer;
@@ -64,6 +68,8 @@ $forge->get(1234, true);
 Of course, the rate limiting closure could be something as simple as:
 
 ```php
+<?php 
+
 $limitingClosure = function () {
     sleep(2);
 };
