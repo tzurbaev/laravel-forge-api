@@ -21,14 +21,14 @@ class Api
      */
     public static function fake(Closure $callback = null)
     {
-        $api = Mockery::mock(ApiProvider::class.'[getClient]', ['api-token']);
+        $api = Mockery::mock(ApiProvider::class.'[createClient]', ['api-token']);
         $http = Mockery::mock(Client::class);
 
         if (!is_null($callback)) {
             $callback($http);
         }
 
-        $api->shouldReceive('getClient')->andReturn($http);
+        $api->shouldReceive('createClient')->andReturn($http);
 
         return $api;
     }
