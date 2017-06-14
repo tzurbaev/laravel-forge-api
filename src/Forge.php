@@ -223,7 +223,7 @@ class Forge implements ArrayAccess, Iterator, ResourceContract
      *
      * @param \Closure
      */
-    public function setRateLimiter(Callable $rateLimiter)
+    public function setRateLimiter(callable $rateLimiter)
     {
         $this->api->setRateLimiter($rateLimiter);
     }

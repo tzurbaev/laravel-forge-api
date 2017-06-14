@@ -98,7 +98,7 @@ class ApiProvider
      *
      * @param \Closure
      */
-    public function setRateLimiter(Callable $rateLimiter)
+    public function setRateLimiter(callable $rateLimiter)
     {
         $this->rateLimiter = $rateLimiter;
     }
