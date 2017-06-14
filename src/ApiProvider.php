@@ -28,6 +28,14 @@ class ApiProvider
      */
     protected $client;
 
+
+    /**
+     * The optional rate limiting function.
+     *
+     * @var \Closure | null
+     */
+    protected $rateLimiter = null;
+
     /**
      * Create new API provider instance.
      *
@@ -45,6 +53,10 @@ class ApiProvider
      */
     public function getClient(): ClientInterface
     {
+        if (!is_null($this->rateLimiter)) {
+            call_user_func($this->rateLimiter);
+        }
+
         if (!is_null($this->client)) {
             return $this->client;
         }
@@ -79,5 +91,15 @@ class ApiProvider
         ]);
 
         return $client;
+    }
+
+    /**
+     * Sets an optional rate limiting function.
+     *
+     * @param \Closure
+     */
+    public function setRateLimiter(callable $rateLimiter)
+    {
+        $this->rateLimiter = $rateLimiter;
     }
 }

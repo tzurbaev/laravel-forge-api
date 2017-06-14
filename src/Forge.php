@@ -217,4 +217,14 @@ class Forge implements ArrayAccess, Iterator, ResourceContract
 
         return $this->serversCache[$serverId] = Server::createFromResponse($response, $this->api);
     }
+
+    /**
+     * Sets an optional rate limiting function on the api provider.
+     *
+     * @param \Closure
+     */
+    public function setRateLimiter(callable $rateLimiter)
+    {
+        $this->api->setRateLimiter($rateLimiter);
+    }
 }
