@@ -343,6 +343,7 @@ class SitesTest extends TestCase
                     $this->assertSame('installed', $site->status());
                     $this->assertSame('root/repo', $site->repository());
                     $this->assertSame('github', $site->repositoryProvider());
+                    $this->assertSame('master', $site->repositoryBranch());
                     $this->assertSame('installed', $site->repositoryStatus());
                     $this->assertNull($site->deploymentStatus());
                     $this->assertTrue($site->wildcards());
@@ -351,6 +352,7 @@ class SitesTest extends TestCase
                     $this->assertSame('#Deployments', $site->slackChannel());
                     $this->assertNull($site->app());
                     $this->assertNull($site->appStatus());
+                    $this->assertSame('/public', $site->directory());
                 }
             ],
         ];

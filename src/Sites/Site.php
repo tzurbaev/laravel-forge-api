@@ -48,6 +48,16 @@ class Site extends ApiResource
     }
 
     /**
+     * Site directory.
+     *
+     * @return string
+     */
+    public function directory()
+    {
+        return $this->getData('directory');
+    }
+
+    /**
      * Site repository.
      *
      * @return string
