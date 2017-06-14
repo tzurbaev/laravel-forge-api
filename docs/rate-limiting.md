@@ -4,7 +4,7 @@ At the time of writing, the Laravel Forge API imposes a request rate limit of 30
 
 ## Usage
 
-Add a rate limiting function of your choice by way of an optional closure, set on the main `$forge` instance.
+Add a rate limiting function of your choice by way of an optional `callable`, set on the main `$forge` instance.
 
 ```php
 <?php
@@ -14,9 +14,9 @@ $forge->setRateLimiter(function() {
 });
 ```
 
-**Please note that the `rateLimitingFunction()` is not provided, and must be provided separately.**
+**Please note that the `rateLimitingFunction()` is not provided. It is down to you to design the best fit for your needs**
 
-Now each time a request is made, the `ApiProvider` calls the rate limiting closure first. This effectively blocks the request until the closure has completed its calculation.
+Now each time a request is made, the `ApiProvider` executes the rate limiting callable first. The callable function should be designed to block the call until the program is satisfied the rate limit will not be exceeded.
 
 ## Examples
 
@@ -68,7 +68,7 @@ $forge->get(1234, true);
 Of course, the rate limiting closure could be something as simple as:
 
 ```php
-<?php 
+<?php
 
 $limitingClosure = function () {
     sleep(2);

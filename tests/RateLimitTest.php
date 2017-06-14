@@ -21,9 +21,7 @@ class RateLimitTest extends TestCase
         // which in this case simply increments a value
 
         // Set the function as our rate limiter
-        $forge->setRateLimiter(function () use ($limiter) {
-            $limiter->limit();
-        });
+        $forge->setRateLimiter([$limiter, 'limit']);
 
         // check that no requests have been rate limited yet
         $this->assertEquals(0, $limiter->getLimiterCount());

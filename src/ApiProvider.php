@@ -54,7 +54,7 @@ class ApiProvider
     public function getClient(): ClientInterface
     {
         if (!is_null($this->rateLimiter)) {
-            ($this->rateLimiter)();
+            call_user_func($this->rateLimiter);
         }
 
         if (!is_null($this->client)) {
@@ -98,7 +98,7 @@ class ApiProvider
      *
      * @param \Closure
      */
-    public function setRateLimiter(\Closure $rateLimiter)
+    public function setRateLimiter(Callable $rateLimiter)
     {
         $this->rateLimiter = $rateLimiter;
     }
