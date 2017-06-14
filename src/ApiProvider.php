@@ -28,13 +28,12 @@ class ApiProvider
      */
     protected $client;
 
-
     /**
      * The optional rate limiting function.
      *
-     * @var \Closure | null
+     * @var callable|null
      */
-    protected $rateLimiter = null;
+    protected $rateLimiter;
 
     /**
      * Create new API provider instance.
@@ -96,7 +95,7 @@ class ApiProvider
     /**
      * Sets an optional rate limiting function.
      *
-     * @param \Closure
+     * @param callable $rateLimiter
      */
     public function setRateLimiter(callable $rateLimiter)
     {

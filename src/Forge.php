@@ -221,7 +221,7 @@ class Forge implements ArrayAccess, Iterator, ResourceContract
     /**
      * Sets an optional rate limiting function on the api provider.
      *
-     * @param \Closure
+     * @param callable $rateLimiter
      */
     public function setRateLimiter(callable $rateLimiter)
     {
