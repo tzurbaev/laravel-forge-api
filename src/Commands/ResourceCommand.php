@@ -138,7 +138,7 @@ abstract class ResourceCommand extends ApiCommand
 
         $json = json_decode((string) $response->getBody(), true);
 
-        if (empty($json[$itemsKey])) {
+        if (!isset($json[$itemsKey])) {
             throw new InvalidArgumentException('Given response is not a '.$this->resourcePath().' response.');
         }
 
