@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.4.1] - 2017-06-16
+### Fixed
+- Valid responses with empty lists should not cause `InvalidArgumentException` anymore.
+
 ## [1.4.0] - 2017-06-14
 
 Updates by [@acurrieclark](https://github.com/acurrieclark)
