@@ -17,7 +17,7 @@ class SitesManager
      */
     public function create(string $domain)
     {
-        return (new CreateSiteCommand())->identifiedAs($domain);
+        return (new CreateSiteCommand())->identifiedAs($domain)->withDirectory('/public');
     }
 
     /**

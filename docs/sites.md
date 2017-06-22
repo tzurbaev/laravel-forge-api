@@ -19,10 +19,12 @@ use Laravel\Forge\Sites\SitesManager;
 
 $sites = new SitesManager();
 
-$site = $sites->create('example.org')->asPhp()->on($server);
+$site = $sites->create('example.org')->asPhp()->withDirectory('/public')->on($server);
 ```
 
 Code above will create new site with `example.org` domain and initiate it as General PHP/Laravel Application.
+
+`->withDirectory()` lets Forge know where the public app resides, and will default to `/public` if you leave it out.
 
 You can change site type by calling respective methods.
 

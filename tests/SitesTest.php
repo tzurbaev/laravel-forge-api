@@ -127,6 +127,7 @@ class SitesTest extends TestCase
         return array_merge([
             'domain' => 'example.org',
             'project_type' => 'php',
+            'directory' => '/public',
         ], $replace);
     }
 
