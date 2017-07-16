@@ -158,6 +158,26 @@ class Site extends ApiResource
     }
 
     /**
+     * Site working directory.
+     *
+     * @return string | null
+     */
+    public function directory()
+    {
+        return $this->getData('directory');
+    }
+
+    /**
+     * Site creation status.
+     *
+     * @return string | null
+     */
+    public function siteStatus()
+    {
+        return $this->getData('status');
+    }
+
+    /**
      * Install new application on site.
      *
      * @param \Laravel\Forge\Contracts\ApplicationContract $application
