@@ -251,6 +251,20 @@ abstract class Provider
     }
 
     /**
+     * Tells that the server should be created with recipe id to be run
+     *
+     * @param integer $recipeId
+     *
+     * @return static
+    */
+    public function runRecipe($recipeId)
+    {
+        $this->payload['recipe_id'] = $recipeId;
+
+        return $this;
+    }
+
+    /**
      * Indicates that server should be provisioned as load balancer.
      *
      * @param bool $install = true
