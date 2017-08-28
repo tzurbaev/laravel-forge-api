@@ -41,6 +41,34 @@ $app = (new GitApplication())->fromGit('git@example.org:username/repository.git'
 $site->install($app);
 ```
 
+You can indicate which repository branch should be used.
+
+```php
+<?php
+
+use Laravel\Forge\Applications\GitApplication;
+
+// Install application from Github repository.
+$app = (new GitApplication())->fromGithub('username/repository');
+$app->usingBranch('develop');
+$site->install($app);
+```
+
+## Updating the installed Git application
+
+It is possible to update the installed Git application. Please heed the warnings about changing your application source which can be found on the Forge dashboard.
+
+```php
+<?php
+
+use Laravel\Forge\Applications\GitApplication;
+
+// Install application from Github repository.
+$app = (new GitApplication())->fromBitBucket('username/repository');
+$app->usingBranch('production');
+$site->updateApplication($app);
+```
+
 ## Uninstall Git application
 
 You are not required to provide repository provider or source while uninstalling Git application. Just simply pass instance of `GitApplication` class to `Site::uninstall` method.

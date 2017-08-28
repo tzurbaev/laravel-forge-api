@@ -65,6 +65,18 @@ class GitApplication extends Application implements ApplicationContract
     }
 
     /**
+     * Indicates which branch from the repository should be used.
+     *
+     * @param string $branch
+     *
+     * @return static
+     */
+    public function usingBranch(string $branch)
+    {
+        return $this->setRepositoryBranch($branch);
+    }
+
+    /**
      * Set git provider and repository name.
      *
      * @param string $provider
@@ -78,6 +90,20 @@ class GitApplication extends Application implements ApplicationContract
             'provider' => $provider,
             'repository' => $repository,
         ];
+
+        return $this;
+    }
+
+    /**
+     * Set the branch name.
+     *
+     * @param string $branch
+     *
+     * @return static
+     */
+    protected function setRepositoryBranch(string $branch)
+    {
+        $this->payload['branch'] = $branch;
 
         return $this;
     }
