@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.5.0] - 2017-08-29
+
+Updates by [@acurrieclark](https://github.com/acurrieclark)
+### Added
+- `Site::directory()` method to retrieve current site's root directory;
+- `Site::updateApplication(ApplicationContract $app)` method to install new application on site;
+- `CreateSiteCommand::withDirectory(string $directory)` method to specify site's root directory while creating new site (defaults to `/public`);
+- `GitApplication::usingBranch(string $branch)` method to specify what GIT branch should be used while installing new GIT application.
+
 ## [1.4.1] - 2017-06-16
 ### Fixed
 - Valid responses with empty lists should not cause `InvalidArgumentException` anymore.
@@ -115,7 +124,9 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.4.0...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.0...HEAD
+[1.5.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.4.1...1.5.0
+[1.4.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.2.1...1.3.0
