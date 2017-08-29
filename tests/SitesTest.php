@@ -81,6 +81,20 @@ class SitesTest extends TestCase
     }
 
     /**
+     * @dataProvider updateApplicationDataProvider
+     */
+    public function testUpdateApplication(Site $site, ApplicationContract $app, $expectedResult, bool $exception = false)
+    {
+        if ($exception === true) {
+            $this->expectException(InvalidArgumentException::class);
+        }
+
+        $result = $site->updateApplication($app);
+
+        $this->assertSame($expectedResult, $result);
+    }
+
+    /**
      * @dataProvider uninstallApplicationDataProvider
      */
     public function testUninstallApplication(Site $site, ApplicationContract $app, $expectedResult, bool $exception = false)
@@ -465,6 +479,21 @@ class SitesTest extends TestCase
             [
                 'site' => Api::fakeSite(function ($http) {
                     $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites/1/git', [
+                            'json' => [
+                                'provider' => 'custom',
+                                'repository' => 'git@example.org:username/repository.git',
+                                'branch' => 'develop',
+                            ],
+                        ])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'app' => (new GitApplication())->fromGit('git@example.org:username/repository.git')->usingBranch('develop'),
+                'expectedResult' => true,
+            ],
+            [
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
                         ->with('POST', 'servers/1/sites/1/wordpress', [
                             'json' => [
                                 'database' => 'forge',
@@ -474,6 +503,26 @@ class SitesTest extends TestCase
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'app' => (new WordPressApplication())->usingDatabase('forge', 'forge'),
+                'expectedResult' => true,
+            ],
+        ];
+    }
+
+    public function updateApplicationDataProvider(): array
+    {
+        return [
+            [
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('PUT', 'servers/1/sites/1/git', [
+                            'json' => [
+                                'provider' => 'custom',
+                                'repository' => 'git@example.org:username/repository.git',
+                            ],
+                        ])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'app' => (new GitApplication())->fromGit('git@example.org:username/repository.git'),
                 'expectedResult' => true,
             ],
         ];

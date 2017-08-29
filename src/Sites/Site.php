@@ -184,6 +184,22 @@ class Site extends ApiResource
     }
 
     /**
+     * Install new application on site.
+     *
+     * @param \Laravel\Forge\Contracts\ApplicationContract $application
+     *
+     * @return bool
+     */
+    public function updateApplication(ApplicationContract $application)
+    {
+        $this->getHttpClient()->request('PUT', $this->apiUrl($application->type()), [
+            'json' => $application->payload(),
+        ]);
+
+        return true;
+    }
+
+    /**
      * Uninstall application from site.
      *
      * @param \Laravel\Forge\Contracts\ApplicationContract $application
