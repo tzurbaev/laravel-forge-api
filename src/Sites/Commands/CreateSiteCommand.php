@@ -27,6 +27,18 @@ class CreateSiteCommand extends SiteCommand
     }
 
     /**
+     * Identifies which web directory the public app will reside at
+     *
+     * @param string $directory
+     *
+     * @return static
+     */
+    public function withDirectory(string $directory)
+    {
+        return $this->attachPayload('directory', $directory);
+    }
+
+    /**
      * Indicates that site will be created as Static HTML site.
      *
      * @return static
