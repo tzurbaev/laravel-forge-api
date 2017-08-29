@@ -141,10 +141,12 @@ The following site properties are accessible
 $site->id();
 $site->domain();
 $site->projectType();
+$site->directory();
 $site->status();
 $site->repository();
 $site->repositoryProvider();
 $site->repositoryStatus();
+$site->repositoryBranch();
 $site->deploymentStatus();
 $site->wildcards();
 $site->quickDeploy();
