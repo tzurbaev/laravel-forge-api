@@ -8,3 +8,7 @@ before_install:
   - composer install --no-interaction --prefer-dist --no-suggest
 script:
   - vendor/bin/phpunit
+notifications:
+  email:
+    on_success: never
+    on_failure: always
