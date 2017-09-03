@@ -37,7 +37,7 @@ This package depends on `guzzlehttp/guzzle ~6.0`. If you're using older version 
 The recommended way to install the SDK is with [Composer](https://getcomposer.org).
 
 ```sh
-composer require tzurbaev/laravel-forge-api ^1.4
+composer require tzurbaev/laravel-forge-api ^1.5
 ```
 
 Alternatively, you can specify the SDK as a dependency in your project's existing composer.json file:
@@ -45,16 +45,21 @@ Alternatively, you can specify the SDK as a dependency in your project's existin
 ```json
 {
   "require": {
-    "tzurbaev/laravel-forge-api": "^1.4"
+    "tzurbaev/laravel-forge-api": "^1.5"
   }
 }
 ```
 
 # Laravel Integration
 
-1. Add `Laravel\Forge\Laravel\ForgeServiceProvider` to your providers list (`config/app.php`);
-2. Run `php artisan vendor:publish --provider="Laravel\Forge\Laravel\ForgeServiceProvider"` command;
-3. Edit `config/forge.php` configuration file or add token to `FORGE_TOKEN` environment variable (`.env` file);
+If you're running Laravel 5.5+ and using version 1.5.1+ of this package, you can simply install this package via Composer and everything else will be done via Laravel's Package Discovery feature.
+
+## Only for Laravel < 5.5 && laravel-forge-api < 1.5.1
+- Add `Laravel\Forge\Laravel\ForgeServiceProvider` to your providers list (`config/app.php`);
+
+## All Laravel versions:
+1. Run `php artisan vendor:publish --provider="Laravel\Forge\Laravel\ForgeServiceProvider"` command;
+1. Edit `config/forge.php` configuration file or add token to `FORGE_TOKEN` environment variable (`.env` file);
 
 Now you should be able to run `php artisan forge:credentials` command to list your Forge credentials and `php artisan forge:servers` to list, create and delete servers.
 
@@ -80,6 +85,26 @@ class ForgeController extends Controller
         $forge = app(Forge::class);
 
         // $forge is ready to use.
+    }
+}
+```
+
+Or use facade:
+
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Forge;
+use Illuminate\Http\Request;
+
+class ForgeController extends Controller
+{
+    public function index(Request $request)
+    {
+        $server = Forge::get($request->input('server_id'));
     }
 }
 ```

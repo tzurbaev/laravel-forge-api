@@ -29,5 +29,13 @@
     },
     "scripts": {
         "test": "phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": ["Laravel\\Forge\\Laravel\\ForgeServiceProvider"],
+            "aliases": {
+                "Forge": "Laravel\\Forge\\Laravel\\Facades\\ForgeFacade"
+            }
+        }
     }
 }

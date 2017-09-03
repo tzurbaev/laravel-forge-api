@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.5.1] - 2017-09-03
+
+### Added
+- Added support for Laravel's Package Discovery feature;
+- Added `Laravel\Forge\Laravel\Facades\ForgeFacade` facade.
+
 ## [1.5.0] - 2017-08-29
 
 Updates by [@acurrieclark](https://github.com/acurrieclark)
@@ -124,7 +130,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.0...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.1...HEAD
+[1.5.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.4.1...1.5.0
 [1.4.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.3.1...1.4.0
