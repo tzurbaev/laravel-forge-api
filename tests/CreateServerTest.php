@@ -137,6 +137,27 @@ class CreateServerTest extends TestCase
             ],
             [
                 'payload' => $this->payload([
+                    'php_version' => 'php72',
+                ]),
+                'response' => $this->response([
+                    'php_version' => 'php72',
+                ]),
+                'factory' => function (Forge $forge) {
+                    return $forge
+                        ->create()
+                        ->droplet('northrend')
+                        ->withMemoryOf('512MB')
+                        ->usingCredential(1)
+                        ->at('fra1')
+                        ->runningPhp('7.2')
+                        ->withMariaDb('laravel')
+                        ->asNodeBalancer()
+                        ->connectedTo([1, 2, 3])
+                        ->save();
+                },
+            ],
+            [
+                'payload' => $this->payload([
                     'provider' => 'linode',
                     'size' => '1GB',
                     'region' => 10,

@@ -74,7 +74,7 @@ abstract class Provider
      */
     public function phpVersions()
     {
-        return [56, 70, 71];
+        return [56, 70, 71, 72];
     }
 
     /**
