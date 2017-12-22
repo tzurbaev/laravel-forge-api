@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.5.2] - 2017-12-23
+### Added
+- Allow to create servers with PHP 7.2
+
 ## [1.5.1] - 2017-09-03
 
 ### Added
@@ -130,7 +134,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.1...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.2...HEAD
+[1.5.2]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.4.1...1.5.0
 [1.4.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.4.0...1.4.1
