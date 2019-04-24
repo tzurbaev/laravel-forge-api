@@ -68,7 +68,7 @@ class Factory
      *
      * @param string $name
      *
-     * @return \Laravel\Forge\Servers\ServerBuilder
+     * @return \Laravel\Forge\Servers\Providers\Provider
      */
     public function droplet(string $name)
     {
@@ -82,7 +82,7 @@ class Factory
      *
      * @param string $name
      *
-     * @return \Laravel\Forge\Servers\ServerBuilder
+     * @return \Laravel\Forge\Servers\Providers\Provider
      */
     public function linode(string $name)
     {
@@ -96,7 +96,7 @@ class Factory
      *
      * @param string $name
      *
-     * @return \Laravel\Forge\Servers\ServerBuilder
+     * @return \Laravel\Forge\Servers\Providers\Provider
      */
     public function aws(string $name)
     {
@@ -110,7 +110,7 @@ class Factory
      *
      * @param string $name
      *
-     * @return \Laravel\Forge\Servers\ServerBuilder
+     * @return \Laravel\Forge\Servers\Providers\Provider
      */
     public function custom(string $name)
     {

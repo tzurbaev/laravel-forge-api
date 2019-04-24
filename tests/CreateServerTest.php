@@ -99,6 +99,7 @@ class CreateServerTest extends TestCase
             'database' => 'laravel',
             'node_balancer' => 1,
             'maria' => 1,
+            'database_type' => 'maria',
             'name' => 'northrend',
             'network' => [1, 2, 3],
             'php_version' => 'php71',
@@ -120,6 +121,25 @@ class CreateServerTest extends TestCase
         return [
             [
                 'payload' => $this->payload(),
+                'response' => $this->response(),
+                'factory' => function (Forge $forge) {
+                    return $forge
+                        ->create()
+                        ->droplet('northrend')
+                        ->withMemoryOf('512MB')
+                        ->usingCredential(1)
+                        ->at('fra1')
+                        ->runningPhp('7.1')
+                        ->withMariaDb('laravel')
+                        ->asNodeBalancer()
+                        ->connectedTo([1, 2, 3])
+                        ->save();
+                },
+            ],
+            [
+                'payload' => $this->payload([
+                    'maria' => 1
+                ]),
                 'response' => $this->response(),
                 'factory' => function (Forge $forge) {
                     return $forge
@@ -205,10 +225,37 @@ class CreateServerTest extends TestCase
                 },
             ],
             [
+                'payload' => $this->payload([
+                    'provider' => 'aws',
+                    'size' => '1GB',
+                    'region' => 'us-west-1',
+                    'database_type' => 'postgres',
+                    'maria' => 0,
+                ]),
+                'response' => $this->response([
+                    'size' => '1GB',
+                    'region' => 'us-west-1'
+                ]),
+                'factory' => function (Forge $forge) {
+                    return $forge
+                        ->create()
+                        ->aws('northrend')
+                        ->withMemoryOf('1GB')
+                        ->usingCredential(1)
+                        ->at('us-west-1')
+                        ->runningPhp('7.1')
+                        ->withPostgres('laravel')
+                        ->asNodeBalancer()
+                        ->connectedTo([1, 2, 3])
+                        ->save();
+                },
+            ],
+            [
                 'payload' => [
                     'database' => 'laravel',
                     'ip_address' => '37.139.3.148',
                     'maria' => 1,
+                    'database_type' => 'maria',
                     'name' => 'northrend',
                     'php_version' => 'php71',
                     'private_ip_address' => '10.129.3.252',

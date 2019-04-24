@@ -74,7 +74,7 @@ abstract class Provider
      */
     public function phpVersions()
     {
-        return [56, 70, 71, 72];
+        return [56, 70, 71, 72, 73];
     }
 
     /**
@@ -231,6 +231,7 @@ abstract class Provider
     {
         $this->payload['maria'] = 1;
         $this->payload['database'] = $database;
+        $this->payload['database_type'] = 'maria';
 
         return $this;
     }
@@ -246,6 +247,23 @@ abstract class Provider
     {
         $this->payload['maria'] = 0;
         $this->payload['database'] = $database;
+        $this->payload['database_type'] = 'mysql';
+
+        return $this;
+    }
+
+    /**
+     * Indicates that server should be provisioned with PostrgreSQL.
+     *
+     * @param string $database = 'forge'
+     *
+     * @return static
+     */
+    public function withPostgres(string $database = 'forge')
+    {
+        $this->payload['maria'] = 0;
+        $this->payload['database'] = $database;
+        $this->payload['database_type'] = 'postgres';
 
         return $this;
     }
@@ -315,6 +333,20 @@ abstract class Provider
     public function usingPrivateIp(string $ip)
     {
         $this->payload['private_ip_address'] = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Set recipe that should be run after provisioning.
+     *
+     * @param int $id
+     *
+     * @return static
+     */
+    public function withRecipe(int $id)
+    {
+        $this->payload['recipe_id'] = $id;
 
         return $this;
     }

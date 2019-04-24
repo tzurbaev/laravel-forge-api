@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Users service to retrieve authenticated user info;
+- Allow to provision servers with PostgreSQL;
+- Allow to specify recipe to be run after server provisioning;
+- Add PHP 7.3 to the list of allowed PHP versions.
 
 ## [1.5.2] - 2017-12-23
 ### Added
