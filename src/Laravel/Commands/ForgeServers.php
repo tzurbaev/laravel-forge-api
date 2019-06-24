@@ -135,8 +135,8 @@ class ForgeServers extends Command
     protected function createServer(Provider $provider)
     {
         if ($provider->provider() !== 'custom') {
-            $size = $this->choice('Choose server size', array_keys($provider->sizes()));
-            $provider->withMemoryOf($size);
+            $size = $this->ask('Enter the server size ID');
+            $provider->withSizeId($size);
 
             $regions = $provider->regions();
 

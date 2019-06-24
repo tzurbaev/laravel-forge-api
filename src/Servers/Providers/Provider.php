@@ -100,18 +100,6 @@ abstract class Provider
     }
 
     /**
-     * Determines if given memory size is available at current provider.
-     *
-     * @param string|int $memory
-     *
-     * @return bool
-     */
-    public function memoryAvailable($memory)
-    {
-        return $this->resourceAvailable($this->sizes(), $memory);
-    }
-
-    /**
      * Determines if given resource exists in resources list.
      *
      * @param array $resources
@@ -165,19 +153,19 @@ abstract class Provider
     }
 
     /**
-     * Set memory / server size.
+     * Set server size ID.
      *
-     * @param int|string $memory
+     * @param int|string $sizeId
      *
      * @return static
      */
-    public function withMemoryOf($memory)
+    public function withSizeId($sizeId)
     {
-        if (!$this->memoryAvailable($memory)) {
-            throw new InvalidArgumentException('Given memory value is not supported by '.$this->provider().' provider.');
+        if (!is_numeric(ltrim($sizeId, 0))) {
+            throw new InvalidArgumentException('Given server size ID is not valid');
         }
 
-        $this->payload['size'] = $memory;
+        $this->payload['size'] = (int) $sizeId;
 
         return $this;
     }

@@ -37,7 +37,7 @@ $credential = $forge->credentialFor('ocean2');
 $server = $forge->create()
     ->droplet()
     ->usingCredential($credential)
-    ->withMemoryOf('1GB')
+    ->withSizeId(1)
     ->at('fra1')
     ->runningPhp('7.1')
     ->withMariaDb()
