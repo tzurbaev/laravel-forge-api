@@ -229,9 +229,9 @@ abstract class Provider
      */
     public function withMariaDb(string $database = 'forge')
     {
-        $this->payload['maria'] = 1;
+        $this->payload['mariadb'] = 1;
         $this->payload['database'] = $database;
-        $this->payload['database_type'] = 'maria';
+        $this->payload['database_type'] = 'mariadb';
 
         return $this;
     }
@@ -245,7 +245,7 @@ abstract class Provider
      */
     public function withMysql(string $database = 'forge')
     {
-        $this->payload['maria'] = 0;
+        $this->payload['mariadb'] = 0;
         $this->payload['database'] = $database;
         $this->payload['database_type'] = 'mysql';
 
@@ -261,7 +261,7 @@ abstract class Provider
      */
     public function withPostgres(string $database = 'forge')
     {
-        $this->payload['maria'] = 0;
+        $this->payload['mariadb'] = 0;
         $this->payload['database'] = $database;
         $this->payload['database_type'] = 'postgres';
 
