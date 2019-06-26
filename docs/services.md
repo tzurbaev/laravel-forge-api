@@ -1,6 +1,7 @@
 # Overview
 
-SDK provides Services Manager class that allows you to install, uninstall, restart and stop some core services such as nginx, MySQL, Blackfire and others.
+SDK provides Services Manager class that allows you to install, uninstall, restart and stop some core services such as
+nginx, MySQL, Blackfire and others.
 
 # Available services
 
@@ -12,7 +13,8 @@ By default SDK provides following services:
 - Blackfire service (as `Laravel\Forge\Services\BlackfireService`);
 - Papertrail service (as `Laravel\Forge\Services\PapertrailService`);
 
-`Blackfire` and `Papertrail` services can be install and uninstalled (but not rebooted or stopped). Other services can be rebooted but can't be installed or uninstalled.
+`Blackfire` and `Papertrail` services can be install and uninstalled (but not rebooted or stopped). Other services can be
+rebooted but can't be installed or uninstalled.
 
 # Usage
 
@@ -147,7 +149,9 @@ $services->stop(new PostgresService())->on($server);
 
 # Excute commands on multiple servers
 
-By default, documentation assumes that you're performing operations on single server (`$server` variable is an instance of `Laravel\Forge\Server` class). But you can pass array of `Laravel\Forge\Server` instances if you need to install/uninstall/reboot/stop services on multiple servers.
+By default, documentation assumes that you're performing operations on single server (`$server` variable is an
+instance of `Laravel\Forge\Server` class). But you can pass array of `Laravel\Forge\Server` instances if you need to
+install/uninstall/reboot/stop services on multiple servers.
 
 ```php
 <?php

@@ -3,7 +3,6 @@
 namespace Laravel\Tests\Forge;
 
 use Closure;
-use Laravel\Forge\Server;
 use PHPUnit\Framework\TestCase;
 use Laravel\Forge\Daemons\Daemon;
 use Laravel\Tests\Forge\Helpers\Api;

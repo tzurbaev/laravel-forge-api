@@ -3,7 +3,6 @@
 namespace Laravel\Tests\Forge;
 
 use Mockery;
-use Laravel\Forge\Server;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Laravel\Tests\Forge\Helpers\Api;
@@ -18,7 +17,7 @@ use Laravel\Tests\Forge\Helpers\FakeResponse;
 
 class ServicesTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 

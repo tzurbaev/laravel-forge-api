@@ -3,7 +3,6 @@
 namespace Laravel\Tests\Forge;
 
 use Closure;
-use InvalidArgumentException;
 use Laravel\Forge\Sites\Site;
 use PHPUnit\Framework\TestCase;
 use Laravel\Tests\Forge\Helpers\Api;
@@ -81,7 +80,7 @@ class CertificatesTest extends TestCase
 
         $result = $certificates->list()->from($site);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         foreach ($result as $certificate) {
             $this->assertInstanceOf(Certificate::class, $certificate);

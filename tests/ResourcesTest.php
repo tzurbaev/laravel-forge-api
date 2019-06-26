@@ -34,7 +34,7 @@ class ResourcesTest extends TestCase
         $command = new FakeResourceCommand();
         $result = $command->from($server);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertSame(0, count($result));
     }
 }

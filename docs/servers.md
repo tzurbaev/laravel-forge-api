@@ -4,7 +4,8 @@ Servers collection holds all your Forge Servers in one place.
 
 # Initialize Collection
 
-You can start use collection by instantiating `Laravel\Forge\Forge` class. Make sure you've created `Laravel\Forge\ApiProvider` instance - `Forge` depends on it.
+You can start use collection by instantiating `Laravel\Forge\Forge` class. Make sure you've created
+`Laravel\Forge\ApiProvider` instance - `Forge` depends on it.
 
 ```php
 <?php
@@ -81,6 +82,7 @@ $droplet = $forge->create()
     ->save();
 ```
 
-Code sample above will create new 1GB droplet on DigitalOcean with MariaDb and PHP 7.1. Also this will create database `my-database-name`.
+Code sample above will create new 1GB droplet on DigitalOcean with MariaDb and PHP 7.1. Also this will create database
+`my-database-name`.
 
 [Back to Table of Contents](./readme.md)

@@ -226,16 +226,19 @@ abstract class Provider
 
     /**
      * Indicates that server should be provisioned with MySQL.
+     * If you need to create MySQL 8 instead of 5.7, pass 8
+     * as second argument.
      *
      * @param string $database = 'forge'
+     * @param int    $version  = 5
      *
      * @return static
      */
-    public function withMysql(string $database = 'forge')
+    public function withMysql(string $database = 'forge', int $version = 5)
     {
         $this->payload['mariadb'] = 0;
         $this->payload['database'] = $database;
-        $this->payload['database_type'] = 'mysql';
+        $this->payload['database_type'] = 'mysql'.($version === 8 ? '8' : '');
 
         return $this;
     }

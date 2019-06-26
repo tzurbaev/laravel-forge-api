@@ -4,7 +4,8 @@ This is a curated list of the regions for each of the service providers supporte
 
 ### \*\*\* Please note that this is subject to change \*\*\*
 
-A complete list of provider regions and server sizes can be obtained via the Forge API, as described in the [Forge API documentation](https://forge.laravel.com/api-documentation#regions)
+A complete list of provider regions and server sizes can be obtained via the Forge API, as described in the
+[Forge API documentation](https://forge.laravel.com/api-documentation#regions)
 
 ## DigitalOcean
 

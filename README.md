@@ -7,7 +7,7 @@
 [![Software License][ico-license]](LICENSE.md)
 
 ## Requirements
-This package requires PHP 7.0 or higher.
+This package requires PHP 7.1 or higher.
 
 ## Installation
 
@@ -16,6 +16,12 @@ You can install the package via composer:
 ``` bash
 $ composer require tzurbaev/laravel-forge-api
 ```
+
+## Upgrade to 2.0 from 1.x
+
+Version 2.0.0 introduced breaking change in library API in order to fix breaking change introduced by Forge API itself.
+
+Please, read [Upgrade info](./docs/upgrade.md) to learn what changed.
 
 ## Examples
 

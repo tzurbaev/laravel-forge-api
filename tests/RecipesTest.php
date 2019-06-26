@@ -47,7 +47,7 @@ class RecipesTest extends TestCase
         }
 
         $result = $recipes->list()->from($forge);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         foreach ($result as $recipe) {
             $this->assertInstanceOf(Recipe::class, $recipe);

@@ -13,7 +13,7 @@ use Laravel\Tests\Forge\Helpers\FakeResponse;
 
 class CreateServerTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 

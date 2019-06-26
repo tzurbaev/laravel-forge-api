@@ -1,3 +1,6 @@
-/.idea/
-/dev/
-/vendor/
+/.idea
+/dev
+/vendor
+.phpunit.result.cache
+/phpunit.xml
+/.php_cs

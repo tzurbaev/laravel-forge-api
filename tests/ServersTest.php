@@ -12,7 +12,7 @@ use Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException;
 
 class ServersTests extends TestCase
 {
-    public function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 

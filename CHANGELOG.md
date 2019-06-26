@@ -5,11 +5,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.0.0] - 2019-06-26
 ### Added
 - Users service to retrieve authenticated user info;
 - Allow to provision servers with PostgreSQL;
 - Allow to specify recipe to be run after server provisioning;
 - Add PHP 7.3 to the list of allowed PHP versions.
+
+### Fixed
+- `maria` database type changed to `mariadb` (by [@acurrieclark](https://github.com/acurrieclark));
+
+### Changed
+- The `withMemoryOf()` method of `Provider` class has been removed in favor of `withSizeId` method
+(by [@acurrieclark](https://github.com/acurrieclark)). Please read [upgrade info](./docs/upgrade.md).
 
 ## [1.5.2] - 2017-12-23
 ### Added
@@ -139,7 +148,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.2...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/2.0.0...HEAD
+[1.5.2]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.2...2.0.0
 [1.5.2]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.1...1.5.2
 [1.5.1]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.4.1...1.5.0

@@ -161,12 +161,30 @@ class ForgeServers extends Command
             $this->comment('OK, using default database name ("forge").');
         }
 
-        if ($this->confirm('Do you want to install MariaDb instead of MySQL?')) {
-            $provider->withMariaDb($databaseName);
-            $this->comment('OK, MariaDb server will be installed');
-        } else {
-            $provider->withMysql($databaseName);
-            $this->comment('OK, MySQL server will be installed.');
+        $databaseType = $this->choice('Choose database type', [
+            'mysql' => 'MySQL 5.7',
+            'mysql8' => 'MySQL 8.0',
+            'mariadb' => 'MariaDB',
+            'postgres' => 'PostgreSQL',
+        ]);
+
+        switch ($databaseType) {
+            case 'mysql':
+                $provider->withMysql($databaseName);
+                $this->comment('OK, MySQL 5.7 server will be installed.');
+                break;
+            case 'mysql8':
+                $provider->withMysql($databaseName, 8);
+                $this->comment('OK, MySQL 8.0 server will be installed.');
+                break;
+            case 'mariadb':
+                $provider->withMariaDb($databaseName);
+                $this->comment('OK, MariaDb server will be installed');
+                break;
+            case 'postgres':
+                $provider->withPostgres($databaseName);
+                $this->comment('OK, PostgreSQL server will be installed.');
+                break;
         }
 
         if ($this->confirm('Do you want to provision this server as node balancer?', false)) {
@@ -178,7 +196,7 @@ class ForgeServers extends Command
             $publicIp = $this->ask('Please, provide public IP address for this VPS');
             $privateIp = $this->ask('Please, provide private IP address for this VPS');
 
-            $provision->usingPublicIp($publicIp)->usingPrivateIp($privateIp);
+            $provider->usingPublicIp($publicIp)->usingPrivateIp($privateIp);
         }
 
         $hasCredentials = $provider->hasPayload('credential_id');
@@ -218,7 +236,7 @@ class ForgeServers extends Command
     {
         $server = $this->chooseServer($forge);
 
-        $this->error('THIS IS DESTRUCTIVE OPERATION! YOUR SERVER WILL BE DELETED AND THIS ACTION IS UNDONE!');
+        $this->error('THIS IS DESTRUCTIVE OPERATION! YOUR SERVER WILL BE DELETED AND THIS ACTION IS IRREVERSIBLE!');
         $this->error('You\'re going to delete '.Str::upper($server->name()).' server.');
 
         if (!$this->confirm('Are you totally sure you want to delete this server?', false)) {

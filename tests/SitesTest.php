@@ -3,7 +3,6 @@
 namespace Laravel\Tests\Forge;
 
 use Closure;
-use Laravel\Forge\Server;
 use InvalidArgumentException;
 use Laravel\Forge\Sites\Site;
 use PHPUnit\Framework\TestCase;
@@ -336,7 +335,8 @@ class SitesTest extends TestCase
                     $http->shouldReceive('request')
                         ->with('GET', 'servers/1/sites/1', ['json' => []])
                         ->andReturn(
-                            FakeResponse::fake()->withJson(['site' => Api::siteData([
+                            FakeResponse::fake()->withJson(['site' => Api::siteData(
+                                [
                                     'status'=> 'installed',
                                     'repository'=> 'root/repo',
                                     'repository_provider'=> 'github',
