@@ -105,7 +105,7 @@ class CreateServerTest extends TestCase
             'php_version' => 'php71',
             'provider' => 'ocean2',
             'region' => 'fra1',
-            'size' => '512MB',
+            'size' => 1,
         ], $replace);
     }
 
@@ -126,7 +126,57 @@ class CreateServerTest extends TestCase
                     return $forge
                         ->create()
                         ->droplet('northrend')
-                        ->withMemoryOf('512MB')
+                        ->withSizeId(1)
+                        ->usingCredential(1)
+                        ->at('fra1')
+                        ->runningPhp('7.1')
+                        ->withMariaDb('laravel')
+                        ->asNodeBalancer()
+                        ->connectedTo([1, 2, 3])
+                        ->save();
+                },
+            ],
+            [
+                'payload' => $this->payload(
+                    [
+                        'size' => 19
+                    ]
+                ),
+                'response' => $this->response(
+                    [
+                        'size' => 19
+                    ]
+                ),
+                'factory' => function (Forge $forge) {
+                    return $forge
+                        ->create()
+                        ->droplet('northrend')
+                        ->withSizeId(19)
+                        ->usingCredential(1)
+                        ->at('fra1')
+                        ->runningPhp('7.1')
+                        ->withMariaDb('laravel')
+                        ->asNodeBalancer()
+                        ->connectedTo([1, 2, 3])
+                        ->save();
+                },
+            ],
+            [
+                'payload' => $this->payload(
+                    [
+                        'size' => 2
+                    ]
+                ),
+                'response' => $this->response(
+                    [
+                        'size' => 2
+                    ]
+                ),
+                'factory' => function (Forge $forge) {
+                    return $forge
+                        ->create()
+                        ->droplet('northrend')
+                        ->withSizeId("02")
                         ->usingCredential(1)
                         ->at('fra1')
                         ->runningPhp('7.1')
@@ -145,7 +195,7 @@ class CreateServerTest extends TestCase
                     return $forge
                         ->create()
                         ->droplet('northrend')
-                        ->withMemoryOf('512MB')
+                        ->withSizeId(1)
                         ->usingCredential(1)
                         ->at('fra1')
                         ->runningPhp('7.1')
@@ -166,7 +216,7 @@ class CreateServerTest extends TestCase
                     return $forge
                         ->create()
                         ->droplet('northrend')
-                        ->withMemoryOf('512MB')
+                        ->withSizeId(1)
                         ->usingCredential(1)
                         ->at('fra1')
                         ->runningPhp('7.2')
@@ -179,18 +229,18 @@ class CreateServerTest extends TestCase
             [
                 'payload' => $this->payload([
                     'provider' => 'linode',
-                    'size' => '1GB',
+                    'size' => 2,
                     'region' => 10,
                 ]),
                 'response' => $this->response([
-                    'size' => '1GB',
+                    'size' => 2,
                     'region' => 'Frankfurt',
                 ]),
                 'factory' => function (Forge $forge) {
                     return $forge
                         ->create()
                         ->linode('northrend')
-                        ->withMemoryOf('1GB')
+                        ->withSizeId(2)
                         ->usingCredential(1)
                         ->at(10)
                         ->runningPhp('7.1')
@@ -203,18 +253,18 @@ class CreateServerTest extends TestCase
             [
                 'payload' => $this->payload([
                     'provider' => 'aws',
-                    'size' => '1GB',
+                    'size' => 2,
                     'region' => 'us-west-1',
                 ]),
                 'response' => $this->response([
-                    'size' => '1GB',
+                    'size' => 2,
                     'region' => 'us-west-1'
                 ]),
                 'factory' => function (Forge $forge) {
                     return $forge
                         ->create()
                         ->aws('northrend')
-                        ->withMemoryOf('1GB')
+                        ->withSizeId(2)
                         ->usingCredential(1)
                         ->at('us-west-1')
                         ->runningPhp('7.1')
@@ -227,20 +277,20 @@ class CreateServerTest extends TestCase
             [
                 'payload' => $this->payload([
                     'provider' => 'aws',
-                    'size' => '1GB',
+                    'size' => 3,
                     'region' => 'us-west-1',
                     'database_type' => 'postgres',
                     'mariadb' => 0,
                 ]),
                 'response' => $this->response([
-                    'size' => '1GB',
+                    'size' => 3,
                     'region' => 'us-west-1'
                 ]),
                 'factory' => function (Forge $forge) {
                     return $forge
                         ->create()
                         ->aws('northrend')
-                        ->withMemoryOf('1GB')
+                        ->withSizeId(3)
                         ->usingCredential(1)
                         ->at('us-west-1')
                         ->runningPhp('7.1')
@@ -260,13 +310,13 @@ class CreateServerTest extends TestCase
                     'php_version' => 'php71',
                     'private_ip_address' => '10.129.3.252',
                     'provider' => 'custom',
-                    'size' => '5GB',
+                    'size' => 13,
                 ],
                 'response' => [
                     'id' => 1,
                     'credential_id' => 0,
                     'name' => 'northrend',
-                    'size' => '5GB',
+                    'size' => 13,
                     'php_version' => 'php71',
                     'ip_address' => '37.139.3.148',
                     'private_ip_address' => '10.129.3.252',
@@ -282,7 +332,7 @@ class CreateServerTest extends TestCase
                     return $forge
                         ->create()
                         ->custom('northrend')
-                        ->withMemoryOf('5GB')
+                        ->withSizeId(13)
                         ->runningPhp('7.1')
                         ->withMariaDb('laravel')
                         ->usingPublicIp('37.139.3.148')
@@ -304,7 +354,7 @@ class CreateServerTest extends TestCase
                     return $forge
                         ->create()
                         ->droplet('northrend')
-                        ->withMemoryOf('512MB')
+                        ->withSizeId(1)
                         ->at('fra1')
                         ->runningPhp('7.1')
                         ->withMariaDb('laravel')
@@ -318,15 +368,15 @@ class CreateServerTest extends TestCase
                 'payload' => $this->payload([
                     'provider' => 'linode',
                     'credential_id' => 3,
-                    'size' => '1GB',
+                    'size' => 1,
                     'region' => 10,
                 ]),
-                'response' => $this->response(['size' => '1GB']),
+                'response' => $this->response(['size' => 1]),
                 'factory' => function (Forge $forge) {
                     return $forge
                         ->create()
                         ->linode('northrend')
-                        ->withMemoryOf('1GB')
+                        ->withSizeId(1)
                         ->at(10)
                         ->runningPhp('7.1')
                         ->withMariaDb('laravel')

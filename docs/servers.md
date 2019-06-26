@@ -75,7 +75,7 @@ $oceanCredentialId = 1234;
 $droplet = $forge->create()
     ->droplet('my-droplet-name')
     ->usingCredential($oceanCredentialId)
-    ->withMemoryOf('1GB')
+    ->withSizeId(1)
     ->runningPhp('7.1')
     ->withMariaDb('my-database-name')
     ->save();

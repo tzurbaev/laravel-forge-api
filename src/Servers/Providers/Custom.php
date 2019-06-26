@@ -25,14 +25,6 @@ class Custom extends Provider
     /**
      * @{inheritdoc}
      */
-    public function memoryAvailable($memory)
-    {
-        return true;
-    }
-
-    /**
-     * @{inheritdoc}
-     */
     public function validate()
     {
         $errors = [];

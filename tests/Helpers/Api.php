@@ -46,7 +46,7 @@ class Api
             'id' => 1,
             'credential_id' => 1,
             'name' => 'northrend',
-            'size' => '512MB',
+            'size' => 1,
             'region' => 'Amsterdam 2',
             'php_version' => 'php71',
             'ip_address' => '37.139.3.148',
@@ -92,8 +92,8 @@ class Api
     /**
      * Create fake site.
      *
-     * @param \Closure $callback = null
-     * @param array $replaceSiteData = []
+     * @param \Closure $callback        = null
+     * @param array    $replaceSiteData = []
      *
      * @return \Laravel\Forge\Sites\Site
      */
@@ -108,8 +108,8 @@ class Api
     /**
      * Create fake server.
      *
-     * @param \Closure $callback = null
-     * @param array $replaceServerData = []
+     * @param \Closure $callback          = null
+     * @param array    $replaceServerData = []
      *
      * @return \Laravel\Forge\Server
      */
@@ -131,7 +131,7 @@ class Api
     /**
      * Create multiple fake servers.
      *
-     * @param int $number
+     * @param int      $number
      * @param \Closure $callback
      *
      * @return \Laravel\Forge\Server

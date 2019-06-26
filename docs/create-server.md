@@ -18,7 +18,7 @@ $forge = new Forge($api);
 $droplet = $forge->create()
   ->droplet('my-droplet-name')
   ->usingCredential(1234)
-  ->withMemoryOf('2GB')
+  ->withSizeId(3)
   ->at('fra1')
   ->save();
 ```
@@ -37,7 +37,7 @@ $forge = new Forge($api);
 $node = $forge->create()
   ->linode('my-server-name')
   ->usingCredential(1234)
-  ->withMemoryOf('2GB')
+  ->withSizeId(3)
   ->at(1) // "1" region represents "Frankfurt"
   ->save();
 ```
@@ -56,7 +56,7 @@ $forge = new Forge($api);
 $aws = $forge->create()
   ->aws('my-server-name')
   ->usingCredential(1234)
-  ->withMemoryOf('2GB')
+  ->withSizeId(3)
   ->at('us-west-1')
   ->save();
 ```
@@ -106,7 +106,7 @@ use Laravel\Forge\Servers\Factory;
 Factory::setDefaultCredential('ocean2', 12345);
 ```
 
-After doing so you may ommit `usingCredential` method call on `DigitalOcean` provider (instance returned by `droplet` method).
+After doing so you may omit `usingCredential` method call on `DigitalOcean` provider (instance returned by `droplet` method).
 
 ```php
 <?php
@@ -117,7 +117,7 @@ $forge = new Forge($api);
 
 $droplet = $forge->create()
   ->droplet('my-droplet-name')
-  ->withMemoryOf('2GB')
+  ->withSizeId(3)
   ->at('fra1')
   ->save();
 ```
@@ -151,7 +151,7 @@ Just call `asNodeBalancer()` on methods chain to indicate that new server should
 $loadBalancer = $forge->create()
   ->droplet('balancer-01')
   ->usingCredential(1234)
-  ->withMemoryOf('512MB')
+  ->withSizeId(3)
   ->at('fra1')
   ->asNodeBalancer()
   ->save();
@@ -167,7 +167,7 @@ $loadBalancer = $forge->create()
 $droplet = $forge->create()
   ->droplet('web-01')
   ->usingCredential(1234)
-  ->withMemoryOf('512MB')
+  ->withSizeId(3)
   ->at('fra1')
   ->withMariaDb('my-database')
   ->save();
@@ -183,21 +183,21 @@ By default Forge will install MySQL server and create `forge` database. If you n
 $droplet = $forge->create()
   ->droplet('web-01')
   ->usingCredential(1234)
-  ->withMemoryOf('512MB')
+  ->withSizeId(3)
   ->at('fra1')
   ->withMysql('my-database')
   ->save();
 ```
 
 > Warning!
-> 
+>
 > Calling `withMysql` method will reset any previous `withMariaDb` calls
 > (and vice-versa). This means that if you call both methods,
 > the most latest database will be installed on new server.
 
 ## Set new server size
 
-You're required to set server size for all providers except `custom`. Use `withMemoryOf` method and pass available human readable size value for your server provider. List of possible `memory` values available [here](https://forge.laravel.com/api-documentation#server-sizes).
+You're required to set server size for all providers except `custom`. Use `withSizeId` method and pass the relevant ID for the size of server for your server provider. List of possible `ID` values available [here](./provider-sizes.md).
 
 ```php
 <?php
@@ -205,14 +205,14 @@ You're required to set server size for all providers except `custom`. Use `withM
 $heavyBackendDroplet = $forge->create()
   ->droplet('heavy-backend-01')
   ->usingCredential(1234)
-  ->withMemoryOf('32GB')
+  ->withSizeId(3)
   ->at('fra1')
   ->save();
 ```
 
 ## Set new server region
 
-With an addition to server size, you're required to provide new server region (unless you're creating Custom VPS). `at` method accepts valid region identifier for your server provider. List of possible `region` values available [here](https://forge.laravel.com/api-documentation#regions).
+With an addition to server size, you're required to provide new server region (unless you're creating Custom VPS). `at` method accepts valid region identifier for your server provider. List of possible `region` values available [here](./provider-regions.md).
 
 ```php
 <?php
@@ -220,18 +220,20 @@ With an addition to server size, you're required to provide new server region (u
 $londonDroplet = $forge->create()
   ->droplet('web-01')
   ->usingCredential(1234)
-  ->withMemoryOf('8GB')
+  ->withSizeId(3)
   ->at('lon1')
   ->save();
 ```
 
 ## Choose PHP version
 
-Forge allows to provision new servers with PHP 5.6, PHP 7.0 or PHP 7.1. You can specify PHP version by calling `runningPhp` method. Valid version arguments are:
+Forge allows to provision new servers with PHP 5.6, PHP 7.0, PHP 7.1, PHP 7.2 or PHP 7.3. You can specify PHP version by calling `runningPhp` method. Valid version arguments are:
 
 - `php56` (or `56`, or `5.6` or `php5.6`);
 - `php70` (or `70` or `7.0` or `php7.0`);
 - `php71` (or `71` or `7.1` or `php7.1`).
+- `php72` (or `72` or `7.2` or `php7.2`).
+- `php73` (or `73` or `7.3` or `php7.3`).
 
 ```php
 <?php
@@ -239,7 +241,7 @@ Forge allows to provision new servers with PHP 5.6, PHP 7.0 or PHP 7.1. You can 
 $legacyDroplet = $forge->create()
   ->droplet('web-01')
   ->usingCredential(1234)
-  ->withMemoryOf('1GB')
+  ->withSizeId(3)
   ->at('fra1')
   ->runningPhp('5.6')
   ->save();
@@ -262,7 +264,7 @@ $serverIds = [
 $web = $forge->create()
   ->droplet('web-02')
   ->usingCredential(1234)
-  ->withMemoryOf('1GB')
+  ->withSizeId(3)
   ->at('fra1')
   ->runningPhp('7.1')
   ->connectedTo($serverIds)
@@ -270,7 +272,7 @@ $web = $forge->create()
 ```
 
 > Heads Up!
-> 
+>
 > Servers can be connected to each other only if they're belongs
 > to the same server provider and the same region!
 
