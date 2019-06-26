@@ -98,8 +98,8 @@ class CreateServerTest extends TestCase
             'credential_id' => 1,
             'database' => 'laravel',
             'node_balancer' => 1,
-            'maria' => 1,
-            'database_type' => 'maria',
+            'mariadb' => 1,
+            'database_type' => 'mariadb',
             'name' => 'northrend',
             'network' => [1, 2, 3],
             'php_version' => 'php71',
@@ -138,7 +138,7 @@ class CreateServerTest extends TestCase
             ],
             [
                 'payload' => $this->payload([
-                    'maria' => 1
+                    'mariadb' => 1
                 ]),
                 'response' => $this->response(),
                 'factory' => function (Forge $forge) {
@@ -230,7 +230,7 @@ class CreateServerTest extends TestCase
                     'size' => '1GB',
                     'region' => 'us-west-1',
                     'database_type' => 'postgres',
-                    'maria' => 0,
+                    'mariadb' => 0,
                 ]),
                 'response' => $this->response([
                     'size' => '1GB',
@@ -254,8 +254,8 @@ class CreateServerTest extends TestCase
                 'payload' => [
                     'database' => 'laravel',
                     'ip_address' => '37.139.3.148',
-                    'maria' => 1,
-                    'database_type' => 'maria',
+                    'mariadb' => 1,
+                    'database_type' => 'mariadb',
                     'name' => 'northrend',
                     'php_version' => 'php71',
                     'private_ip_address' => '10.129.3.252',
