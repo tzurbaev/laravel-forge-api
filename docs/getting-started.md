@@ -24,7 +24,7 @@ This SDK supports following Forge API features:
 
 # Requirements
 
-- PHP 7.0+;
+- PHP 7.2+;
 - [Composer](https://getcomposer.org);
 - Laravel Forge API token ([create new token](https://forge.laravel.com/user/profile));
 

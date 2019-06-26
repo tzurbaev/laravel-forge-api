@@ -18,7 +18,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - The `withMemoryOf()` method of `Provider` class has been removed in favor of `withSizeId` method
-(by [@acurrieclark](https://github.com/acurrieclark)). Please read [upgrade info](./docs/upgrade.md).
+(by [@acurrieclark](https://github.com/acurrieclark)). Please read [upgrade info](./docs/upgrade.md);
+- Min PHP version raised to 7.2 (from 7.0).
 
 ## [1.5.2] - 2017-12-23
 ### Added
