@@ -49,7 +49,7 @@ $server->update([
 ```
 
 > Note on size/IP changes
-> 
+>
 > IP and RAM changes do not affect your server,
 > they only update Forge's knowledge about your server.
 
@@ -61,6 +61,26 @@ Use `reboot` method to reboot your server.
 <?php
 
 $server->reboot();
+```
+
+## Enable PHP OPCache server
+
+Use `enableOPCache` method to enable PHP OPCache on your server.
+
+```php
+<?php
+
+$server->enableOPCache();
+```
+
+## Disable PHP OPCache server
+
+Use `disableOPCache` method to disable PHP OPCache on your server.
+
+```php
+<?php
+
+$server->disableOPCache();
 ```
 
 ## Revoke Forge access to server
