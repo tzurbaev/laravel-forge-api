@@ -182,6 +182,30 @@ class Server extends ApiResource
     }
 
     /**
+     * Enable PHP OPCache on the server.
+     *
+     * @return bool
+     */
+    public function enableOPCache(): bool
+    {
+        $this->getHttpClient()->request('POST', $this->apiUrl('/php/opcache'));
+
+        return true;
+    }
+
+    /**
+     * Disable PHP OPCache on the server.
+     *
+     * @return bool
+     */
+    public function disableOPCache(): bool
+    {
+        $this->getHttpClient()->request('DELETE', $this->apiUrl('/php/opcache'));
+
+        return true;
+    }
+
+    /**
      * Revoke Forge access to server.
      *
      * @return bool

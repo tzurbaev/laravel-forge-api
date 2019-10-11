@@ -329,6 +329,26 @@ class ServersTests extends TestCase
                 'expectedResult' => true,
             ],
             [
+                'method' => 'enableOPCache',
+                'data' => Api::serverData(),
+                'operation' => [
+                    'method' => 'POST',
+                    'url' => 'servers/1/php/opcache',
+                ],
+                'response' => [],
+                'expectedResult' => true,
+            ],
+            [
+                'method' => 'disableOPCache',
+                'data' => Api::serverData(),
+                'operation' => [
+                    'method' => 'DELETE',
+                    'url' => 'servers/1/php/opcache',
+                ],
+                'response' => [],
+                'expectedResult' => true,
+            ],
+            [
                 'method' => 'revokeAccess',
                 'data' => Api::serverData(),
                 'operation' => [
