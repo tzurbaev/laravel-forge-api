@@ -25,6 +25,10 @@ $publicIp = $server->ip();
 $privateIp = $server->privateIp();
 $blackfireStatus = $server->blackfireStatus();
 $papertrailStatus = $server->papertrailStatus();
+$provider = $server->provider();
+$providerId = $server->providerId();
+$sshPort = $server->sshPort();
+$tags = $server->tags();
 $isRevoked = $server->isRevoked();
 $isReady = $server->isReady();
 $connectedServerIds = $server->network();
@@ -49,7 +53,7 @@ $server->update([
 ```
 
 > Note on size/IP changes
-> 
+>
 > IP and RAM changes do not affect your server,
 > they only update Forge's knowledge about your server.
 

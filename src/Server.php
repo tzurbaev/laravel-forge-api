@@ -170,6 +170,46 @@ class Server extends ApiResource
     }
 
     /**
+     * Server tags.
+     *
+     * @return array
+     */
+    public function tags()
+    {
+        return $this->getData('tags');
+    }
+
+    /**
+     * Server ssh port.
+     *
+     * @return int
+     */
+    public function sshPort()
+    {
+        return $this->getData('ssh_port');
+    }
+
+    /**
+     * The server provider.
+     *
+     * @return string
+     */
+    public function provider()
+    {
+        return $this->getData('provider');
+    }
+
+    /**
+     * The server provider id.
+     *
+     * @return string
+     */
+    public function providerId()
+    {
+        return $this->getData('provider_id');
+    }
+
+    /**
      * Reboot the server.
      *
      * @return bool
