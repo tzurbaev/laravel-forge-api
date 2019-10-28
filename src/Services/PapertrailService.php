@@ -5,7 +5,7 @@ namespace Laravel\Forge\Services;
 class PapertrailService extends Service
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function name()
     {
@@ -13,7 +13,7 @@ class PapertrailService extends Service
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function installable()
     {
@@ -21,7 +21,7 @@ class PapertrailService extends Service
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function uninstallable()
     {
@@ -29,7 +29,7 @@ class PapertrailService extends Service
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function rebootable()
     {
@@ -37,7 +37,7 @@ class PapertrailService extends Service
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function stoppable()
     {

@@ -92,7 +92,7 @@ class Forge implements ArrayAccess, Iterator, ResourceContract
     }
 
     /**
-     * @{inheritdocs}
+     * {@inheritdoc}
      */
     public function lazyLoad()
     {

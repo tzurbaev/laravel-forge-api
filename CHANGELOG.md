@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.2.0] - 2019-10-28
+### Added
+- Provider, Provider ID, tags & SSH port accessors for servers (by [@acurrieclark](https://github.com/acurrieclark)).
+### Fixed
+- Fix incorrect `{@inheritdoc}` blocks.
+
 ## [2.1.0] - 2019-10-11
 ### Added
 - OPCache support (by [@acurrieclark](https://github.com/acurrieclark)).

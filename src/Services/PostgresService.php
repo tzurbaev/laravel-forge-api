@@ -5,7 +5,7 @@ namespace Laravel\Forge\Services;
 class PostgresService extends Service
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function name()
     {

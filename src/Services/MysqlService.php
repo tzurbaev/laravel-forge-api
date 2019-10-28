@@ -9,7 +9,7 @@ use Laravel\Forge\Services\Mysql\Commands\CreateMysqlDatabaseCommand;
 class MysqlService extends Service
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function name()
     {

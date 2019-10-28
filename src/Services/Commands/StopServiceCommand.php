@@ -7,7 +7,7 @@ use Laravel\Forge\Commands\ServiceCommand;
 class StopServiceCommand extends ServiceCommand
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function command()
     {
@@ -15,7 +15,7 @@ class StopServiceCommand extends ServiceCommand
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function runnable()
     {

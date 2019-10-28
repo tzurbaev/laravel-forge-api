@@ -17,7 +17,7 @@ class UninstallServiceCommand extends ServiceCommand
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function command()
     {
@@ -25,7 +25,7 @@ class UninstallServiceCommand extends ServiceCommand
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function runnable()
     {

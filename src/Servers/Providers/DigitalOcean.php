@@ -5,7 +5,7 @@ namespace Laravel\Forge\Servers\Providers;
 class DigitalOcean extends Provider
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function provider()
     {
@@ -13,7 +13,7 @@ class DigitalOcean extends Provider
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function regions()
     {
@@ -34,7 +34,7 @@ class DigitalOcean extends Provider
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function sizes()
     {

@@ -7,7 +7,7 @@ use Laravel\Forge\Commands\ServiceCommand;
 class RebootServiceCommand extends ServiceCommand
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function command()
     {
@@ -15,7 +15,7 @@ class RebootServiceCommand extends ServiceCommand
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function runnable()
     {

@@ -7,7 +7,7 @@ use InvalidArgumentException;
 class Custom extends Provider
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function provider()
     {
@@ -15,7 +15,7 @@ class Custom extends Provider
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function regionAvailable(string $region)
     {
@@ -23,7 +23,7 @@ class Custom extends Provider
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function validate()
     {

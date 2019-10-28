@@ -7,12 +7,12 @@ use Laravel\Forge\Contracts\ServiceContract;
 abstract class Service implements ServiceContract
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     abstract public function name();
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function installable()
     {
@@ -20,7 +20,7 @@ abstract class Service implements ServiceContract
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function uninstallable()
     {
@@ -28,7 +28,7 @@ abstract class Service implements ServiceContract
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function rebootable()
     {
@@ -36,7 +36,7 @@ abstract class Service implements ServiceContract
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function stoppable()
     {

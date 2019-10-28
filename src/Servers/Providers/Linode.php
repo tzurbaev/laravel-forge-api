@@ -5,7 +5,7 @@ namespace Laravel\Forge\Servers\Providers;
 class Linode extends Provider
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function provider()
     {
@@ -13,7 +13,7 @@ class Linode extends Provider
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function regions()
     {
@@ -31,7 +31,7 @@ class Linode extends Provider
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function sizes()
     {

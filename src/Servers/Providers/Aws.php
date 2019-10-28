@@ -5,7 +5,7 @@ namespace Laravel\Forge\Servers\Providers;
 class Aws extends Provider
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function provider()
     {
@@ -13,7 +13,7 @@ class Aws extends Provider
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function regions()
     {
@@ -33,7 +33,7 @@ class Aws extends Provider
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function sizes()
     {

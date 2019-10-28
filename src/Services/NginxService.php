@@ -5,7 +5,7 @@ namespace Laravel\Forge\Services;
 class NginxService extends Service
 {
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
     public function name()
     {
