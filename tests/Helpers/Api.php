@@ -57,6 +57,10 @@ class Api
             'created_at' => '2016-12-15 18:38:18',
             'is_ready' => true,
             'network' => [],
+            'tags' => ['staging'],
+            'provider' => 'ocean2',
+            'provider_id' => '1668983',
+            'ssh_port' => 22,
         ], $replace);
     }
 
