@@ -159,7 +159,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/2.1.0...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/2.2.0...HEAD
+[2.2.0]: https://github.com/tzurbaev/laravel-forge-api/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/tzurbaev/laravel-forge-api/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.2...2.0.0
 [1.5.2]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.1...1.5.2
