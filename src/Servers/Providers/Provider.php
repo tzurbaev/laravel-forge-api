@@ -16,7 +16,9 @@ abstract class Provider
     /**
      * @var array
      */
-    protected $payload = [];
+    protected $payload = [
+        'database_type' => '',
+    ];
 
     /**
      * Create new server provider instance.
