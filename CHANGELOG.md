@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.3.0] - 2020-03-10
 ### Added
 
-- Add PHP 7.3 to the list of allowed PHP versions (by [@jbreuer95](https://github.com/jbreuer95)).
+- Add PHP 7.4 to the list of allowed PHP versions (by [@jbreuer95](https://github.com/jbreuer95)).
 
 ## [2.2.0] - 2019-10-28
 ### Added
