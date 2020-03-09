@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.3.0] - 2020-03-10
+### Added
+
+- Add PHP 7.3 to the list of allowed PHP versions (by [@jbreuer95](https://github.com/jbreuer95)).
+
 ## [2.2.0] - 2019-10-28
 ### Added
 - Provider, Provider ID, tags & SSH port accessors for servers (by [@acurrieclark](https://github.com/acurrieclark)).
@@ -159,7 +164,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/2.2.0...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/2.3.0...HEAD
+[2.3.0]: https://github.com/tzurbaev/laravel-forge-api/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/tzurbaev/laravel-forge-api/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/tzurbaev/laravel-forge-api/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/tzurbaev/laravel-forge-api/compare/1.5.2...2.0.0
