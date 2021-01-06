@@ -1,0 +1,47 @@
+name: run-tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        php: [7.2, 7.3, 7.4]
+
+    name: PHP${{ matrix.php }}
+
+    steps:
+      - name: Checkout code
+        id: checkout-code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        id: setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, soap, intl, gd, exif, iconv
+          coverage: none
+
+      - name: Get Composer Cache Directory
+        id: get-composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Setup Cache
+        id: setup-cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.get-composer-cache.outputs.dir }}
+          key: composer-${{ matrix.php }}-${{ hashFiles('composer.json') }}
+
+      - name: Install dependencies
+        id: install-deps
+        run: composer install --no-interaction --prefer-dist --no-suggest
+
+      - name: Run tests
+        id: run-tests
+        run: vendor/bin/phpunit

@@ -42,7 +42,7 @@ class FakeResponse
     /**
      * Creates new fake HTTP Response.
      *
-     * @return \Laravel\Tests\Forge\FakeResponse
+     * @return \Laravel\Tests\Forge\Helpers\FakeResponse
      */
     public static function fake()
     {
@@ -54,7 +54,7 @@ class FakeResponse
      *
      * @param int $status
      *
-     * @return \Laravel\Tests\Forge\FakeResponse
+     * @return \Laravel\Tests\Forge\Helpers\FakeResponse
      */
     public function withStatus(int $status)
     {
@@ -82,7 +82,7 @@ class FakeResponse
      *
      * @param array $json
      *
-     * @return \Laravel\Tests\Forge\FakeResponse
+     * @return \Laravel\Tests\Forge\Helpers\FakeResponse
      */
     public function withJson(array $json)
     {
@@ -96,7 +96,7 @@ class FakeResponse
      *
      * @param array $headers
      *
-     * @return \Laravel\Tests\Forge\FakeResponse
+     * @return \Laravel\Tests\Forge\Helpers\FakeResponse
      */
     public function withHeaders(array $headers)
     {
@@ -110,7 +110,7 @@ class FakeResponse
      *
      * @param string $version
      *
-     * @return \Laravel\Tests\Forge\FakeResponse
+     * @return \Laravel\Tests\Forge\Helpers\FakeResponse
      */
     public function withHttpVersion(string $version)
     {
@@ -124,7 +124,7 @@ class FakeResponse
      *
      * @param string $reason
      *
-     * @return \Laravel\Tests\Forge\FakeResponse
+     * @return \Laravel\Tests\Forge\Helpers\FakeResponse
      */
     public function withReason(string $reason)
     {

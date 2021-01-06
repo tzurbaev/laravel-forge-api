@@ -4,3 +4,4 @@
 .phpunit.result.cache
 /phpunit.xml
 /.php_cs
+composer.lock

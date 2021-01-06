@@ -1,6 +1,6 @@
 # Laravel Forge API SDK
 
-[![Build Status][ico-travis]][link-travis]
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/tzurbaev/laravel-forge-api/test?label=Tests)
 [![StyleCI][ico-styleci]][link-styleci]
 [![ScrutinizerCI][ico-scrutinizer]][link-scrutinizer]
 [![Latest Version on Packagist][ico-version]][link-packagist]
@@ -155,12 +155,10 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://poser.pugx.org/tzurbaev/laravel-forge-api/version?format=flat
 [ico-license]: https://poser.pugx.org/tzurbaev/laravel-forge-api/license?format=flat
-[ico-travis]: https://api.travis-ci.org/tzurbaev/laravel-forge-api.svg?branch=master
 [ico-styleci]: https://styleci.io/repos/84751490/shield?branch=master&style=flat
 [ico-scrutinizer]: https://scrutinizer-ci.com/g/tzurbaev/laravel-forge-api/badges/quality-score.png?b=master
 
 [link-packagist]: https://packagist.org/packages/tzurbaev/laravel-forge-api
-[link-travis]: https://travis-ci.org/tzurbaev/laravel-forge-api
 [link-styleci]: https://styleci.io/repos/84751490
 [link-scrutinizer]: https://scrutinizer-ci.com/g/tzurbaev/laravel-forge-api/
 [link-author]: https://github.com/tzurbaev
