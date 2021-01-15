@@ -77,6 +77,18 @@ class GitApplication extends Application implements ApplicationContract
     }
 
     /**
+     * Indicates that application will use composer.
+     *
+     * @return static
+     */
+    public function withComposer()
+    {
+        $this->payload['composer'] = true;
+
+        return $this;
+    }
+
+    /**
      * Set git provider and repository name.
      *
      * @param string $provider
