@@ -37,7 +37,7 @@ This package depends on `guzzlehttp/guzzle ~6.0`. If you're using older version 
 The recommended way to install the SDK is with [Composer](https://getcomposer.org).
 
 ```sh
-composer require sardoj/laravel-forge-api ^1.5
+composer require tzurbaev/laravel-forge-api ^1.5
 ```
 
 Alternatively, you can specify the SDK as a dependency in your project's existing composer.json file:
@@ -45,7 +45,7 @@ Alternatively, you can specify the SDK as a dependency in your project's existin
 ```json
 {
   "require": {
-    "sardoj/laravel-forge-api": "^1.5"
+    "tzurbaev/laravel-forge-api": "^1.5"
   }
 }
 ```

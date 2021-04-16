@@ -38,6 +38,16 @@ class Site extends ApiResource
     }
 
     /**
+     * Site username.
+     *
+     * @return string|null
+     */
+    public function username()
+    {
+        return $this->getData('username');
+    }
+
+    /**
      * Project type.
      *
      * @return string

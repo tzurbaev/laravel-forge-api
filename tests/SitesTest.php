@@ -291,6 +291,31 @@ class SitesTest extends TestCase
                     $this->assertSame('symfony_dev', $site->projectType());
                 }
             ],
+            [
+                'server' => Api::fakeServer(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites', [
+                            'json' => $this->payload(['isolated' => true, 'username' => 'forge']),
+                        ])
+                        ->andReturn(
+                            FakeResponse::fake()->withJson([
+                                'site' => Api::siteData(['isolated' => true, 'username' => 'forge']),
+                            ])
+                            ->toResponse()
+                        );
+                }),
+                'factory' => function (SitesManager $sites, $server) {
+                    return $sites->create('example.org')
+                        ->asPhp()
+                        ->isolated('forge')
+                        ->on($server);
+                },
+                'assertion' => function ($site) {
+                    $this->assertInstanceOf(Site::class, $site);
+                    $this->assertSame('example.org', $site->domain());
+                    $this->assertSame('forge', $site->username());
+                }
+            ],
         ];
     }
 
@@ -489,6 +514,22 @@ class SitesTest extends TestCase
                         ->andReturn(FakeResponse::fake()->toResponse());
                 }),
                 'app' => (new GitApplication())->fromGit('git@example.org:username/repository.git')->usingBranch('develop'),
+                'expectedResult' => true,
+            ],
+            [
+                'site' => Api::fakeSite(function ($http) {
+                    $http->shouldReceive('request')
+                        ->with('POST', 'servers/1/sites/1/git', [
+                            'json' => [
+                                'provider' => 'custom',
+                                'repository' => 'git@example.org:username/repository.git',
+                                'branch' => 'develop',
+                                'composer' => true,
+                            ],
+                        ])
+                        ->andReturn(FakeResponse::fake()->toResponse());
+                }),
+                'app' => (new GitApplication())->fromGit('git@example.org:username/repository.git')->usingBranch('develop')->withComposer(),
                 'expectedResult' => true,
             ],
             [

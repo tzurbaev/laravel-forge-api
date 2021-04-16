@@ -138,13 +138,19 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
      *
      * @return mixed|null
      */
-    public function getData($key = null, $default = null)
+    public function getData($key, $default = null)
     {
-        if($key === null) {
-            return $this->data;
-        }
-        
         return $this->data[$key] ?? $default;
+    }
+
+    /**
+     * Get full resource data.
+     *
+     * @return array
+     */
+    public function getFullData()
+    {
+        return $this->data;
     }
 
     /**

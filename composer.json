@@ -1,5 +1,5 @@
 {
-    "name": "sardoj/laravel-forge-api",
+    "name": "tzurbaev/laravel-forge-api",
     "description": "Laravel Forge API SDK",
     "type": "library",
     "license": "MIT",
@@ -7,10 +7,6 @@
         {
             "name": "tzurbaev",
             "email": "zurbaev@gmail.com"
-        },
-        {
-            "name": "Jonathan SARDO",
-            "email": "jonathan@uccellolabs.com"
         }
     ],
     "require": {
