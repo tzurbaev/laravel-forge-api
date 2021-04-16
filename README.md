@@ -1,6 +1,6 @@
 # Laravel Forge API SDK
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/tzurbaev/laravel-forge-api/test?label=Tests)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/sardoj/laravel-forge-api/test?label=Tests)
 [![StyleCI][ico-styleci]][link-styleci]
 [![ScrutinizerCI][ico-scrutinizer]][link-scrutinizer]
 [![Latest Version on Packagist][ico-version]][link-packagist]
@@ -14,7 +14,7 @@ This package requires PHP 7.2 or higher.
 You can install the package via composer:
 
 ``` bash
-$ composer require tzurbaev/laravel-forge-api
+$ composer require sardoj/laravel-forge-api
 ```
 
 ## Upgrade to 2.0 from 1.x

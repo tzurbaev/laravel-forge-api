@@ -26,18 +26,22 @@ use Laravel\Forge\Applications\GitApplication;
 
 // Install application from Github repository.
 $app = (new GitApplication())->fromGithub('username/repository');
+$app->withComposer(); // If you want to use composer
 $site->install($app);
 
 // Install application from Bitbucket repository.
 $app = (new GitApplication())->fromBitbucket('username/repository');
+$app->withComposer(); // If you want to use composer
 $site->install($app);
 
 // Install application from Gitlab repository.
 $app = (new GitApplication())->fromGitlab('username/repository');
+$app->withComposer(); // If you want to use composer
 $site->install($app);
 
 // Install application from custom Git repository.
 $app = (new GitApplication())->fromGit('git@example.org:username/repository.git');
+$app->withComposer(); // If you want to use composer
 $site->install($app);
 ```
 
@@ -51,6 +55,7 @@ use Laravel\Forge\Applications\GitApplication;
 // Install application from Github repository.
 $app = (new GitApplication())->fromGithub('username/repository');
 $app->usingBranch('develop');
+$app->withComposer(); // If you want to use composer
 $site->install($app);
 ```
 
