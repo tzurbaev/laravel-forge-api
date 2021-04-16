@@ -144,6 +144,16 @@ abstract class ApiResource implements ArrayAccess, ResourceContract
     }
 
     /**
+     * Get full resource data.
+     *
+     * @return array
+     */
+    public function getFullData()
+    {
+        return $this->data;
+    }
+
+    /**
      * Resource API URL.
      *
      * @param string $path            = ''

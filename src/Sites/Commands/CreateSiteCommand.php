@@ -39,6 +39,21 @@ class CreateSiteCommand extends SiteCommand
     }
 
     /**
+     * Isolates site and create a new user.
+     *
+     * @param string $directory
+     *
+     * @return static
+     */
+    public function isolated(string $username)
+    {
+        $this->attachPayload('isolated', true);
+        $this->attachPayload('username', $username);
+
+        return $this;
+    }
+
+    /**
      * Indicates that site will be created as Static HTML site.
      *
      * @return static

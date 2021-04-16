@@ -10,7 +10,7 @@ use Laravel\Tests\Forge\Helpers\Api;
 use Laravel\Tests\Forge\Helpers\FakeResponse;
 use Laravel\Forge\Exceptions\Servers\ServerWasNotFoundException;
 
-class ServersTests extends TestCase
+class ServersTest extends TestCase
 {
     protected function tearDown(): void
     {

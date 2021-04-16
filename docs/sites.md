@@ -51,6 +51,9 @@ $site = $sites->create('example.org')->asSymfony()->on($server);
 
 // Create Symfony (Dev) site.
 $site = $sites->create('example.org')->asSymfonyDev()->on($server);
+
+// Create PHP/Laravel site isolated accessible by user_name
+$site = $sites->create('example.org')->asPhp()->isolated('user_name')->on($server);
 ```
 
 ## List sites

@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.4.0] - 2021-04-16
+### Added
+
+- Add PHP 8.0 to the list of allowed PHP versions;
+- Add `isolated()` method to `CreateSiteCommand` and `withComposer()` method to `GitApplication` classes (by [@sardoj](https://github.com/sardoj));
+- Add `getFullData()` method to `ApiResource` class (modified change from [@cbl](https://github.com/cbl)).
+
 ## [2.3.0] - 2020-03-10
 ### Added
 
@@ -164,7 +171,8 @@ Initial release.
 - Site Applications;
 - Deployment Management.
 
-[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/2.3.0...HEAD
+[Unreleased]: https://github.com/tzurbaev/laravel-forge-api/compare/2.4.0...HEAD
+[2.4.0]: https://github.com/tzurbaev/laravel-forge-api/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/tzurbaev/laravel-forge-api/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/tzurbaev/laravel-forge-api/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/tzurbaev/laravel-forge-api/compare/2.0.0...2.1.0
