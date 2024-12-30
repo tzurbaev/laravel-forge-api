@@ -11,7 +11,7 @@ trait LazyArrayAccess
      *
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         $this->checkLazyLoad();
 
@@ -24,7 +24,7 @@ trait LazyArrayAccess
      * @param mixed $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->checkLazyLoad();
 
@@ -45,6 +45,7 @@ trait LazyArrayAccess
      *
      * @return mixed|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         $this->checkLazyLoad();
@@ -57,7 +58,7 @@ trait LazyArrayAccess
      *
      * @param mixed $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->checkLazyLoad();
 
