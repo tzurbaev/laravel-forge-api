@@ -9,6 +9,7 @@ trait LazyIterator
      *
      * @return mixed|null
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         $this->checkLazyLoad();
@@ -23,6 +24,7 @@ trait LazyIterator
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         $this->checkLazyLoad();
@@ -33,7 +35,7 @@ trait LazyIterator
     /**
      * Increments iterator position.
      */
-    public function next()
+    public function next(): void
     {
         $this->checkLazyLoad();
 
@@ -43,7 +45,7 @@ trait LazyIterator
     /**
      * Rewinds iterator back to first position.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->checkLazyLoad();
 
@@ -55,7 +57,7 @@ trait LazyIterator
      *
      * @return bool
      */
-    public function valid()
+    public function valid(): bool
     {
         $this->checkLazyLoad();
 
